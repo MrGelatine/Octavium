@@ -85,5 +85,43 @@ namespace WindowsFormsApp3
             }
             return res;
         }
+        public static void MidiFileGetInfo(string path)
+        {
+            var f = MidiFile.Read(path);
+            SortedDictionary<int, int> octave_counter = new SortedDictionary<int, int>();
+            Console.WriteLine("Track Name : " + Regex.Match(Regex.Match(path, @"[^.]+.").Value, @"[^.]+").Value);
+            int counter = 0;
+            foreach (var chunk in f.Chunks)
+            {
+                using (var notesManager = new NotesManager(((TrackChunk)chunk).Events))
+                {
+                    counter += notesManager.Notes.Count();
+                    foreach (var note in notesManager.Notes)
+                    {
+                        if (octave_counter.ContainsKey(note.Octave))
+                        {
+                            octave_counter[note.Octave]++;
+                        }
+                        else
+                        {
+                            octave_counter.Add(note.Octave, 1);
+                        }
+                    }
+                }
+            }
+            Console.WriteLine($"Общее кол-во нот : {counter}");
+            Console.WriteLine("Общая статистика по октавам : ");
+            foreach (var elem in octave_counter)
+            {
+                Console.WriteLine($"{elem.Key}-ая октава : {elem.Value}");
+            }
+            Console.WriteLine();
+            Console.WriteLine($"Самая часто используемая октава : {octave_counter.OrderBy(x => x.Value).Last().Key}-ая");
+            Console.WriteLine($"Самая редко используемая октава : {octave_counter.OrderBy(x => x.Value).First().Key}-ая");
+            Console.WriteLine($"Временное деление файла : {f.TimeDivision}");
+        }
+        public static void HigherOctave(Melanchall.DryWetMidi.Interaction.Note n) => n.SetNoteNameAndOctave(n.NoteName, n.Octave + 1);
+        public static void LowerOctave(Melanchall.DryWetMidi.Interaction.Note n) => n.SetNoteNameAndOctave(n.NoteName, n.Octave - 1);
+
     }
 }
