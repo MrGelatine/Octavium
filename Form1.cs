@@ -59,13 +59,14 @@ namespace WindowsFormsApp3
 
             base.OnLoad(e);
         }
-
+        
 
 
 
         private async void SoundMaker(int Note,int Period) {
             outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, 20+ Note, 127));
-            await Task.Delay(Period);
+            //await Task.Delay(Period);
+            Thread.Sleep(Period);
             outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, 20+ Note, 0));
 
         }
@@ -376,7 +377,7 @@ namespace WindowsFormsApp3
             outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, 52, 0));
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+       /* private void timer1_Tick(object sender, EventArgs e)
         {
             if (i< array.Length/2)
             {
@@ -385,11 +386,15 @@ namespace WindowsFormsApp3
             }
             Thread.Sleep(array[i - 1, 1]*2);
             
-        }
+        }*/
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            timer1.Start();
+            //timer1.Start();
+            for(int l = 0; l < array.Length; l++)
+            {
+                SoundMaker(array[l, 0], array[l, 1]);
+            }
         }
 
         
