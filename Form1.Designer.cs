@@ -30,6 +30,7 @@ namespace WindowsFormsApp3
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.button70 = new System.Windows.Forms.Button();
             this.button71 = new System.Windows.Forms.Button();
             this.button72 = new System.Windows.Forms.Button();
@@ -62,6 +63,7 @@ namespace WindowsFormsApp3
             this.button112 = new System.Windows.Forms.Button();
             this.button113 = new System.Windows.Forms.Button();
             this.button114 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // button70
@@ -416,6 +418,11 @@ namespace WindowsFormsApp3
             this.button114.MouseDown += new System.Windows.Forms.MouseEventHandler(this.b1_down);
             this.button114.MouseUp += new System.Windows.Forms.MouseEventHandler(this.b1_up);
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 700;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -456,6 +463,7 @@ namespace WindowsFormsApp3
             this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Sequencer Demo";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }
@@ -493,6 +501,7 @@ namespace WindowsFormsApp3
         private System.Windows.Forms.Button button112;
         private System.Windows.Forms.Button button113;
         private System.Windows.Forms.Button button114;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

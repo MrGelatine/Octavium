@@ -8,14 +8,17 @@ using System.Windows.Forms;
 using Sanford.Multimedia.Midi;
 using Sanford.Multimedia.Midi.UI;
 using Toub.Sound.Midi;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.DirectX.DirectSound;
 namespace WindowsFormsApp3
 {
     public partial class Form1 : Form
     {
-
         
-     
+        int i = 0;
+        int[,] array = {  { 8, 500 }, {10, 500 },{ 8, 500 },{ 13,500},{ 12, 1000}, { 8, 500 },  { 10, 500 }, { 8, 500 },{ 15,500},{ 13, 800 }, { 8, 500 }, { 20, 500 }, { 17, 500 }, { 13, 500 }, { 12, 500 }, { 10, 1000 },{ 18, 500 },{ 17, 500 },{ 13, 500 },{ 15, 500 },{ 13, 2000 } };
+
         private OutputDevice outDevice;
 
         private int outDeviceID = 0;
@@ -57,10 +60,24 @@ namespace WindowsFormsApp3
             base.OnLoad(e);
         }
 
-      
 
-        
 
+
+        private async void SoundMaker(int Note,int Period) {
+            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, 20+ Note, 127));
+            await Task.Delay(Period);
+            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, 20+ Note, 0));
+
+        }
+        private Rectangle MakeRectangle(int Note,int Height)
+        {
+            Rectangle r = new Rectangle();
+            r.Width = button100.Width;
+            r.X = (Note - 1) * button100.Width;
+            r.Height = Height;
+            r.Y = 0;
+            return r;
+        }
         private void b1_down(object sender, MouseEventArgs e)
         {
             outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, 21, 127));
@@ -358,5 +375,23 @@ namespace WindowsFormsApp3
         {
             outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, 52, 0));
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (i< array.Length/2)
+            {
+                SoundMaker(array[i, 0], array[i, 1]);
+                i++;
+            }
+            Thread.Sleep(array[i - 1, 1]*2);
+            
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            timer1.Start();
+        }
+
+        
     }
 }
