@@ -9,18 +9,23 @@ using Sanford.Multimedia.Midi;
 using Sanford.Multimedia.Midi.UI;
 using Toub.Sound.Midi;
 using System.Threading;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.DirectX.DirectSound;
 namespace WindowsFormsApp3
 {
+    
     public partial class Form1 : Form
     {
         
+        Pen p = new Pen(Color.Red);
+        List<MyRectangle> RectangleList = new List<MyRectangle>();
+        //, { 13, 500 }, { 12, 500 }, { 10, 1000 },{ 18, 500 },{ 17, 500 },{ 13, 500 },{ 15, 500 },{ 13, 2000 } 
+        int time = 0;
         int i = 0;
-        int[,] array = {  { 8, 500 }, {10, 500 },{ 8, 500 },{ 13,500},{ 12, 1000}, { 8, 500 },  { 10, 500 }, { 8, 500 },{ 15,500},{ 13, 800 }, { 8, 500 }, { 20, 500 }, { 17, 500 }, { 13, 500 }, { 12, 500 }, { 10, 1000 },{ 18, 500 },{ 17, 500 },{ 13, 500 },{ 15, 500 },{ 13, 2000 } };
-
+        int[,] Myarray = {  { 8, 500,0 }, {10, 500,500 },{ 8, 500, 1000},{ 13,500,1500},{ 12, 1000,2000}, { 8, 500 ,3000},  { 10, 500,3500 }, { 8, 500 ,4000},{ 15,500,4500},{ 13, 800,5000 }, { 8, 500,5800 }, { 20, 500,6300 }, { 17, 500,6800 }};
         private OutputDevice outDevice;
-
+       
         private int outDeviceID = 0;
 
         private OutputDeviceDialog outDialog = new OutputDeviceDialog();
@@ -66,7 +71,7 @@ namespace WindowsFormsApp3
         private async void SoundMaker(int Note,int Period) {
             outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, 20+ Note, 127));
             //await Task.Delay(Period);
-            Thread.Sleep(Period);
+           Thread.Sleep(Period);
             outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, 20+ Note, 0));
 
         }
@@ -377,26 +382,60 @@ namespace WindowsFormsApp3
             outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, 52, 0));
         }
 
-       /* private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            if (i< array.Length/2)
-            {
-                SoundMaker(array[i, 0], array[i, 1]);
-                i++;
-            }
-            Thread.Sleep(array[i - 1, 1]*2);
-            
-        }*/
+          
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //timer1.Start();
-            for(int l = 0; l < array.Length; l++)
-            {
-                SoundMaker(array[l, 0], array[l, 1]);
-            }
+
+
+            var startTimeSpan = TimeSpan.Zero;
+             var periodTimeSpan = TimeSpan.FromMilliseconds(500);
+
+             var timer = new System.Threading.Timer((ee) =>
+             {
+
+
+                 for (int Q = 0; Q < Myarray.Length / 3 - 1; Q++)
+                 {
+                     if (Myarray[Q, 2] == time)
+                     {
+                         Rectangle R = new Rectangle();
+                         R.Y = 0;
+                         R.X = Myarray[i, 0] * 30;
+                         R.Width = 20;
+                         R.Height = 0;
+                         MyRectangle Rec = new MyRectangle(R, Myarray[i, 1]);
+                         RectangleList.Add(Rec);
+                     }
+                 }
+                 foreach (var x in RectangleList)
+                 {
+                     
+                     //g.DrawRectangle(p, x.myRec); 
+                     if (x.MyRec.Height < (x.Period / 10) && x.check == false)
+                         x.IncreaseHeight(2);
+                     else x.check = true;
+                     if (x.MyRec.Y != 300 && x.check == true)
+                     {
+                         x.Move(5);
+                         if (x.MyRec.Height + x.MyRec.Y >= 150 && x.MyRec.Height > 0)
+                             x.Decrease(5);
+                     }
+                     Console.WriteLine(x.myRec.Height);
+
+                 }
+                 time += 100;
+             }, null, startTimeSpan, periodTimeSpan);
+         
+           
         }
 
-        
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
