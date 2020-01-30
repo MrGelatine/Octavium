@@ -35,8 +35,8 @@ namespace WindowsFormsApp4
         private void openbutton_Click(object sender, EventArgs e)
         {
             Hide();
-            Window2 начать = new Window2();
-            начать.ShowDialog();
+            Window2 РЅР°С‡Р°С‚СЊ = new Window2();
+            РЅР°С‡Р°С‚СЊ.ShowDialog();
 
         }
 
