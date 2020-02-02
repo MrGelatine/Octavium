@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Sanford.Multimedia.Midi;
 using Sanford.Multimedia.Midi.UI;
-using Toub.Sound.Midi;
+//using Toub.Sound.Midi;
 using System.Threading;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -436,6 +436,11 @@ namespace WindowsFormsApp3
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            outDevice.Dispose();
         }
     }
 }
