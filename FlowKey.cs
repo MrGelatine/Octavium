@@ -14,16 +14,22 @@ namespace WindowsFormsApp3
     public class FlowKeyData
     {
         //The position of key on keyboard
-        public int pos { get; }
+        public byte pos { get; }
         //Time of press key
-        public int time { get; }
+        public uint time { get; }
         //Time of pressing key
-        public int length { get; }
+        public uint length { get; }
         public FlowKeyData(Melanchall.DryWetMidi.Interaction.Note note, TempoMap tempomap)
         {
             pos = MIDIFuncs.NoteGetPosOnKeyboard(note);
             time = MIDIFuncs.GetNoteTime(note, tempomap);
             length = MIDIFuncs.GetNoteLength(note, tempomap);
+        }
+        public FlowKeyData(byte _pos, uint _time, uint _length)
+        {
+            this.pos = _pos;
+            this.time = _time;
+            this.length = _length;
         }
     }
 }
