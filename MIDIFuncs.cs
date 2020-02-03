@@ -14,9 +14,9 @@ namespace WindowsFormsApp3
 {
     class MIDIFuncs
     {
-        public static int NoteGetPosInOctave(Melanchall.DryWetMidi.Interaction.Note n)
+        public static byte NoteGetPosInOctave(Melanchall.DryWetMidi.Interaction.Note n)
         {
-            int res = 0;
+            byte res = 0;
             switch (n.NoteName)
             {
                 case NoteName.C:
@@ -58,30 +58,30 @@ namespace WindowsFormsApp3
             }
             return res;
         }
-        public static int NoteGetPosOnKeyboard(Melanchall.DryWetMidi.Interaction.Note n) => n.Octave > 1 ? NoteGetPosInOctave(n) + n.Octave * 8 + 3 : NoteGetPosInOctave(n);
-        public static int GetNoteLength(Melanchall.DryWetMidi.Interaction.Note note, TempoMap tempoMap)
+        public static byte NoteGetPosOnKeyboard(Melanchall.DryWetMidi.Interaction.Note n) => n.Octave > 1 ? (byte)(NoteGetPosInOctave(n) + n.Octave * 8 + 3) : (byte)(NoteGetPosInOctave(n));
+        public static uint GetNoteLength(Melanchall.DryWetMidi.Interaction.Note note, TempoMap tempoMap)
         {
-            int res = note.LengthAs<MetricTimeSpan>(tempoMap).Milliseconds;
+            uint res = (uint)note.LengthAs<MetricTimeSpan>(tempoMap).Milliseconds;
             if (note.LengthAs<MetricTimeSpan>(tempoMap).Seconds > 0)
             {
-                res += note.LengthAs<MetricTimeSpan>(tempoMap).Seconds * 1000;
+                res += (uint)(note.LengthAs<MetricTimeSpan>(tempoMap).Seconds * 1000);
             }
             if (note.LengthAs<MetricTimeSpan>(tempoMap).Minutes > 0)
             {
-                res += note.LengthAs<MetricTimeSpan>(tempoMap).Minutes * 60000;
+                res += (uint)(note.LengthAs<MetricTimeSpan>(tempoMap).Minutes * 60000);
             }
             return res;
         }
-        public static int GetNoteTime(Melanchall.DryWetMidi.Interaction.Note note, TempoMap tempoMap)
+        public static uint GetNoteTime(Melanchall.DryWetMidi.Interaction.Note note, TempoMap tempoMap)
         {
-            int res = note.TimeAs<MetricTimeSpan>(tempoMap).Milliseconds;
+            uint res = (uint)note.TimeAs<MetricTimeSpan>(tempoMap).Milliseconds;
             if (note.TimeAs<MetricTimeSpan>(tempoMap).Seconds > 0)
             {
-                res += note.TimeAs<MetricTimeSpan>(tempoMap).Seconds * 1000;
+                res += (uint)note.TimeAs<MetricTimeSpan>(tempoMap).Seconds * 1000;
             }
             if (note.TimeAs<MetricTimeSpan>(tempoMap).Minutes > 0)
             {
-                res += note.TimeAs<MetricTimeSpan>(tempoMap).Minutes * 60000;
+                res += (uint)note.TimeAs<MetricTimeSpan>(tempoMap).Minutes * 60000;
             }
             return res;
         }
