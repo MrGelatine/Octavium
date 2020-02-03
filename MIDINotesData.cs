@@ -14,6 +14,7 @@ namespace WindowsFormsApp3
     class MIDINotesData
     {
         public List<FlowKeyData> flowkeys;
+        public byte count;
         public MIDINotesData(string path)
         {
             this.flowkeys = new List<FlowKeyData>();
@@ -25,10 +26,15 @@ namespace WindowsFormsApp3
                 {
                     foreach (var note in notesManager.Notes)
                     {
+                        count++;
                         this.flowkeys.Add(new FlowKeyData(note, tempomap));
                     }
                 }
             }
+        }
+        public MIDINotesData(List<FlowKeyData> data)
+        {
+            flowkeys = data;
         }
     }
 }
