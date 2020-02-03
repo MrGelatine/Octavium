@@ -58,7 +58,7 @@ namespace WindowsFormsApp3
             }
             return res;
         }
-        public static byte NoteGetPosOnKeyboard(Melanchall.DryWetMidi.Interaction.Note n) => n.Octave > 1 ? (byte)(NoteGetPosInOctave(n) + n.Octave * 8 + 3) : (byte)(NoteGetPosInOctave(n));
+        public static byte NoteGetPosOnKeyboard(Melanchall.DryWetMidi.Interaction.Note n) => n.Octave > 1 ? (byte)(NoteGetPosInOctave(n) + (n.Octave - 2) * 12 + 3) : (byte)(NoteGetPosInOctave(n));
         public static uint GetNoteLength(Melanchall.DryWetMidi.Interaction.Note note, TempoMap tempoMap)
         {
             uint res = (uint)note.LengthAs<MetricTimeSpan>(tempoMap).Milliseconds;
