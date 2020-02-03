@@ -14,7 +14,7 @@ namespace WindowsFormsApp3
     class MIDINotesData
     {
         public List<FlowKeyData> flowkeys;
-        public byte count;
+        public uint count;
         public MIDINotesData(string path)
         {
             this.flowkeys = new List<FlowKeyData>();

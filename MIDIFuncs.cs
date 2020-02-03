@@ -85,51 +85,33 @@ namespace WindowsFormsApp3
             }
             return res;
         }
-        public static void MidiFileGetInfo(string path)
-        {
-            using (var flow = new StreamWriter("informer.txt"))
-            {
-                var f = MidiFile.Read(path);
-                SortedDictionary<int, int> octave_counter = new SortedDictionary<int, int>();
-                flow.WriteLine("Track Name : " + Regex.Match(Regex.Match(path, @"[^.]+.").Value, @"[^.]+").Value);
-                var tempoMap = f.GetTempoMap();
-                int notrecount = 0;
-                int length = 0;
-                int time = 0;
-                foreach (var chunk in f.Chunks)
-                {
-                    using (var notesManager = new NotesManager(((TrackChunk)chunk).Events))
-                    {
-                        notrecount += notesManager.Notes.Count();
-                        foreach (var note in notesManager.Notes)
-                        {
-                            length = note.LengthAs<MetricTimeSpan>(tempoMap).Milliseconds;
-                            time = note.TimeAs<MetricTimeSpan>(tempoMap).Milliseconds;
-                            flow.WriteLine($"{note.NoteName} , {time} , {length}");
-                            if (octave_counter.ContainsKey(note.Octave))
-                            {
-                                octave_counter[note.Octave]++;
-                            }
-                            else
-                            {
-                                octave_counter.Add(note.Octave, 1);
-                            }
-                        }
-                    }
-                }
-                flow.WriteLine($"Общее кол-во нот : {notrecount}");
-                flow.WriteLine("Общая статистика по октавам : ");
-                foreach (var elem in octave_counter)
-                {
-                    flow.WriteLine($"{elem.Key}-ая октава : {elem.Value}");
-                }
-                flow.WriteLine();
-                flow.WriteLine($"Самая часто используемая октава : {octave_counter.OrderBy(x => x.Value).Last().Key}-ая");
-                flow.WriteLine($"Самая редко используемая октава : {octave_counter.OrderBy(x => x.Value).First().Key}-ая");
-                flow.WriteLine($"Временное деление файла : {f.TimeDivision}");
-            }
-        }
         public static void HigherOctave(Melanchall.DryWetMidi.Interaction.Note n) => n.SetNoteNameAndOctave(n.NoteName, n.Octave + 1);
         public static void LowerOctave(Melanchall.DryWetMidi.Interaction.Note n) => n.SetNoteNameAndOctave(n.NoteName, n.Octave - 1);
+        public static void SaveToData(MIDINotesData rawData, string path)
+        {
+            using (var fl = new BinaryWriter(File.Create(path + ".dat"), Encoding.Default))
+            {
+                fl.Write(rawData.count);
+                foreach (var data in rawData.flowkeys)
+                {
+                    fl.Write(data.pos);
+                    fl.Write(data.time);
+                    fl.Write(data.length);
+                }
+            }
+        }
+        public static List<FlowKeyData> UnpackDataToNote(string path)
+        {
+            var res = new List<FlowKeyData>();
+            using (var fl = new BinaryReader(File.Open(path, FileMode.Open)))
+            {
+                uint roof = fl.ReadUInt32();
+                for (int i = 1; i <= roof; i++)
+                {
+                    res.Add(new FlowKeyData(fl.ReadByte(), fl.ReadUInt32(), fl.ReadUInt32()));
+                }
+            }
+            return res;
+        }
     }
 }
