@@ -7,27 +7,29 @@ using System.Text;
 using System.Windows.Forms;
 using Sanford.Multimedia.Midi;
 using Sanford.Multimedia.Midi.UI;
-//using Toub.Sound.Midi;
 using System.Threading;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.DirectX.DirectSound;
 namespace WindowsFormsApp3
 {
-    
+
     public partial class Form1 : Form
     {
-        
-        Pen p = new Pen(Color.Red);
+        int ratio = 25;
+        List<int> WhiteKey = new List<int> { 1,3,4,6,8,9,11,13,15,16,18,20,21,23,25,27,28,30,32,33,35,37,39,40,42,44,45,47,49,51,52,54,56,57,59,61,63,64,68,68,69,71,73,75,76,78,80,81,83,85,87,88};
+        MIDINotesData M = new MIDINotesData("beethoven_fur_elise.mid");
+        int Button_Y_Position = 115;
+        int Button_width = 20;
+        Pen p = new Pen(Color.Black);
+        System.Drawing.SolidBrush red = new System.Drawing.SolidBrush(Color.Red);
+        System.Drawing.SolidBrush green = new System.Drawing.SolidBrush(Color.Green);
+        System.Drawing.SolidBrush pink = new System.Drawing.SolidBrush(Color.Pink);
+        System.Drawing.SolidBrush lightgreen = new System.Drawing.SolidBrush(Color.LightGreen);
         List<MyRectangle> RectangleList = new List<MyRectangle>();
-        //, { 13, 500 }, { 12, 500 }, { 10, 1000 },{ 18, 500 },{ 17, 500 },{ 13, 500 },{ 15, 500 },{ 13, 2000 } 
-        int time = 0;
-        int i = 0;
-        int[,] Myarray = {  { 8, 500,0 }, {10, 500,500 },{ 8, 500, 1000},{ 13,500,1500},{ 12, 1000,2000}, { 8, 500 ,3000},  { 10, 500,3500 }, { 8, 500 ,4000},{ 15,500,4500},{ 13, 800,5000 }, { 8, 500,5800 }, { 20, 500,6300 }, { 17, 500,6800 }};
+        int time = 0; //Golbal Time 
         private OutputDevice outDevice;
-       
         private int outDeviceID = 0;
-
         private OutputDeviceDialog outDialog = new OutputDeviceDialog();
 
         public Form1()
@@ -50,8 +52,8 @@ namespace WindowsFormsApp3
                 {
                     outDevice = new OutputDevice(outDeviceID);
 
-                   
-                
+
+
                 }
                 catch (Exception ex)
                 {
@@ -64,34 +66,94 @@ namespace WindowsFormsApp3
 
             base.OnLoad(e);
         }
-        
 
-
-
-        private async void SoundMaker(int Note,int Period) {
-            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, 20+ Note, 127));
-            //await Task.Delay(Period);
-           Thread.Sleep(Period);
-            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, 20+ Note, 0));
-
-        }
-        private Rectangle MakeRectangle(int Note,int Height)
+        private void MakeRectangle(MIDINotesData M)
         {
-            Rectangle r = new Rectangle();
-            r.Width = button100.Width;
-            r.X = (Note - 1) * button100.Width;
-            r.Height = Height;
-            r.Y = 0;
-            return r;
+               //Loop For Making Rectangles 
+               foreach (var x in M.flowkeys)
+                {
+                    if ((x.time / timer1.Interval) == (time / timer1.Interval))
+                    {
+                        if (WhiteKey.Contains(x.pos))
+                        {
+                        Rectangle R = new Rectangle();
+                        R.Y = 0;
+                        R.X = ((WhiteKey.IndexOf(x.pos)) * Button_width) + 1;
+                        R.Width = Button_width - 2;
+                        R.Height = 0;
+                        if (x.pos <= 44)
+                        {
+                            MyRectangle Rec = new MyRectangle(R, x.length, red, x.pos);
+                            RectangleList.Add(Rec);
+                        }
+                        else
+                        {                           
+                            MyRectangle Rec = new MyRectangle(R, x.length, green, x.pos);
+                            RectangleList.Add(Rec);
+                        }               
+                        }
+                        else if(!WhiteKey.Contains(x.pos))
+                        {
+                        Rectangle R = new Rectangle();
+                        R.Y = 0;
+                        R.X = ((WhiteKey.IndexOf(x.pos - 1)) * Button_width) + 14;
+                        R.Width = Button_width - 8;
+                        R.Height = 0;
+                        if (x.pos < 44)
+                        {
+                            MyRectangle Rec = new MyRectangle(R, x.length, pink, x.pos);
+                            RectangleList.Add(Rec);
+                        }
+                        else
+                        {
+                            MyRectangle Rec = new MyRectangle(R, x.length, lightgreen, x.pos);
+                            RectangleList.Add(Rec);
+                        }                       
+                        }
+                    }
+                }
+               //Loop For Moving Rectangles and play notes
+                 for (var i = 0; i < RectangleList.Count; i++)
+                 {
+                    if (RectangleList[i].MyRec.Height < (RectangleList[i].Period/ ratio) && RectangleList[i].Check == false)
+                    {
+                        RectangleList[i].increasespeed((((double)RectangleList[i].Period * timer1.Interval / (double)ratio) / ((double)RectangleList[i].Period)));
+                        RectangleList[i].IncreaseHeight((int)RectangleList[i].Speed);//increase the Height
+                    }
+
+                    else RectangleList[i].Check = true;
+
+                    if (RectangleList[i].MyRec.Y != Button_Y_Position && RectangleList[i].Check == true)
+                    {
+                        RectangleList[i].increaseypos((((double)RectangleList[i].Period * timer1.Interval / (double)ratio) / ((double)RectangleList[i].Period)));
+                        RectangleList[i].Move((int)RectangleList[i].YPos);//Move Down
+                        if (RectangleList[i].MyRec.Height + RectangleList[i].MyRec.Y == Button_Y_Position && RectangleList[i].Hit == false)
+                        {
+                            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, RectangleList[i].Position + 20, 127));//Playing Sound
+                            RectangleList[i].Hit = true;
+                        }
+                        if (RectangleList[i].MyRec.Height + RectangleList[i].MyRec.Y >= Button_Y_Position && RectangleList[i].MyRec.Height > 0)
+                        {
+                            RectangleList[i].decreaseheight((((double)RectangleList[i].Period * timer1.Interval / (double)ratio) / ((double)RectangleList[i].Period)));
+                            RectangleList[i].Decrease((int)RectangleList[i].Height);//Decrease the Height
+                        }
+                    }
+                   if (RectangleList[i].MyRec.Y == Button_Y_Position && RectangleList[i].Check == true && RectangleList[i].Hit == true)
+                    {
+                    outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, RectangleList[i].Position + 20, 0)); //Stop Sound
+                    RectangleList[i].Hit = false;
+                    }
+            }
+               
         }
         private void b1_down(object sender, MouseEventArgs e)
         {
-            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, 21, 127));
+            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, 17, 127));
         }
 
         private void b1_up(object sender, MouseEventArgs e)
         {
-            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, 21, 0));
+            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, 17, 0));
         }
 
         private void b2_down(object sender, MouseEventArgs e)
@@ -305,7 +367,7 @@ namespace WindowsFormsApp3
 
         private void b24_up(object sender, MouseEventArgs e)
         {
-            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0,44, 0));
+            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, 44, 0));
         }
         private void b25_down(object sender, MouseEventArgs e)
         {
@@ -384,63 +446,30 @@ namespace WindowsFormsApp3
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-          
-        }
 
-        private void Form1_Load(object sender, EventArgs e)
+           MakeRectangle(M);
+            time += timer1.Interval; //increase the time every 10 millisecond
+            Invalidate();
+         }
+
+         private void Form1_Load(object sender, EventArgs e)
         {
-
-
-            var startTimeSpan = TimeSpan.Zero;
-             var periodTimeSpan = TimeSpan.FromMilliseconds(500);
-
-             var timer = new System.Threading.Timer((ee) =>
-             {
-
-
-                 for (int Q = 0; Q < Myarray.Length / 3 - 1; Q++)
-                 {
-                     if (Myarray[Q, 2] == time)
-                     {
-                         Rectangle R = new Rectangle();
-                         R.Y = 0;
-                         R.X = Myarray[i, 0] * 30;
-                         R.Width = 20;
-                         R.Height = 0;
-                         MyRectangle Rec = new MyRectangle(R, Myarray[i, 1]);
-                         RectangleList.Add(Rec);
-                     }
-                 }
-                 foreach (var x in RectangleList)
-                 {
-                     
-                     //g.DrawRectangle(p, x.myRec); 
-                     if (x.MyRec.Height < (x.Period / 10) && x.check == false)
-                         x.IncreaseHeight(2);
-                     else x.check = true;
-                     if (x.MyRec.Y != 300 && x.check == true)
-                     {
-                         x.Move(5);
-                         if (x.MyRec.Height + x.MyRec.Y >= 150 && x.MyRec.Height > 0)
-                             x.Decrease(5);
-                     }
-                     Console.WriteLine(x.myRec.Height);
-
-                 }
-                 time += 100;
-             }, null, startTimeSpan, periodTimeSpan);
-         
-           
+            timer1.Start();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            SetStyle(ControlStyles.ResizeRedraw, true);
+            Graphics g = e.Graphics;
+            foreach (var x in RectangleList)
+            {
+                
+                g.DrawRectangle(p, x.MyRec);
+                g.FillRectangle(x.Color, x.MyRec);
+            }
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            outDevice.Dispose();
-        }
     }
 }
