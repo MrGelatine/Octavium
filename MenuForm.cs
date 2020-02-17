@@ -28,7 +28,8 @@ namespace WindowsFormsApp3
         {
             this.Hide();
             Form1 form1 = new Form1();
-            form1.filepath = filepath;
+            if (filepath != "")
+                form1.filepath = filepath;
             form1.ShowDialog();
             this.Show();
         }

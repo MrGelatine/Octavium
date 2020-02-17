@@ -1068,6 +1068,7 @@ namespace WindowsFormsApp3
             this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Piano";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.ResumeLayout(false);
