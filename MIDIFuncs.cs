@@ -113,5 +113,24 @@ namespace WindowsFormsApp3
             }
             return res;
         }
+        public static string GetDuration(string path)
+        {
+            var t = MidiFile.Read(path).GetDuration<MetricTimeSpan>();
+            if (t.Hours == 0)
+            {
+                if (t.Minutes == 0)
+                {
+                    return t.Seconds.ToString();
+                }
+                else
+                {
+                    return t.Minutes.ToString() + ':' + (t.Seconds).ToString();
+                }
+            }
+            else
+            {
+                return t.Hours + ':' + (t.Hours * 60 - t.Minutes).ToString() + ':' + (t.Seconds - t.Hours * 3600 - t.Minutes * 60).ToString();
+            }
+        }
     }
 }
