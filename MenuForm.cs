@@ -13,6 +13,7 @@ namespace WindowsFormsApp3
     public partial class MenuForm : Form
     {
         Form1 form1 = new Form1();
+        public string filepath = "";
         public MenuForm()
         {
             InitializeComponent();
@@ -26,6 +27,8 @@ namespace WindowsFormsApp3
         private void BeginPictureBox_Click(object sender, EventArgs e)
         {
             this.Hide();
+            Form1 form1 = new Form1();
+            form1.filepath = filepath;
             form1.ShowDialog();
             this.Show();
         }
@@ -33,6 +36,15 @@ namespace WindowsFormsApp3
         private void PictureBox5_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void PictureBox3_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            LibForm libForm = new LibForm();
+            AddOwnedForm(libForm);
+            libForm.ShowDialog();
+            this.Show();
         }
     }
 }

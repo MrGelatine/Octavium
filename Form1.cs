@@ -16,9 +16,10 @@ namespace WindowsFormsApp3
 
     public partial class Form1 : Form
     {
+        public string filepath = "beethoven_fur_elise.mid";
         int ratio = 25;
         List<int> WhiteKey = new List<int> { 1,3,4,6,8,9,11,13,15,16,18,20,21,23,25,27,28,30,32,33,35,37,39,40,42,44,45,47,49,51,52,54,56,57,59,61,63,64,68,68,69,71,73,75,76,78,80,81,83,85,87,88};
-        MIDINotesData M = new MIDINotesData("beethoven_fur_elise.mid");
+        MIDINotesData M;
         int Button_Y_Position = 115;
         int Button_width = 20;
         Pen p = new Pen(Color.Black);
@@ -63,7 +64,7 @@ namespace WindowsFormsApp3
                     Close();
                 }
             }
-
+            M = new MIDINotesData(filepath);
             base.OnLoad(e);
         }
 
