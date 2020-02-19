@@ -79,7 +79,14 @@ namespace WindowsFormsApp3
 
         protected override void OnClosed(EventArgs e)
         {
-        
+            timer1.Stop();
+            MyRectangleList.Clear();
+            time = 0;
+            for (int i = 1; i <= 88; i++) {
+                if (WhiteKey.Contains(i))
+                    buttonlist[i-1].BackColor = Color.White;
+                else buttonlist[i-1].BackColor = Color.Black;
+            }
             if (outDevice != null)
             {
                 outDevice.Dispose();
