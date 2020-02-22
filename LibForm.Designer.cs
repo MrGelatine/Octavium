@@ -34,7 +34,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelSongName = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.searchTextBox = new System.Windows.Forms.RichTextBox();
+            this.addPanel = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -46,6 +47,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -60,11 +62,11 @@
             this.flowLayoutPanel1.Controls.Add(this.panel1);
             this.flowLayoutPanel1.Controls.Add(this.panel2);
             this.flowLayoutPanel1.Controls.Add(this.panel3);
-            this.flowLayoutPanel1.Controls.Add(this.panel4);
+            this.flowLayoutPanel1.Controls.Add(this.addPanel);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1072, 72);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1084, 72);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // panel1
@@ -73,6 +75,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.BackgroundImage = global::WindowsFormsApp3.Properties.Resources.backBtn;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panel1.Location = new System.Drawing.Point(10, 10);
             this.panel1.Margin = new System.Windows.Forms.Padding(10);
             this.panel1.Name = "panel1";
@@ -115,23 +118,39 @@
             this.panel3.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel3.BackgroundImage = global::WindowsFormsApp3.Properties.Resources.search;
             this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel3.Controls.Add(this.searchTextBox);
             this.panel3.Location = new System.Drawing.Point(680, 10);
             this.panel3.Margin = new System.Windows.Forms.Padding(10);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(292, 52);
             this.panel3.TabIndex = 2;
             // 
-            // panel4
+            // searchTextBox
             // 
-            this.panel4.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panel4.BackgroundImage = global::WindowsFormsApp3.Properties.Resources.closeIcon;
-            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel4.Location = new System.Drawing.Point(992, 10);
-            this.panel4.Margin = new System.Windows.Forms.Padding(10);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(58, 52);
-            this.panel4.TabIndex = 3;
-            this.panel4.Click += new System.EventHandler(this.Panel4_Click);
+            this.searchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.searchTextBox.ForeColor = System.Drawing.Color.White;
+            this.searchTextBox.Location = new System.Drawing.Point(43, 14);
+            this.searchTextBox.Multiline = false;
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.searchTextBox.Size = new System.Drawing.Size(236, 24);
+            this.searchTextBox.TabIndex = 0;
+            this.searchTextBox.Text = "";
+            this.searchTextBox.TextChanged += new System.EventHandler(this.SearchTextBox_TextChanged);
+            // 
+            // addPanel
+            // 
+            this.addPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.addPanel.BackgroundImage = global::WindowsFormsApp3.Properties.Resources.closeIcon;
+            this.addPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.addPanel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.addPanel.Location = new System.Drawing.Point(992, 10);
+            this.addPanel.Margin = new System.Windows.Forms.Padding(10);
+            this.addPanel.Name = "addPanel";
+            this.addPanel.Size = new System.Drawing.Size(58, 52);
+            this.addPanel.TabIndex = 3;
+            this.addPanel.Click += new System.EventHandler(this.Panel4_Click);
             // 
             // flowLayoutPanel2
             // 
@@ -141,7 +160,7 @@
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 72);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(1072, 389);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(1084, 389);
             this.flowLayoutPanel2.TabIndex = 1;
             // 
             // flowLayoutPanel3
@@ -233,10 +252,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1072, 461);
+            this.ClientSize = new System.Drawing.Size(1084, 461);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.MinimumSize = new System.Drawing.Size(1077, 500);
+            this.MaximumSize = new System.Drawing.Size(1100, 500);
+            this.MinimumSize = new System.Drawing.Size(1100, 500);
             this.Name = "LibForm";
             this.Text = "LibForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LibForm_FormClosing);
@@ -245,6 +265,7 @@
             this.flowLayoutPanel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
@@ -264,7 +285,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel addPanel;
         private System.Windows.Forms.Label labelSongName;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
@@ -275,5 +296,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.RichTextBox searchTextBox;
     }
 }

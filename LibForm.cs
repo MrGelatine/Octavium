@@ -18,9 +18,11 @@ namespace WindowsFormsApp3
 {
     public partial class LibForm : Form
     {
-        string[] files;
+        List<Tuple<int, string, string>> fileList = new List<Tuple<int, string, string>>();
         int selectedFileIndex = 0;
         string selectedFilePath = "";
+        Color backColor1 = Color.FromArgb(46, 46, 46);
+        Color backColor2 = Color.FromArgb(69, 69, 69);
         string libPath = string.Format("{0}Resources", Path.GetFullPath(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, @"..\..\")));
         public LibForm()
         {
@@ -29,16 +31,21 @@ namespace WindowsFormsApp3
 
         private void LibForm_Load(object sender, EventArgs e)
         {
-            flowLayoutPanel1.BackColor = Color.FromArgb(46, 46, 46);
-            this.BackColor = Color.FromArgb(69, 69, 69);
-            flowLayoutPanel2.BackColor = Color.FromArgb(69, 69, 69);
-            flowLayoutPanel3.BackColor = Color.FromArgb(46, 46, 46);
-            files = Directory.GetFiles(libPath, "*.mid");
+            flowLayoutPanel1.BackColor = backColor1;
+            this.BackColor = backColor2;
+            searchTextBox.BackColor = backColor1;
+            flowLayoutPanel2.BackColor = backColor2;
+            flowLayoutPanel3.BackColor = backColor1;
+            string [] files = Directory.GetFiles(libPath, "*.mid");
             for(int i = 0; i < files.Length; i++)
             {
                 TimeSpan timespan = MidiFile.Read(files[i]).GetDuration<MetricTimeSpan>();
                 string time = string.Format("{0}:{1:00}", (int)timespan.TotalMinutes, timespan.Seconds);
-                ShowTrack(i, File.GetCreationTime(files[i]).ToString("dd/MM/yyyy"), Path.GetFileName(files[i]), time);
+                string creationTime = File.GetCreationTime(files[i]).ToString("dd/MM/yyyy");
+                string fileName = Path.GetFileName(files[i]);
+                Tuple<int, string, string> fileInfo = new Tuple<int, string, string>(i, fileName, creationTime);
+                fileList.Add(fileInfo);
+                ShowTrack(i, creationTime, fileName, time);
             }
         }
 
@@ -113,18 +120,16 @@ namespace WindowsFormsApp3
                            EventArgs e)
         {
             Panel senderPanel = (Panel)sender;
-            selectedFileIndex = (int)senderPanel.Name[0] - (int)'0';
-            selectedFilePath = files[selectedFileIndex];
-            labelSongName.Text = Path.GetFileName(selectedFilePath);
+            int i  = (int)senderPanel.Name[0] - (int)'0';
+            selectTrack(i);
         }
 
         void TrackLabel_Click(Object sender,
                            EventArgs e)
         {
             Label senderLabel = (Label)sender;
-            selectedFileIndex = (int)senderLabel.Name[0] - (int)'0';
-            selectedFilePath = files[selectedFileIndex];
-            labelSongName.Text = Path.GetFileName(selectedFilePath);
+            int i = (int)senderLabel.Name[0] - (int)'0';
+            selectTrack(i);
         }
         private void BackPictureBox_Click(object sender, EventArgs e)
         {
@@ -134,7 +139,8 @@ namespace WindowsFormsApp3
         private void LibForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             MenuForm fmenu = (MenuForm)this.Owner;
-            fmenu.filepath = selectedFilePath;
+            if (selectedFilePath != "")
+                fmenu.filepath = libPath + "\\" + selectedFilePath;
 
         }
 
@@ -149,7 +155,7 @@ namespace WindowsFormsApp3
                     mfile.Write(newfilePath);
                     TimeSpan timespan = mfile.GetDuration<MetricTimeSpan>();
                     string time = string.Format("{0}:{1:00}", (int)timespan.TotalMinutes, timespan.Seconds);
-                    ShowTrack(files.Length, DateTime.Now.ToString("dd/MM/yyyy"), openFileDialog1.SafeFileName, time);
+                    ShowTrack(fileList.Count, DateTime.Now.ToString("dd/MM/yyyy"), openFileDialog1.SafeFileName, time);
                 }
                 catch(Exception ex)
                 {
@@ -157,5 +163,50 @@ namespace WindowsFormsApp3
                 }
             }
         }
+
+        private void SearchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (searchTextBox.Text == "")
+                return;
+            int index = -1;
+            foreach (Tuple<int, string, string> fileInfo in fileList)
+            {
+                if (fileInfo.Item2.Contains(searchTextBox.Text))
+                    index =  fileInfo.Item1;
+            }
+            if (index != -1)
+            {
+                selectTrack(index);
+            }
+
+        }
+
+        private void selectTrack(int i)
+        {
+            Panel prevTrackTime = (Panel)this.Controls.Find(selectedFileIndex.ToString() + "time", true).First();
+            Panel prevTrackCreation = (Panel)this.Controls.Find(selectedFileIndex.ToString() + "date", true).First();
+            Panel prevTrackName = (Panel)this.Controls.Find(selectedFileIndex.ToString() + "name", true).First();
+            prevTrackTime.BackColor = Color.White;
+            prevTrackTime.ForeColor = Color.Black;
+            prevTrackCreation.BackColor = Color.White;
+            prevTrackCreation.ForeColor = Color.Black;
+            prevTrackName.BackColor = Color.White;
+            prevTrackName.ForeColor = Color.Black;
+            selectedFileIndex = i;
+            selectedFilePath = fileList[selectedFileIndex].Item2;
+            labelSongName.Text = Path.GetFileName(selectedFilePath);
+            Panel trackTime = (Panel)this.Controls.Find(i.ToString() + "time", true).First();
+            Panel TrackCreation = (Panel)this.Controls.Find(i.ToString() + "date", true).First();
+            Panel TrackName = (Panel)this.Controls.Find(i.ToString() + "name", true).First();
+            TrackName.Select();
+            searchTextBox.Select();
+            trackTime.BackColor = backColor2;
+            trackTime.ForeColor = Color.White;
+            TrackName.BackColor = backColor2;
+            TrackName.ForeColor = Color.White;
+            TrackCreation.BackColor = backColor2;
+            TrackCreation.ForeColor = Color.White;
+        }
+
     }
 }
