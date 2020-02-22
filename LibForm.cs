@@ -155,7 +155,11 @@ namespace WindowsFormsApp3
                     mfile.Write(newfilePath);
                     TimeSpan timespan = mfile.GetDuration<MetricTimeSpan>();
                     string time = string.Format("{0}:{1:00}", (int)timespan.TotalMinutes, timespan.Seconds);
-                    ShowTrack(fileList.Count, DateTime.Now.ToString("dd/MM/yyyy"), openFileDialog1.SafeFileName, time);
+                    string fileName = openFileDialog1.SafeFileName;
+                    string creationTime = DateTime.Now.ToString("dd/MM/yyyy");
+                    Tuple<int, string, string> fileInfo = new Tuple<int, string, string>(fileList.Count, fileName, creationTime);
+                    fileList.Add(fileInfo);
+                    ShowTrack(fileList.Count - 1, creationTime, fileName, time);
                 }
                 catch(Exception ex)
                 {
