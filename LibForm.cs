@@ -150,6 +150,7 @@ namespace WindowsFormsApp3
             {
                 try
                 {
+                    //TODO: Заменить на бинарный файл 
                     MidiFile mfile = MidiFile.Read(openFileDialog1.FileName);
                     string newfilePath = libPath + "\\" + openFileDialog1.SafeFileName;
                     mfile.Write(newfilePath);
