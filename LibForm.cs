@@ -175,7 +175,7 @@ namespace WindowsFormsApp3
             int index = -1;
             foreach (Tuple<int, string, string> fileInfo in fileList)
             {
-                if (fileInfo.Item2.Contains(searchTextBox.Text))
+                if (fileInfo.Item2.ToLower().Contains(searchTextBox.Text.ToLower()))
                     index =  fileInfo.Item1;
             }
             if (index != -1)
