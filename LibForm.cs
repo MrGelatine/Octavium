@@ -18,14 +18,17 @@ namespace WindowsFormsApp3
 {
     public partial class LibForm : Form
     {
-        List<Tuple<int, string, string>> fileList = new List<Tuple<int, string, string>>();
-        int selectedFileIndex = 0;
+        List<Tuple<int, string, string, string>> libfileList = new List<Tuple<int, string, string, string>>();
+        List<Tuple<int, string, string, string>> curfiles = new List<Tuple<int, string, string, string>>();
+        int selectedFileIndex = -1;
         string selectedFilePath = "";
         Color backColor1 = Color.FromArgb(46, 46, 46);
         Color backColor2 = Color.FromArgb(69, 69, 69);
-        string libPath = string.Format("{0}Resources", Path.GetFullPath(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, @"..\..\")));
+        string projectPath = Path.GetFullPath(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, @"..\..\"));
+        string libPath;
         public LibForm()
         {
+            libPath = string.Format("{0}Resources", projectPath);
             InitializeComponent();
         }
 
@@ -36,31 +39,51 @@ namespace WindowsFormsApp3
             searchTextBox.BackColor = backColor1;
             flowLayoutPanel2.BackColor = backColor2;
             flowLayoutPanel3.BackColor = backColor1;
-            string [] files = Directory.GetFiles(libPath, "*.mid");
-            for(int i = 0; i < files.Length; i++)
+            GetTracksFromLib();
+            ShowTracks();
+        }
+
+        private void ShowTracks()
+        {
+            flowLayoutPanel3.Controls.Clear();
+            selectedFileIndex = -1;
+            ShowTrack(-1, "Дата", "Название", "Время", false);
+            foreach (Tuple<int, string, string, string> fileInfo in curfiles) 
             {
+                ShowTrack(fileInfo.Item1, fileInfo.Item2, fileInfo.Item3, fileInfo.Item4);
+            }
+        }
+
+        private void GetTracksFromLib()
+        {
+            string[] files = Directory.GetFiles(libPath, "*.mid");
+            for (int i = 0; i < files.Length; i++)
+            {
+                var dur = MIDIFuncs.GetDuration(files[i]);
                 TimeSpan timespan = MidiFile.Read(files[i]).GetDuration<MetricTimeSpan>();
                 string time = string.Format("{0}:{1:00}", (int)timespan.TotalMinutes, timespan.Seconds);
                 string creationTime = File.GetCreationTime(files[i]).ToString("dd/MM/yyyy");
                 string fileName = Path.GetFileName(files[i]);
-                Tuple<int, string, string> fileInfo = new Tuple<int, string, string>(i, fileName, creationTime);
-                fileList.Add(fileInfo);
-                ShowTrack(i, creationTime, fileName, time);
+                Tuple<int, string, string, string> fileInfo = new Tuple<int, string, string, string>(i, creationTime, fileName, time);
+                libfileList.Add(fileInfo);
+                curfiles.Add(fileInfo);
             }
+
         }
-
-
-        private void ShowTrack(int i, string date, string name, string time)
+        private void ShowTrack(int i, string date, string name, string time, bool activeHandler = true)
         {
-         
+            
             Panel pdate = new Panel();
             pdate.Name = i.ToString() + "date";
             pdate.Size = new Size(200, 43);
             pdate.Location = new Point(0, 0);
             pdate.BackColor = Color.White;
             pdate.Margin = new Padding(5);
-            pdate.Click += new EventHandler(this.TrackPanel_Click);
-            pdate.Cursor = Cursors.Hand;
+            if (activeHandler)
+            {
+                pdate.Click += new EventHandler(this.TrackPanel_Click);
+                pdate.Cursor = Cursors.Hand;
+            }
             flowLayoutPanel3.Controls.Add(pdate);
             Label ldate = new Label();
             ldate.AutoSize = true;
@@ -69,8 +92,11 @@ namespace WindowsFormsApp3
             ldate.Text = date;
             ldate.Location = new Point(25, 9);
             ldate.Margin = new Padding(25);
-            ldate.Cursor = Cursors.Hand;
-            ldate.Click += new EventHandler(this.TrackLabel_Click);
+            if (activeHandler)
+            {
+                ldate.Click += new EventHandler(this.TrackLabel_Click);
+                ldate.Cursor = Cursors.Hand;
+            }
             pdate.Controls.Add(ldate);
 
 
@@ -80,18 +106,24 @@ namespace WindowsFormsApp3
             pname.Location = new Point(0, 0);
             pname.BackColor = Color.White;
             pname.Margin = new Padding(5);
-            pname.Click += new EventHandler(this.TrackPanel_Click);
-            pname.Cursor = Cursors.Hand;
+            if (activeHandler)
+            {
+                pname.Click += new EventHandler(this.TrackPanel_Click);
+                pname.Cursor = Cursors.Hand;
+            }
             flowLayoutPanel3.Controls.Add(pname);
             Label lname = new Label();
             lname.AutoSize = true;
             lname.Font = new Font(FontFamily.GenericSansSerif, 14);
             lname.Name = i.ToString() + "lname";
             lname.Text = name;
-            lname.Cursor = Cursors.Hand;
             lname.Location = new Point(25, 9);
             lname.Margin = new Padding(25);
-            lname.Click += new EventHandler(this.TrackLabel_Click);
+            if (activeHandler)
+            {
+                lname.Click += new EventHandler(this.TrackLabel_Click);
+                lname.Cursor = Cursors.Hand;
+            }
             pname.Controls.Add(lname);
 
             Panel ptime = new Panel();
@@ -100,18 +132,24 @@ namespace WindowsFormsApp3
             ptime.Location = new Point(0, 0);
             ptime.BackColor = Color.White;
             ptime.Margin = new Padding(5);
-            ptime.Click += new EventHandler(this.TrackPanel_Click);
-            ptime.Cursor = Cursors.Hand;
+            if (activeHandler)
+            {
+                ptime.Click += new EventHandler(this.TrackPanel_Click);
+                ptime.Cursor = Cursors.Hand;
+            }
             flowLayoutPanel3.Controls.Add(ptime);
             Label ltime = new Label();
             ltime.AutoSize = true;
             ltime.Font = new Font(FontFamily.GenericSansSerif, 14);
             ltime.Name = i.ToString() + "ltime";
-            ltime.Cursor = Cursors.Hand;
             ltime.Text = time;
             ltime.Location = new Point(25, 9);
             ltime.Margin = new Padding(25);
-            ltime.Click += new EventHandler(this.TrackLabel_Click);
+            if (activeHandler)
+            {
+                ltime.Click += new EventHandler(this.TrackLabel_Click);
+                ltime.Cursor = Cursors.Hand;
+            }
             ptime.Controls.Add(ltime);
 
         }
@@ -146,6 +184,7 @@ namespace WindowsFormsApp3
 
         private void Panel4_Click(object sender, EventArgs e)
         {
+
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -158,11 +197,12 @@ namespace WindowsFormsApp3
                     string time = string.Format("{0}:{1:00}", (int)timespan.TotalMinutes, timespan.Seconds);
                     string fileName = openFileDialog1.SafeFileName;
                     string creationTime = DateTime.Now.ToString("dd/MM/yyyy");
-                    Tuple<int, string, string> fileInfo = new Tuple<int, string, string>(fileList.Count, fileName, creationTime);
-                    fileList.Add(fileInfo);
-                    ShowTrack(fileList.Count - 1, creationTime, fileName, time);
+                    Tuple<int, string, string, string> fileInfo = new Tuple<int, string, string, string>(libfileList.Count, creationTime, fileName, time);
+                    libfileList.Add(fileInfo);
+                    curfiles.Add(fileInfo);
+                    ShowTrack(fileInfo.Item1, fileInfo.Item2, fileInfo.Item3, fileInfo.Item4);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Не удалось записать файл: " + ex.Message);
                 }
@@ -171,18 +211,21 @@ namespace WindowsFormsApp3
 
         private void SearchTextBox_TextChanged(object sender, EventArgs e)
         {
+            curfiles.Clear();
             if (searchTextBox.Text == "")
-                return;
-            int index = -1;
-            foreach (Tuple<int, string, string> fileInfo in fileList)
             {
-                if (fileInfo.Item2.ToLower().Contains(searchTextBox.Text.ToLower()))
-                    index =  fileInfo.Item1;
+                foreach (Tuple<int, string, string, string> fileInfo in libfileList)
+                    curfiles.Add(fileInfo);
             }
-            if (index != -1)
+            else
             {
-                selectTrack(index);
+                foreach (Tuple<int, string, string, string> fileInfo in libfileList)
+                {
+                    if (fileInfo.Item3.ToLower().Contains(searchTextBox.Text.ToLower()))
+                        curfiles.Add(fileInfo);
+                }
             }
+            ShowTracks();
 
         }
 
@@ -198,7 +241,7 @@ namespace WindowsFormsApp3
             prevTrackName.BackColor = Color.White;
             prevTrackName.ForeColor = Color.Black;
             selectedFileIndex = i;
-            selectedFilePath = fileList[selectedFileIndex].Item2;
+            selectedFilePath = libfileList[selectedFileIndex].Item3;
             labelSongName.Text = Path.GetFileName(selectedFilePath);
             Panel trackTime = (Panel)this.Controls.Find(i.ToString() + "time", true).First();
             Panel TrackCreation = (Panel)this.Controls.Find(i.ToString() + "date", true).First();
