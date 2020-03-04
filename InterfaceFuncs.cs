@@ -15,14 +15,14 @@ namespace WindowsFormsApp3
         public static Tuple<String,String,String> GetAndAddData(string engien_path = @"C:\Users\Денис\Desktop\Rep\Octavium\sheet.exe", string sheet_path = @"C:\Users\Денис\Desktop\Rep\Octavium\Gallery\Sheets", string data_storage_path = @"C:\Users\Денис\Desktop\Rep\Octavium\Gallery\Piano data")
         {
             string midi_data_path = null;
-            using (var dialog = new FolderBrowserDialog())
+            using (var dialog = new OpenFileDialog())
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    midi_data_path = dialog.SelectedPath;
+                    midi_data_path = dialog.FileName;
                 }
             }
-            CreateSheet(engien_path, midi_data_path, sheet_path);
+            //CreateSheet(engien_path, midi_data_path, sheet_path);
             MIDIFuncs.SaveToData(new MIDINotesData(midi_data_path), data_storage_path);
             return Tuple.Create(GetDate(), GetFileName(midi_data_path), MIDIFuncs.GetDuration(midi_data_path));
         }
