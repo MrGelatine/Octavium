@@ -21,7 +21,7 @@ namespace WindowsFormsApp3
         List<Tuple<int, string, string, string>> libfileList = new List<Tuple<int, string, string, string>>();
         List<Tuple<int, string, string, string>> curfiles = new List<Tuple<int, string, string, string>>();
         int selectedFileIndex = -1;
-        string selectedFilePath = "";
+        string selectedFileName = "";
         Color backColor1 = Color.FromArgb(46, 46, 46);
         Color backColor2 = Color.FromArgb(69, 69, 69);
         string projectPath = Path.GetFullPath(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, @"..\..\"));
@@ -56,15 +56,12 @@ namespace WindowsFormsApp3
 
         private void GetTracksFromLib()
         {
-            string[] files = Directory.GetFiles(libPath, "*.mid");
-            for (int i = 0; i < files.Length; i++)
+            string[] filestxt = System.IO.File.ReadAllLines(libPath + @"\lib.txt");
+            for(int i = 0; i < filestxt.Length; i++)
             {
-                var dur = MIDIFuncs.GetDuration(files[i]);
-                TimeSpan timespan = MidiFile.Read(files[i]).GetDuration<MetricTimeSpan>();
-                string time = string.Format("{0}:{1:00}", (int)timespan.TotalMinutes, timespan.Seconds);
-                string creationTime = File.GetCreationTime(files[i]).ToString("dd/MM/yyyy");
-                string fileName = Path.GetFileName(files[i]);
-                Tuple<int, string, string, string> fileInfo = new Tuple<int, string, string, string>(i, creationTime, fileName, time);
+                string[] fileAttrs = filestxt[i].Split('|');
+                string fileName = fileAttrs[0];
+                Tuple<int, string, string, string> fileInfo = new Tuple<int, string, string, string>(i, fileAttrs[0], fileAttrs[1], fileAttrs[2]);
                 libfileList.Add(fileInfo);
                 curfiles.Add(fileInfo);
             }
@@ -177,36 +174,33 @@ namespace WindowsFormsApp3
         private void LibForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             MenuForm fmenu = (MenuForm)this.Owner;
-            if (selectedFilePath != "")
-                fmenu.filepath = libPath + "\\" + selectedFilePath;
+            if (selectedFileName != "")
+                fmenu.filepath = libPath + @"\" + selectedFileName + ".dat" ;
 
         }
 
         private void Panel4_Click(object sender, EventArgs e)
         {
-
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            Tuple<string, string,string> fileData = InterfaceFuncs.GetAndAddData(projectPath + @"\\sheet.exe", projectPath + @"\\Gallery\\Sheets", libPath);
+            foreach (Tuple<int, string, string, string> libFileInfo in libfileList)
             {
-                try
+                if (libFileInfo.Item3.ToLower().Contains(fileData.Item2.ToLower()))
                 {
-                    //TODO: Заменить на бинарный файл 
-                    MidiFile mfile = MidiFile.Read(openFileDialog1.FileName);
-                    string newfilePath = libPath + "\\" + openFileDialog1.SafeFileName;
-                    mfile.Write(newfilePath);
-                    TimeSpan timespan = mfile.GetDuration<MetricTimeSpan>();
-                    string time = string.Format("{0}:{1:00}", (int)timespan.TotalMinutes, timespan.Seconds);
-                    string fileName = openFileDialog1.SafeFileName;
-                    string creationTime = DateTime.Now.ToString("dd/MM/yyyy");
-                    Tuple<int, string, string, string> fileInfo = new Tuple<int, string, string, string>(libfileList.Count, creationTime, fileName, time);
-                    libfileList.Add(fileInfo);
-                    curfiles.Add(fileInfo);
-                    ShowTrack(fileInfo.Item1, fileInfo.Item2, fileInfo.Item3, fileInfo.Item4);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Не удалось записать файл: " + ex.Message);
+                    MessageBox.Show("Файл с таким названием уже есть");
+                    return;
                 }
             }
+            AddtxtLib(fileData);
+            Tuple<int, string, string, string> fileInfo = new Tuple<int, string, string, string>(libfileList.Count, fileData.Item1, fileData.Item2, fileData.Item3);
+            libfileList.Add(fileInfo);
+            curfiles.Add(fileInfo);
+            ShowTrack(fileInfo.Item1, fileInfo.Item2, fileInfo.Item3, fileInfo.Item4);
+        }
+
+        private void AddtxtLib(Tuple<string, string, string> fileData)
+        {
+            string fileInfoText = fileData.Item1 + '|' + fileData.Item2 + '|' + fileData.Item3 + Environment.NewLine;
+            System.IO.File.AppendAllText(libPath + @"\lib.txt", fileInfoText);
         }
 
         private void SearchTextBox_TextChanged(object sender, EventArgs e)
@@ -241,8 +235,8 @@ namespace WindowsFormsApp3
             prevTrackName.BackColor = Color.White;
             prevTrackName.ForeColor = Color.Black;
             selectedFileIndex = i;
-            selectedFilePath = libfileList[selectedFileIndex].Item3;
-            labelSongName.Text = Path.GetFileName(selectedFilePath);
+            selectedFileName = libfileList[selectedFileIndex].Item3;
+            labelSongName.Text = Path.GetFileName(selectedFileName);
             Panel trackTime = (Panel)this.Controls.Find(i.ToString() + "time", true).First();
             Panel TrackCreation = (Panel)this.Controls.Find(i.ToString() + "date", true).First();
             Panel TrackName = (Panel)this.Controls.Find(i.ToString() + "name", true).First();
