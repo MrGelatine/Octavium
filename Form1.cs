@@ -16,19 +16,21 @@ namespace WindowsFormsApp3
     public partial class Form1 : Form
     {
         List<Button> buttonlist = new List<Button>();
-        double Myspeed = 1.00;
+        double Myspeed;
         List<int> WhiteKey = new List<int> { 1, 3, 4, 6, 8, 9, 11, 13, 15, 16, 18, 20, 21, 23, 25, 27, 28, 30, 32, 33, 35, 37, 39, 40, 42, 44, 45, 47, 49, 51, 52, 54, 56, 57, 59, 61, 63, 64, 66, 68, 69, 71, 73, 75, 76, 78, 80, 81, 83, 85, 87, 88 };
         List<int> LeftBlackKey = new List<int> { 5, 10, 17, 22, 29, 34, 41, 46, 53, 58, 65, 70, 77, 82 };
         List<int> RightBlackKey = new List<int> { 2, 7, 14, 19, 26, 31, 38, 43, 50, 55, 62, 67, 74, 79, 86 };
         List<int> MiddleBlackKey = new List<int> { 12, 24, 36, 48, 60, 72, 84 };
-        MIDINotesData My = new MIDINotesData("alla-turca.mid");
+        MIDINotesData My;
+        bool pathcheck = false;
         int MyButton_Y_Position = 340;
         int MyButton_width = 20;
         Pen p = new Pen(Color.Black);
-        System.Drawing.SolidBrush red = new System.Drawing.SolidBrush(Color.Red);
-        System.Drawing.SolidBrush green = new System.Drawing.SolidBrush(Color.Green);
-        System.Drawing.SolidBrush pink = new System.Drawing.SolidBrush(Color.Pink);
-        System.Drawing.SolidBrush lightgreen = new System.Drawing.SolidBrush(Color.LightGreen);
+        Color r;
+        System.Drawing.SolidBrush red;
+        System.Drawing.SolidBrush green;
+        System.Drawing.SolidBrush pink;
+        System.Drawing.SolidBrush lightgreen;
 
         List<MyRectangle> MyRectangleList = new List<MyRectangle>();
 
@@ -36,11 +38,21 @@ namespace WindowsFormsApp3
         private OutputDevice outDevice;
         private int outDeviceID = 0;
         private OutputDeviceDialog outDialog = new OutputDeviceDialog();
-        public Form1()
+        public Form1(String Path = null , double Speed =1.00, Image image=null, Color? c1 = null, Color? c2 = null, Color? c3 = null, Color? c4 = null)
         {
+            if (Path != null) {
+                My = new MIDINotesData(Path);
+                pathcheck = true;
+                if ((int)My.flowkeys[0].time > 1000)
+                    time = (int)My.flowkeys[0].time - 1000;
+            }
+            red = new System.Drawing.SolidBrush(c1?? Color.Red);
+            green = new System.Drawing.SolidBrush(c2 ?? Color.Green);
+            pink = new System.Drawing.SolidBrush(c3 ?? Color.Pink);
+            lightgreen = new System.Drawing.SolidBrush(c4 ?? Color.LightGreen);
+            Myspeed = Speed;
+            this.BackgroundImage = image;
             InitializeComponent();
-            if ((int)My.flowkeys[0].time > 1000)
-                time = (int)My.flowkeys[0].time - 1000;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -259,7 +271,7 @@ namespace WindowsFormsApp3
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
+            if(pathcheck)
             MakeRectangle(My,MyRectangleList,MyButton_Y_Position,MyButton_width,Myspeed);
             time += timer1.Interval; //increase the time
             Invalidate();
