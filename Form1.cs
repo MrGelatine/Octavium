@@ -38,7 +38,7 @@ namespace WindowsFormsApp3
         private OutputDevice outDevice;
         private int outDeviceID = 0;
         private OutputDeviceDialog outDialog = new OutputDeviceDialog();
-        public Form1(String Path = null , double Speed =1.00, Image image=null, Color? c1 = null, Color? c2 = null, Color? c3 = null, Color? c4 = null)
+        public Form1(String Path = null , double Speed =1.00, String image=null, Color? c1 = null, Color? c2 = null, Color? c3 = null, Color? c4 = null)
         {
             if (Path != null) {
                 My = new MIDINotesData(Path);
@@ -51,7 +51,8 @@ namespace WindowsFormsApp3
             pink = new System.Drawing.SolidBrush(c3 ?? Color.Pink);
             lightgreen = new System.Drawing.SolidBrush(c4 ?? Color.LightGreen);
             Myspeed = Speed;
-            this.BackgroundImage = image;
+            if(image!=null)
+            this.BackgroundImage = Image.FromFile(image);
             InitializeComponent();
         }
 
