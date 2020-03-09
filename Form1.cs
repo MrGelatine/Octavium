@@ -16,20 +16,19 @@ namespace WindowsFormsApp3
     public partial class Form1 : Form
     {
         List<Button> buttonlist = new List<Button>();
-        double Myspeed;
+        double Myspeed = 1.00;
         List<int> WhiteKey = new List<int> { 1, 3, 4, 6, 8, 9, 11, 13, 15, 16, 18, 20, 21, 23, 25, 27, 28, 30, 32, 33, 35, 37, 39, 40, 42, 44, 45, 47, 49, 51, 52, 54, 56, 57, 59, 61, 63, 64, 66, 68, 69, 71, 73, 75, 76, 78, 80, 81, 83, 85, 87, 88 };
         List<int> LeftBlackKey = new List<int> { 5, 10, 17, 22, 29, 34, 41, 46, 53, 58, 65, 70, 77, 82 };
         List<int> RightBlackKey = new List<int> { 2, 7, 14, 19, 26, 31, 38, 43, 50, 55, 62, 67, 74, 79, 86 };
         List<int> MiddleBlackKey = new List<int> { 12, 24, 36, 48, 60, 72, 84 };
-        MIDINotesData My;
-        bool pathcheck = false;
+        MIDINotesData My ;
         int MyButton_Y_Position = 340;
         int MyButton_width = 20;
+        bool pathcheck = false;
         Pen p = new Pen(Color.Black);
-        Color r;
         System.Drawing.SolidBrush red;
         System.Drawing.SolidBrush green;
-        System.Drawing.SolidBrush pink;
+        System.Drawing.SolidBrush pink ;
         System.Drawing.SolidBrush lightgreen;
 
         List<MyRectangle> MyRectangleList = new List<MyRectangle>();
@@ -38,23 +37,25 @@ namespace WindowsFormsApp3
         private OutputDevice outDevice;
         private int outDeviceID = 0;
         private OutputDeviceDialog outDialog = new OutputDeviceDialog();
-        public Form1(String Path = null , double Speed =1.00, String image=null, Color? c1 = null, Color? c2 = null, Color? c3 = null, Color? c4 = null)
+        public Form1(String Path = null, double Speed = 1.00, String image = null, Color? c1 = null, Color? c2 = null, Color? c3 = null, Color? c4 = null)
         {
-            if (Path != null) {
+            if (Path != null)
+            {
                 My = new MIDINotesData(Path);
                 pathcheck = true;
                 if ((int)My.flowkeys[0].time > 1000)
                     time = (int)My.flowkeys[0].time - 1000;
             }
-            red = new System.Drawing.SolidBrush(c1?? Color.Red);
+            red = new System.Drawing.SolidBrush(c1 ?? Color.Red);
             green = new System.Drawing.SolidBrush(c2 ?? Color.Green);
             pink = new System.Drawing.SolidBrush(c3 ?? Color.Pink);
             lightgreen = new System.Drawing.SolidBrush(c4 ?? Color.LightGreen);
             Myspeed = Speed;
-            if(image!=null)
-            this.BackgroundImage = Image.FromFile(image);
+            if (image != null)
+                this.BackgroundImage = Image.FromFile(image);
             InitializeComponent();
         }
+
 
         protected override void OnLoad(EventArgs e)
         {
@@ -272,7 +273,7 @@ namespace WindowsFormsApp3
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if(pathcheck)
+            bool pathcheck = false;
             MakeRectangle(My,MyRectangleList,MyButton_Y_Position,MyButton_width,Myspeed);
             time += timer1.Interval; //increase the time
             Invalidate();
@@ -373,6 +374,7 @@ namespace WindowsFormsApp3
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.ResizeRedraw, true);
@@ -402,7 +404,151 @@ namespace WindowsFormsApp3
         {
             timer1.Stop();
         }
+         void MakeRectangle2(String Path, List<MyRectangle> RectangleList, int Button_Y_Position, int Button_width, double speed, System.Drawing.Color Color1, System.Drawing.Color Color2, Image image)
+        {
+            List<int> WhiteKey = new List<int> { 1, 3, 4, 6, 8, 9, 11, 13, 15, 16, 18, 20, 21, 23, 25, 27, 28, 30, 32, 33, 35, 37, 39, 40, 42, 44, 45, 47, 49, 51, 52, 54, 56, 57, 59, 61, 63, 64, 66, 68, 69, 71, 73, 75, 76, 78, 80, 81, 83, 85, 87, 88 };
+            List<int> LeftBlackKey = new List<int> { 5, 10, 17, 22, 29, 34, 41, 46, 53, 58, 65, 70, 77, 82 };
+            List<int> RightBlackKey = new List<int> { 2, 7, 14, 19, 26, 31, 38, 43, 50, 55, 62, 67, 74, 79, 86 };
+            List<int> MiddleBlackKey = new List<int> { 12, 24, 36, 48, 60, 72, 84 };
+            MIDINotesData M = new MIDINotesData(Path);
+            this.BackgroundImage = image;
+            //Loop For Making Rectangles 
+            foreach (var x in M.flowkeys)
+            {
+                if ((int)((x.time / (timer1.Interval * speed))) == (time / timer1.Interval))
+                {
+                    if (WhiteKey.Contains(x.pos))//Check if Button is White
+                    {
+                        Rectangle R = new Rectangle();//Creating Rectangle
+                        if (x.pos == 1)//First Button
+                        {
+                            R.Width = Button_width - 4;
+                            R.X = 0;
+                        }
+                        else if (x.pos == 88)//Last Button
+                        {
+                            R.Width = Button_width;
+                            R.X = 1020;
+                        }
+                        else
+                        {
+                            //Determine width and place of falling note
+                            if (RightBlackKey.Contains(x.pos - 1))
+                            {
+                                R.X = ((WhiteKey.IndexOf(x.pos)) * Button_width) + 8;
+                                R.Width = Button_width - 8;
+                            }
+                            else if (LeftBlackKey.Contains(x.pos - 1) && RightBlackKey.Contains(x.pos + 1))
+                            {
+                                R.X = ((WhiteKey.IndexOf(x.pos)) * Button_width) + 4;
+                                R.Width = Button_width - 8;
+                            }
+                            else if (LeftBlackKey.Contains(x.pos - 1) && MiddleBlackKey.Contains(x.pos + 1))
+                            {
+                                R.X = ((WhiteKey.IndexOf(x.pos)) * Button_width) + 4;
+                                R.Width = Button_width - 10;
+                            }
+                            else if (MiddleBlackKey.Contains(x.pos - 1))
+                            {
+                                R.X = ((WhiteKey.IndexOf(x.pos)) * Button_width) + 6;
+                                R.Width = Button_width - 10;
+                            }
+                            else
+                            {
+                                R.X = WhiteKey.IndexOf(x.pos) * Button_width;
+                                R.Width = Button_width - 9;
+                            }
+                        }
+                        R.Y = 0;
+                        R.Height = 0;
+                        System.Drawing.SolidBrush C1 = new System.Drawing.SolidBrush(Color1);
+                        MyRectangle Rec = new MyRectangle(R, x.length, C1, x.pos);
+                        RectangleList.Add(Rec);
+                    }
+                    else if (!WhiteKey.Contains(x.pos))//Button is black
+                    {
+                        Rectangle R = new Rectangle();
+                        R.Y = 0;
+                        //Determine the place of falling note
+                        if (RightBlackKey.Contains(x.pos))
+                            R.X = ((WhiteKey.IndexOf(x.pos - 1)) * Button_width) + 16;
+                        else if (LeftBlackKey.Contains(x.pos))
+                            R.X = ((WhiteKey.IndexOf(x.pos - 1)) * Button_width) + 12;
+                        else
+                            R.X = ((WhiteKey.IndexOf(x.pos - 1)) * Button_width) + 14;
 
-      
+                        R.Width = Button_width - 8;
+                        R.Height = 0;
+                        System.Drawing.SolidBrush C2 = new System.Drawing.SolidBrush(Color2);
+                        MyRectangle Rec = new MyRectangle(R, x.length, C2, x.pos);
+                        RectangleList.Add(Rec);
+                    }
+                }
+            }
+            //Loop For Moving Rectangles and play notes
+            for (var i = 0; i < RectangleList.Count; i++)
+            {
+                //Increasing the Height from 0 to the height of note
+                if (RectangleList[i].MyRec.Height < (RectangleList[i].Period / 5) && RectangleList[i].Check == false)
+                {
+                    RectangleList[i].increasespeed((((double)RectangleList[i].Period * timer1.Interval * speed / (double)5) / ((double)RectangleList[i].Period)));
+                    RectangleList[i].IncreaseHeight((int)RectangleList[i].Speed);
+
+                }
+
+                else RectangleList[i].Check = true;//Rectangle is in the full height
+
+                //Decreasing the Height when touching the button
+                if (RectangleList[i].MyRec.Height + RectangleList[i].MyRec.Y >= Button_Y_Position && RectangleList[i].MyRec.Height > 0)
+                {
+                    RectangleList[i].decreaseheight((((double)RectangleList[i].Period * timer1.Interval * speed / (double)5) / ((double)RectangleList[i].Period)));
+                    RectangleList[i].Decrease((int)RectangleList[i].Height);
+                }
+
+                //Moving Rectangle down
+                if (RectangleList[i].MyRec.Y != Button_Y_Position && RectangleList[i].Check == true)
+                {
+
+                    RectangleList[i].increaseypos((((double)RectangleList[i].Period * timer1.Interval * speed / (double)5) / ((double)RectangleList[i].Period)));
+                    RectangleList[i].Move((int)RectangleList[i].YPos);
+
+                    //Playing Note and changing the color of button
+                    if (RectangleList[i].MyRec.Height + RectangleList[i].MyRec.Y >= Button_Y_Position && RectangleList[i].Hit == false)
+                    {
+                        outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, RectangleList[i].Position + 20, 127));//playing note
+
+                        //change the color of button
+                        if (WhiteKey.Contains(RectangleList[i].Position))
+                        {
+
+                            buttonlist[RectangleList[i].Position - 1].BackColor = Color1;
+                        }
+                        else
+                        {
+                            buttonlist[RectangleList[i].Position - 1].BackColor = Color2;
+
+                        }
+                        RectangleList[i].Hit = true;
+                    }
+                }
+
+                //returning color of button to original color
+                if (RectangleList[i].MyRec.Y == Button_Y_Position - 4 && RectangleList[i].Check == true && RectangleList[i].Hit == true)
+                {
+                    if (WhiteKey.Contains(RectangleList[i].Position))
+                        buttonlist[RectangleList[i].Position - 1].BackColor = Color.White;
+                    else
+                        buttonlist[RectangleList[i].Position - 1].BackColor = Color.Black;
+                }
+
+                //stopping playing note
+                if (RectangleList[i].MyRec.Y == Button_Y_Position && RectangleList[i].Check == true && RectangleList[i].Hit == true)
+                {
+                    outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, RectangleList[i].Position + 20, 0)); //Stop Sound
+                    RectangleList[i].Hit = false;
+                }
+            }
+        }
+
     }
 }
