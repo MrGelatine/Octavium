@@ -12,37 +12,51 @@ namespace WindowsFormsApp3
 {
     class InterfaceFuncs
     {
-        public static Tuple<String,String,String> GetAndAddData(string engien_path = @"C:\Users\Денис\Desktop\Rep\Octavium\sheet.exe", string sheet_path = @"C:\Users\Денис\Desktop\Rep\Octavium\Gallery\Sheets", string data_storage_path = @"C:\Users\Денис\Desktop\Rep\Octavium\Gallery\Piano data")
+        public static Tuple<String,String,String> GetAndAddData(string engien_path = @"C:\Users\Денис\Desktop\Oct\Octavium\sheet.exe", string sheet_path = @"C:\Users\Денис\Desktop\Rep\Octavium\Gallery", string data_storage_path = @"C:\Users\Денис\Desktop\Oct\Octavium\Storage")
         {
             string midi_data_path = null;
-            using (var dialog = new FolderBrowserDialog())
+            using (var dialog = new OpenFileDialog())
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    midi_data_path = dialog.SelectedPath;
+                    midi_data_path = dialog.FileName;
                 }
             }
+<<<<<<< HEAD
+            if(!Is_mid(midi_data_path))
+            {
+                throw new FormatException("Выбранный файл не является midi!");
+            }
             CreateSheet(engien_path, midi_data_path, sheet_path);
-            MIDIFuncs.SaveToData(new MIDINotesData(midi_data_path), data_storage_path);
+            MIDIFuncs.SaveToData(new MIDINotesData(midi_data_path), $@"{data_storage_path}\{InterfaceFuncs.GetFileName(midi_data_path)}");
             return Tuple.Create(GetDate(), GetFileName(midi_data_path), MIDIFuncs.GetDuration(midi_data_path));
+=======
+            //CreateSheet(engien_path, midi_data_path, sheet_path);
+            string fileName = GetFileName(midi_data_path);
+            MIDIFuncs.SaveToData(new MIDINotesData(midi_data_path), data_storage_path + @"\\"+ fileName);
+            return Tuple.Create(GetDate(), fileName, MIDIFuncs.GetDuration(midi_data_path));
+>>>>>>> 98a9791dccffe9b7a9f8ecea0da60ec3e9cbf208
         }
-        public static void CreateSheet(string engien_path,string data_path, string sheet_path)
+        public static void CreateSheet(string engien_path, string data_path, string sheet_path)
         {
-            var name = Regex.Match(data_path, @"[\\]+[^\\]+.mid").Value.Remove(0, 1);
+            var name = InterfaceFuncs.GetFileName(data_path);
             var sheetMaker = new ProcessStartInfo(engien_path, $"{data_path} {name}");
 
             sheetMaker.WindowStyle = ProcessWindowStyle.Hidden;
             sheetMaker.RedirectStandardOutput = true;
             sheetMaker.UseShellExecute = false;
             sheetMaker.CreateNoWindow = true;
-
             Process procCommand = Process.Start(sheetMaker);
             procCommand.WaitForExit();
-            foreach (var line in Directory.GetFiles(data_path.Remove(data_path.Length - name.Length - 3, name.Length + 4)))
+            foreach (var line in Directory.GetFiles(@"C:\Users\Денис\Desktop\Oct\Octavium\bin\Release\"))
             {
                 if (Regex.IsMatch(line, ".png"))
                 {
-                    File.Move(line, $@"{sheet_path}\{Regex.Match(line, @"[\\]+[^\\]+.png").Value.Remove(0, 1)}");
+                    var dest = $@"{sheet_path}\{Regex.Match(line, @"[\\]+[^\\]+.png").Value.Remove(0, 1)}";
+                    if (dest.Equals(line.Replace("\\\\", "\\")))
+                    {
+                        File.Move(line.Replace("\\\\", "\\"), dest);
+                    }
                 }
             }
 
@@ -55,7 +69,11 @@ namespace WindowsFormsApp3
         public static string GetFileName(string path)
         {
             var res = Regex.Match(path, @"[\\]+[^\\]+.mid").Value.Remove(0, 1);
-            return res.Remove(res.Length - 3, 3);
+            return res.Remove(res.Length - 4, 4);
+        }
+        public static bool Is_mid(string s)
+        {
+            return s.Contains(".mid");
         }
     }
 }
