@@ -12,7 +12,7 @@ namespace WindowsFormsApp3
 {
     public partial class MenuForm : Form
     {
-        public string filepath = "";
+        public string filepath = "alla-turca.mid";
         public MenuForm()
         {
             InitializeComponent();
