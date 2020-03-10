@@ -144,5 +144,11 @@
   <ItemGroup>
     <None Include="Resources\ExitMenu.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-pause-96_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-play-96_1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
