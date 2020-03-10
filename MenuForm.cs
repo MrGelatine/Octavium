@@ -27,9 +27,7 @@ namespace WindowsFormsApp3
         private void BeginPictureBox_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form1 form1 = new Form1();
-            if (filepath != "")
-                form1.filepath = filepath;
+            Form1 form1 = new Form1(filepath);
             form1.ShowDialog();
             this.Show();
         }
