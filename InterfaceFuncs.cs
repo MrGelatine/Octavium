@@ -26,7 +26,7 @@ namespace WindowsFormsApp3
             {
                 throw new FormatException("Выбранный файл не является midi!");
             }
-            CreateSheet(engien_path, midi_data_path, sheet_path);
+            //CreateSheet(engien_path, midi_data_path, sheet_path);
             MIDIFuncs.SaveToData(new MIDINotesData(midi_data_path), $@"{data_storage_path}\{InterfaceFuncs.GetFileName(midi_data_path)}");
             return Tuple.Create(GetDate(), GetFileName(midi_data_path), MIDIFuncs.GetDuration(midi_data_path));
         }
