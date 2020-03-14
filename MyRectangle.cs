@@ -27,7 +27,7 @@ namespace WindowsFormsApp3
             hit = false;
             speed = 0.0;
             ypos = 0.0;
-            height = period / 20;
+            height = period / 5;
             color = c;
             pos = po;
         }
