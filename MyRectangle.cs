@@ -83,8 +83,5 @@ namespace WindowsFormsApp3
         public void Decrease(int x) {
             myRec.Height = x;
         }
-            
-
     }
-       
 }
