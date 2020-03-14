@@ -22,20 +22,13 @@ namespace WindowsFormsApp3
                     midi_data_path = dialog.FileName;
                 }
             }
-<<<<<<< HEAD
             if(!Is_mid(midi_data_path))
             {
                 throw new FormatException("Выбранный файл не является midi!");
             }
-            CreateSheet(engien_path, midi_data_path, sheet_path);
+            //CreateSheet(engien_path, midi_data_path, sheet_path);
             MIDIFuncs.SaveToData(new MIDINotesData(midi_data_path), $@"{data_storage_path}\{InterfaceFuncs.GetFileName(midi_data_path)}");
             return Tuple.Create(GetDate(), GetFileName(midi_data_path), MIDIFuncs.GetDuration(midi_data_path));
-=======
-            //CreateSheet(engien_path, midi_data_path, sheet_path);
-            string fileName = GetFileName(midi_data_path);
-            MIDIFuncs.SaveToData(new MIDINotesData(midi_data_path), data_storage_path + @"\\"+ fileName);
-            return Tuple.Create(GetDate(), fileName, MIDIFuncs.GetDuration(midi_data_path));
->>>>>>> 98a9791dccffe9b7a9f8ecea0da60ec3e9cbf208
         }
         public static void CreateSheet(string engien_path, string data_path, string sheet_path)
         {

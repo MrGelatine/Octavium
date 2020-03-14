@@ -41,7 +41,7 @@ namespace WindowsFormsApp3
         {
             if (Path != null)
             {
-                My = new MIDINotesData(Path);
+                My = new MIDINotesData(MIDIFuncs.UnpackDataToNote(Path));
                 pathcheck = true;
                 if ((int)My.flowkeys[0].time > 1000)
                     time = (int)My.flowkeys[0].time - 1000;

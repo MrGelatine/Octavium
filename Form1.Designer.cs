@@ -143,7 +143,7 @@ namespace WindowsFormsApp3
             // button90
             // 
             this.button90.BackColor = System.Drawing.Color.Transparent;
-            this.button90.BackgroundImage = global::WindowsFormsApp3.Properties.Resources.icons8_pause_96_1;
+            //this.button90.BackgroundImage = global::WindowsFormsApp3.Properties.Resources.icons8_pause_96_1;
             this.button90.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button90.FlatAppearance.BorderSize = 0;
             this.button90.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
@@ -160,7 +160,7 @@ namespace WindowsFormsApp3
             // button89
             // 
             this.button89.BackColor = System.Drawing.Color.Transparent;
-            this.button89.BackgroundImage = global::WindowsFormsApp3.Properties.Resources.icons8_play_96_1;
+            //this.button89.BackgroundImage = global::WindowsFormsApp3.Properties.Resources.icons8_play_96_1;
             this.button89.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button89.FlatAppearance.BorderSize = 0;
             this.button89.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;

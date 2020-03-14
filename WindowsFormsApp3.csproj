@@ -87,6 +87,12 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="InterfaceFuncs.cs" />
+    <Compile Include="LibForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LibForm.Designer.cs">
+      <DependentUpon>LibForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,9 +104,17 @@
     <Compile Include="MyRectangle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="TestFuncs.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LibForm.resx">
+      <DependentUpon>LibForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
@@ -115,11 +129,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -143,6 +152,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ExitMenu.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-pause-96_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-play-96_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\backBtn1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\songName.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\closeIcon.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
