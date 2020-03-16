@@ -28,7 +28,7 @@ namespace WindowsFormsApp3
         string libPath;
         public LibForm()
         {
-            libPath = string.Format("{0}Resources", projectPath);
+            libPath = string.Format("{0}Resources\\DataStorage", projectPath);
             InitializeComponent();
         }
 
