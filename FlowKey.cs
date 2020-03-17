@@ -13,11 +13,11 @@ namespace WindowsFormsApp3
 {
     public class FlowKeyData
     {
-        //The position of key on keyboard
+        //Номер клавишы на клавиатуре
         public byte pos { get; }
-        //Time of press key
+        //Время столкновения падающей клавишы
         public uint time { get; }
-        //Time of pressing key
+        //Длительность падающей клавишы
         public uint length { get; }
         public FlowKeyData(Melanchall.DryWetMidi.Interaction.Note note, TempoMap tempomap)
         {

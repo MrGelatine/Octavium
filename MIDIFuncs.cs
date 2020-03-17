@@ -14,6 +14,7 @@ namespace WindowsFormsApp3
 {
     class MIDIFuncs
     {
+        //Возвращает номер ноты в октаве
         public static byte NoteGetPosInOctave(Melanchall.DryWetMidi.Interaction.Note n)
         {
             byte res = 0;
@@ -58,7 +59,9 @@ namespace WindowsFormsApp3
             }
             return res;
         }
+        //Возвращает номер ноты на клавиатуре
         public static byte NoteGetPosOnKeyboard(Melanchall.DryWetMidi.Interaction.Note n) => n.Octave > 1 ? (byte)(NoteGetPosInOctave(n) + (n.Octave - 1) * 12 + 3) : (byte)(NoteGetPosInOctave(n));
+        //Возвращает длину клавишы в секундах
         public static uint GetNoteLength(Melanchall.DryWetMidi.Interaction.Note note, TempoMap tempoMap)
         {
             uint res = (uint)note.LengthAs<MetricTimeSpan>(tempoMap).Milliseconds;
@@ -72,6 +75,7 @@ namespace WindowsFormsApp3
             }
             return res;
         }
+        //Возвращает время нажатия клавишы
         public static uint GetNoteTime(Melanchall.DryWetMidi.Interaction.Note note, TempoMap tempoMap)
         {
             uint res = (uint)note.TimeAs<MetricTimeSpan>(tempoMap).Milliseconds;
@@ -85,8 +89,11 @@ namespace WindowsFormsApp3
             }
             return res;
         }
+        //Возвращает аналог клавишы из правой октавы
         public static void HigherOctave(Melanchall.DryWetMidi.Interaction.Note n) => n.SetNoteNameAndOctave(n.NoteName, n.Octave + 1);
+        //Возвращает аналог клавишы из левой октавы
         public static void LowerOctave(Melanchall.DryWetMidi.Interaction.Note n) => n.SetNoteNameAndOctave(n.NoteName, n.Octave - 1);
+        //Запаковывает информацию для падающих клавиш в файл
         public static void SaveToData(MIDINotesData rawData, string path)
         {
             using (var fl = new BinaryWriter(File.Create(path + ".dat"), Encoding.Default))
@@ -100,6 +107,7 @@ namespace WindowsFormsApp3
                 }
             }
         }
+        //Возвращает список информации для падающих клавиш из запакованного файла
         public static List<FlowKeyData> UnpackDataToNote(string path)
         {
             var res = new List<FlowKeyData>();
@@ -113,6 +121,7 @@ namespace WindowsFormsApp3
             }
             return res;
         }
+        //Возвращает длины трека из файла
         public static string GetDuration(string path)
         {
             var t = MidiFile.Read(path).GetDuration<MetricTimeSpan>();

@@ -15,6 +15,7 @@ namespace WindowsFormsApp3
 {
     class TestFuncs
     {
+        //Записывает данные из структуры для хранения информации для падающих клавиш в текстовый файл
         static void midiRawToTXT(MIDINotesData rawData,string path)
         {
             using (var fl = new StreamWriter(path))
@@ -25,6 +26,7 @@ namespace WindowsFormsApp3
                 }
             }
         }
+        //Выводит основную информацию из файла .mid
         public static void MidiFileGetInfo(string path)
         {
             using (var flow = new StreamWriter("informer.txt"))

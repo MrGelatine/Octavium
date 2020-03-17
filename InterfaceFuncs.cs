@@ -12,6 +12,7 @@ namespace WindowsFormsApp3
 {
     class InterfaceFuncs
     {
+        //Принимает директории на генератор нот, на хранилище нот, и на хранилище запакованных партитур, после чего генерирует необходимые файлы и добавляет их по указанным директориям
         public static Tuple<String,String,String> GetAndAddData(string engien_path = @"C:\Users\Денис\Desktop\Oct\Octavium\sheet.exe", string sheet_path = @"C:\Users\Денис\Desktop\Rep\Octavium\Gallery", string data_storage_path = @"C:\Users\Денис\Desktop\Oct\Octavium\Storage")
         {
             string midi_data_path = null;
@@ -30,6 +31,7 @@ namespace WindowsFormsApp3
             MIDIFuncs.SaveToData(new MIDINotesData(midi_data_path), $@"{data_storage_path}\{InterfaceFuncs.GetFileName(midi_data_path)}");
             return Tuple.Create(GetDate(), GetFileName(midi_data_path), MIDIFuncs.GetDuration(midi_data_path));
         }
+        //Принимает директории на генератор нот, на запакованный файл, и на хранилище нот, после чего генерирует ноты и добавляет их в указанную папку.
         public static void CreateSheet(string engien_path, string data_path, string sheet_path)
         {
             var name = InterfaceFuncs.GetFileName(data_path);
@@ -54,16 +56,19 @@ namespace WindowsFormsApp3
             }
 
         }
+        //Возвращает имя файла из его директории
         public static string GetDate()
         {
             string res = DateTime.Today.ToString().Split().First();
             return res;
         }
+        //Возвращает текущую дату
         public static string GetFileName(string path)
         {
             var res = Regex.Match(path, @"[\\]+[^\\]+.mid").Value.Remove(0, 1);
             return res.Remove(res.Length - 4, 4);
         }
+        //Проверка на то, являеться ли файл формата .mid
         public static bool Is_mid(string s)
         {
             return s.Contains(".mid");

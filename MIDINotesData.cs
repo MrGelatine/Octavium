@@ -13,7 +13,9 @@ namespace WindowsFormsApp3
 {
     class MIDINotesData
     {
+        //Информация для каждой падающей клавишы
         public List<FlowKeyData> flowkeys;
+        //Кол-во клавиш
         public uint count;
         public MIDINotesData(string path)
         {
