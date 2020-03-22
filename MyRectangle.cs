@@ -18,6 +18,7 @@ namespace WindowsFormsApp3
         private double ypos;
         private double height;
         private int pos;
+        private double heightleft;
         private System.Drawing.SolidBrush color;
         public MyRectangle(Rectangle r, uint p, System.Drawing.SolidBrush c, int po)
         {
@@ -28,25 +29,40 @@ namespace WindowsFormsApp3
             speed = 0.0;
             ypos = 0.0;
             height = period / 5;
+            heightleft = height;
             color = c;
             pos = po;
         }
-        public int Position {
+        public int Position
+        {
             get { return pos; }
         }
-        public System.Drawing.SolidBrush Color {
+        public System.Drawing.SolidBrush Color
+        {
             get { return color; }
         }
-        public double Height {
+        public double Height
+        {
             get { return height; }
         }
-        public double YPos {
+        public double HeightLeft
+        {
+            get { return heightleft; }
+        }
+        public double YPos
+        {
             get { return ypos; }
         }
-        public void decreaseheight(double x) {
+        public void decreaseHeightLeft(double x)
+        {
+            heightleft -= x;
+        }
+        public void decreaseheight(double x)
+        {
             height -= x;
         }
-        public void increaseypos(double x) {
+        public void increaseypos(double x)
+        {
             ypos += x;
         }
         public uint Period
@@ -54,14 +70,17 @@ namespace WindowsFormsApp3
             get { return period; }
             set { period = value; }
         }
-        public double Speed {
+        public double Speed
+        {
             get { return speed; }
-           
+
         }
-        public void increasespeed(double x) {
+        public void increasespeed(double x)
+        {
             speed += x;
         }
-        public bool Check {
+        public bool Check
+        {
             get { return check; }
             set { check = value; }
         }
@@ -70,17 +89,21 @@ namespace WindowsFormsApp3
             get { return hit; }
             set { hit = value; }
         }
-        public Rectangle MyRec {
+        public Rectangle MyRec
+        {
             get { return myRec; }
             set { myRec = value; }
         }
-        public void IncreaseHeight(int x) {
+        public void IncreaseHeight(int x)
+        {
             myRec.Height = x;
         }
-        public void Move(int x) {
+        public void Move(int x)
+        {
             myRec.Y = x;
         }
-        public void Decrease(int x) {
+        public void Decrease(int x)
+        {
             myRec.Height = x;
         }
     }
