@@ -12,7 +12,9 @@ namespace WindowsFormsApp3
 {
     public partial class MenuForm : Form
     {
+        //путь к выбранному треку
         public string filepath = "";
+
         public MenuForm()
         {
             InitializeComponent();
@@ -22,7 +24,8 @@ namespace WindowsFormsApp3
         {
             this.BackColor = Color.FromArgb(71, 71, 71);
         }
-
+        
+        //Открываем форму с пианино, передав ей путь к треку как параметр
         private void BeginPictureBox_Click(object sender, EventArgs e)
         {
             if (filepath == "")
@@ -36,11 +39,13 @@ namespace WindowsFormsApp3
             this.Show();
         }
 
+        //Закрытие формы меню
         private void PictureBox5_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        //Открываем форму галлереи
         private void PictureBox3_Click(object sender, EventArgs e)
         {
             this.Hide();
