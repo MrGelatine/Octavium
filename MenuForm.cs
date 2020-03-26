@@ -12,7 +12,7 @@ namespace WindowsFormsApp3
 {
     public partial class MenuForm : Form
     {
-        public string filepath = "alla-turca.mid";
+        public string filepath = "";
         public MenuForm()
         {
             InitializeComponent();
@@ -25,6 +25,11 @@ namespace WindowsFormsApp3
 
         private void BeginPictureBox_Click(object sender, EventArgs e)
         {
+            if (filepath == "")
+            {
+                MessageBox.Show("Необходимо выбрать трек из галлереи");
+                return;
+            }
             this.Hide();
             Form1 form1 = new Form1(filepath);
             form1.ShowDialog();
