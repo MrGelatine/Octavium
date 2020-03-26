@@ -182,6 +182,8 @@ namespace WindowsFormsApp3
         private void Panel4_Click(object sender, EventArgs e)
         {
             Tuple<string, string,string> fileData = InterfaceFuncs.GetAndAddData(projectPath + @"\\sheet.exe", projectPath + @"\\Gallery\\Sheets", libPath);
+            if (fileData.Item1 == "")
+                return;
             foreach (Tuple<int, string, string, string> libFileInfo in libfileList)
             {
                 if (libFileInfo.Item3.ToLower().Contains(fileData.Item2.ToLower()))
