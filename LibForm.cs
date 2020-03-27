@@ -280,7 +280,7 @@ namespace WindowsFormsApp3
             //Сохраняем индекс нового выбранного трека, его наименование, меняем надпись текущего трека.
             selectedFileIndex = i;
             selectedFileName = libfileList[selectedFileIndex].Item3;
-            labelSongName.Text = Path.GetFileName(selectedFileName);
+            labelSongName.Text = Path.GetFileName(selectedFileName).Length > 40 ? Path.GetFileName(selectedFileName).Remove(39,Path.GetFileName(selectedFileName).Length-39)+"...": Path.GetFileName(selectedFileName);
             //Получаем элементы формы выбранного трека
             Panel trackTime = (Panel)this.Controls.Find(i.ToString() + "time", true).First();
             Panel TrackCreation = (Panel)this.Controls.Find(i.ToString() + "date", true).First();
