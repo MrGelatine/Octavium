@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Text.RegularExpressions;
 using Melanchall.DryWetMidi.Interaction;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.MusicTheory;
@@ -253,7 +254,7 @@ namespace WindowsFormsApp3
                 //Треки из общего списка добавляются в список отображаемых, если наименование содержит искомую подстроку
                 foreach (Tuple<int, string, string, string> fileInfo in libfileList)
                 {
-                    if (fileInfo.Item3.ToLower().Contains(searchTextBox.Text.ToLower()))
+                    if(Regex.IsMatch(fileInfo.Item3.ToLower(),$@"^{searchTextBox.Text.ToLower()}"))
                         curfiles.Add(fileInfo);
                 }
             }
