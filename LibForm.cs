@@ -176,9 +176,17 @@ namespace WindowsFormsApp3
         {
             Panel senderPanel = (Panel)sender;
             //получаем индекс трека в списках libFileList и curFiles
-            int i  = (int)senderPanel.Name[0] - (int)'0';
-            //вызываем функцию выбора трека по индексу
-            selectTrack(i);
+            string indexString = senderPanel.Name.Substring(0, senderPanel.Name.Length - 4);
+            try
+            {
+                int i = Int32.Parse(indexString);
+                //вызываем функцию выбора трека по индексу
+                selectTrack(i);
+            }
+            catch (FormatException expt)
+            {
+                Console.WriteLine(expt.Message);
+            }
         }
 
         //срабатывает при нажатии на надпись трека из списка
@@ -187,9 +195,17 @@ namespace WindowsFormsApp3
         {
             Label senderLabel = (Label)sender;
             //получаем индекс трека в списках libFileList и curFiles
-            int i = (int)senderLabel.Name[0] - (int)'0';
-            //вызываем функцию выбора трека по индексу
-            selectTrack(i);
+            string indexString = senderLabel.Name.Substring(0, senderLabel.Name.Length - 5);
+            try
+            {
+                int i = Int32.Parse(indexString);
+                //вызываем функцию выбора трека по индексу
+                selectTrack(i);
+            }
+            catch (FormatException expt)
+            {
+                Console.WriteLine(expt.Message);
+            }
         }
 
         private void BackPictureBox_Click(object sender, EventArgs e)
