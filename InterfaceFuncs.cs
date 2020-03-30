@@ -7,6 +7,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace WindowsFormsApp3
 {
@@ -14,7 +15,7 @@ namespace WindowsFormsApp3
     {
         //Принимает директории на генератор нот, на хранилище нот, и на хранилище запакованных партитур, после чего генерирует необходимые файлы и добавляет их по указанным директориям
         // возвращает тройку пустых значений, если файл не был выбран
-        public static Tuple<String,String,String> GetAndAddData(string engien_path = @"C:\Users\Денис\Desktop\Oct\Octavium\sheet.exe", string sheet_path = @"C:\Users\Денис\Desktop\Rep\Octavium\Gallery", string data_storage_path = @"C:\Users\Денис\Desktop\Oct\Octavium\Storage")
+        public static Tuple<String, String, String> GetAndAddData(string engien_path = @"C:\Users\Денис\Desktop\Oct\Octavium\sheet.exe", string sheet_path = @"C:\Users\Денис\Desktop\Rep\Octavium\Gallery", string data_storage_path = @"C:\Users\Денис\Desktop\Oct\Octavium\Storage")
         {
             string midi_data_path = null;
             using (var dialog = new OpenFileDialog())
@@ -58,22 +59,39 @@ namespace WindowsFormsApp3
             }
 
         }
-        //Возвращает имя файла из его директории
+        //Возвращает текущую дату
         public static string GetDate()
         {
-            string res = DateTime.Today.ToString().Split().First();
-            return res;
+            return DateTime.Today.ToString().Split().First();
         }
-        //Возвращает текущую дату
+        //Возвращает имя файла из его директории
         public static string GetFileName(string path)
         {
-            var res = Regex.Match(path, @"[\\]+[^\\]+.mid").Value.Remove(0, 1);
-            return res.Remove(res.Length - 4, 4);
+            return Regex.Match(path, @"[\\]+[^\\]+.mid").Value.Remove(0, 1).Remove(res.Length - 4, 4);
         }
         //Проверка на то, являеться ли файл формата .mid
         public static bool Is_mid(string s)
         {
             return s.Contains(".mid");
+        }
+        public static void catalog_inform_refresh(string inform_path, string dat_path)
+        {
+            using (var inform_w = new StreamWriter(dat_path + "\\temp_lib.txt"))
+            {
+                using (var inform_r = new StreamReader(inform_path, Encoding.Default))
+                {
+                    var str = Regex.Match(inform_r.ReadLine(), @"|.+|").Value;
+                    foreach (var file in Directory.GetFiles(dat_path)
+                    {
+                        if (str == GetFileName(file))
+                        {
+                            inform_w.WriteLine(str);
+                        }
+                    }
+                }
+            }
+            File.Delete(inform_path);
+            File.Move(dat_path + "\\temp_lib.txt", dat_path + "\\lib.txt");
         }
     }
 }
