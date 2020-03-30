@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
+using Sanford.Multimedia.Midi;
+using Sanford.Multimedia.Midi.UI;
 using Melanchall.DryWetMidi.Interaction;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.MusicTheory;
@@ -27,6 +29,8 @@ namespace WindowsFormsApp3
         int selectedFileIndex = -1;
         //наименование выбранного трека
         string selectedFileName = "";
+        //прослушивается ли трек
+        bool playing = false;
         Color backColor1 = Color.FromArgb(46, 46, 46);
         Color backColor2 = Color.FromArgb(69, 69, 69);
         //путь к проекту
@@ -97,6 +101,7 @@ namespace WindowsFormsApp3
             if (activeHandler)
             {
                 pdate.Click += new EventHandler(this.TrackPanel_Click);
+                pdate.DoubleClick += new EventHandler(this.TrackPanel_DoubleClick);
                 pdate.Cursor = Cursors.Hand;
             }
             flowLayoutPanel3.Controls.Add(pdate);
@@ -110,6 +115,7 @@ namespace WindowsFormsApp3
             if (activeHandler)
             {
                 ldate.Click += new EventHandler(this.TrackLabel_Click);
+                ldate.DoubleClick += new EventHandler(this.TrackLabel_DoubleClick);
                 ldate.Cursor = Cursors.Hand;
             }
             pdate.Controls.Add(ldate);
@@ -124,6 +130,7 @@ namespace WindowsFormsApp3
             if (activeHandler)
             {
                 pname.Click += new EventHandler(this.TrackPanel_Click);
+                pname.DoubleClick += new EventHandler(this.TrackPanel_DoubleClick);
                 pname.Cursor = Cursors.Hand;
             }
             flowLayoutPanel3.Controls.Add(pname);
@@ -137,6 +144,7 @@ namespace WindowsFormsApp3
             if (activeHandler)
             {
                 lname.Click += new EventHandler(this.TrackLabel_Click);
+                lname.DoubleClick += new EventHandler(this.TrackLabel_DoubleClick);
                 lname.Cursor = Cursors.Hand;
             }
             pname.Controls.Add(lname);
@@ -151,6 +159,7 @@ namespace WindowsFormsApp3
             if (activeHandler)
             {
                 ptime.Click += new EventHandler(this.TrackPanel_Click);
+                ptime.DoubleClick += new EventHandler(this.TrackPanel_DoubleClick);
                 ptime.Cursor = Cursors.Hand;
             }
             flowLayoutPanel3.Controls.Add(ptime);
@@ -164,6 +173,7 @@ namespace WindowsFormsApp3
             if (activeHandler)
             {
                 ltime.Click += new EventHandler(this.TrackLabel_Click);
+                ltime.DoubleClick += new EventHandler(this.TrackLabel_DoubleClick);
                 ltime.Cursor = Cursors.Hand;
             }
             ptime.Controls.Add(ltime);
@@ -206,6 +216,20 @@ namespace WindowsFormsApp3
             {
                 Console.WriteLine(expt.Message);
             }
+        }
+
+        void TrackPanel_DoubleClick(Object sender,
+                          EventArgs e)
+        {
+            TrackPanel_Click(sender, e);
+            this.Close();
+        }
+
+        void TrackLabel_DoubleClick(Object sender,
+                           EventArgs e)
+        {
+            TrackLabel_Click(sender, e);
+            this.Close();
         }
 
         private void BackPictureBox_Click(object sender, EventArgs e)
@@ -314,5 +338,20 @@ namespace WindowsFormsApp3
             TrackCreation.ForeColor = Color.White;
         }
 
+        private void PlayLabel_Click(object sender, EventArgs e)
+        {
+            if (selectedFileName == "")
+                return;
+            if (playing)
+            {
+                playLabel.BackgroundImage = Properties.Resources.icons8_play_96_1;
+                playing = !playing;
+            }
+            else
+            {
+                playLabel.BackgroundImage = Properties.Resources.icons8_pause_96_1;
+                playing = !playing;
+            }
+        }
     }
 }
