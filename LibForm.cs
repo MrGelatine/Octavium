@@ -46,6 +46,7 @@ namespace WindowsFormsApp3
         //При загрузке формы устанавливаем цвета для элементов и выводим все треки из галлереи
         private void LibForm_Load(object sender, EventArgs e)
         {
+            InterfaceFuncs.catalog_inform_refresh(@"C:\Users\Денис\Desktop\Octavium\Resources\DataStorage\lib.txt", @"C:\Users\Денис\Desktop\Octavium\Resources\DataStorage");
             flowLayoutPanel1.BackColor = backColor1;
             this.BackColor = backColor2;
             searchTextBox.BackColor = backColor1;

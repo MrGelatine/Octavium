@@ -67,7 +67,8 @@ namespace WindowsFormsApp3
         //Возвращает имя файла из его директории
         public static string GetFileName(string path)
         {
-            return Regex.Match(path, @"[\\]+[^\\]+.mid").Value.Remove(0, 1).Remove(res.Length - 4, 4);
+            var res = Regex.Match(path, @"[\\]+[^\\]+.mid").Value.Remove(0, 1);
+            return res.Remove(res.Length - 4, 4);
         }
         //Проверка на то, являеться ли файл формата .mid
         public static bool Is_mid(string s)
@@ -76,16 +77,27 @@ namespace WindowsFormsApp3
         }
         public static void catalog_inform_refresh(string inform_path, string dat_path)
         {
+            //File.Create(dat_path + "\\temp_lib.txt");
             using (var inform_w = new StreamWriter(dat_path + "\\temp_lib.txt"))
             {
-                using (var inform_r = new StreamReader(inform_path, Encoding.Default))
+                var lines = File.ReadAllLines(inform_path);
+                foreach (var line in lines)
                 {
-                    var str = Regex.Match(inform_r.ReadLine(), @"|.+|").Value;
-                    foreach (var file in Directory.GetFiles(dat_path)
                     {
-                        if (str == GetFileName(file))
+                        var str = Regex.Match(line, @"[\|].*[\|]").Value;
+                        str = str.Remove(str.Length - 1, 1).Remove(0,1);
+                        foreach (var file in Directory.GetFiles(dat_path))
                         {
-                            inform_w.WriteLine(str);
+                            var file_path = Regex.Match(file, @"[\\]+[^\\]+.dat").Value;
+                            if (file_path.Length != 0)
+                            {
+                                file_path = file_path.Remove(0, 1);
+                                file_path = file_path.Remove(file_path.Length - 4, 4);
+                                if (str == file_path)
+                                {
+                                    inform_w.WriteLine(line);
+                                }
+                            }
                         }
                     }
                 }
