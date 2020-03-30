@@ -18,10 +18,12 @@ namespace WindowsFormsApp3
         private double ypos;
         private double height;
         private int pos;
+        private bool changebutton;
         private double heightleft;
         private System.Drawing.SolidBrush color;
         public MyRectangle(Rectangle r, uint p, System.Drawing.SolidBrush c, int po)
         {
+            changebutton = false;
             myRec = r;
             period = p;
             check = false;
@@ -78,6 +80,10 @@ namespace WindowsFormsApp3
         public void increasespeed(double x)
         {
             speed += x;
+        }
+        public bool ChangeButton {
+            get { return changebutton; }
+            set { changebutton = value; }
         }
         public bool Check
         {
