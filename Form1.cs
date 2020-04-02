@@ -30,6 +30,10 @@ namespace WindowsFormsApp3
         System.Drawing.SolidBrush green;
         System.Drawing.SolidBrush pink;
         System.Drawing.SolidBrush lightgreen;
+        Color cl1;
+        Color cl2;
+        Color cl3;
+        Color cl4;
 
         List<MyRectangle> MyRectangleList = new List<MyRectangle>();
 
@@ -37,9 +41,9 @@ namespace WindowsFormsApp3
         private OutputDevice outDevice;
         private int outDeviceID = 0;
         private OutputDeviceDialog outDialog = new OutputDeviceDialog();
-        public Form1(String Path = null, double Speed = 1.00, String image = null, Color? c1 = null, Color? c2 = null, Color? c3 = null, Color? c4 = null)
+        public Form1(String Path = "", double Speed = 1.00, String image = "image1.jpg", Color? c1 = null, Color? c2 = null, Color? c3 = null, Color? c4 = null)
         {
-            if (Path != null)
+            if (Path != "")
             {
                 My = new MIDINotesData(MIDIFuncs.UnpackDataToNote(Path));
                 pathcheck = true;
@@ -50,6 +54,10 @@ namespace WindowsFormsApp3
             green = new System.Drawing.SolidBrush(c2 ?? Color.Green);
             pink = new System.Drawing.SolidBrush(c3 ?? Color.Pink);
             lightgreen = new System.Drawing.SolidBrush(c4 ?? Color.LightGreen);
+            cl1 = c1 ?? Color.Red;
+            cl2 = c2 ?? Color.Green;
+            cl3 = c3 ?? Color.Pink;
+            cl4 = c4 ?? Color.LightGreen;
             Myspeed = Speed;
             if (image != null)
                 this.BackgroundImage = Image.FromFile(image);
@@ -224,16 +232,16 @@ namespace WindowsFormsApp3
                         if (WhiteKey.Contains(RectangleList[i].Position))
                         {
                             if (RectangleList[i].Position <= 44)
-                                buttonlist[RectangleList[i].Position - 1].BackColor = Color.Red;
+                                buttonlist[RectangleList[i].Position - 1].BackColor = cl1;
                             else
-                                buttonlist[RectangleList[i].Position - 1].BackColor = Color.Green;
+                                buttonlist[RectangleList[i].Position - 1].BackColor = cl2;
                         }
                         else
                         {
                             if (RectangleList[i].Position <= 44)
-                                buttonlist[RectangleList[i].Position - 1].BackColor = Color.Pink;
+                                buttonlist[RectangleList[i].Position - 1].BackColor = cl3;
                             else
-                                buttonlist[RectangleList[i].Position - 1].BackColor = Color.LightGreen;
+                                buttonlist[RectangleList[i].Position - 1].BackColor = cl4;
                         }
                         RectangleList[i].Hit = true;
                     }
@@ -253,7 +261,7 @@ namespace WindowsFormsApp3
                             RectangleList[i].Move((int)RectangleList[i].YPos);
                         }
                     }
-                    if (RectangleList[i].MyRec.Y == Button_Y_Position - (4+(6*Myspeed)) && RectangleList[i].Check == true && RectangleList[i].Hit == true&&RectangleList[i].ChangeButton==false)
+                    if (RectangleList[i].MyRec.Y >= Button_Y_Position - (4+(6*Myspeed)) && RectangleList[i].Check == true && RectangleList[i].Hit == true&&RectangleList[i].ChangeButton==false)
                     {
                         if (WhiteKey.Contains(RectangleList[i].Position))
                             buttonlist[RectangleList[i].Position - 1].BackColor = Color.White;
@@ -315,7 +323,7 @@ namespace WindowsFormsApp3
                     }
 
                     //returning color of button to original color
-                    if (RectangleList[i].MyRec.Y == Button_Y_Position - 4 && RectangleList[i].Check == true && RectangleList[i].Hit == true && RectangleList[i].ChangeButton == false)
+                    if (RectangleList[i].MyRec.Y >= Button_Y_Position - 4 && RectangleList[i].Check == true && RectangleList[i].Hit == true && RectangleList[i].ChangeButton == false)
                     {
                         if (WhiteKey.Contains(RectangleList[i].Position))
                             buttonlist[RectangleList[i].Position - 1].BackColor = Color.White;
@@ -334,6 +342,8 @@ namespace WindowsFormsApp3
             if (pathcheck)
                 MakeRectangle(My, MyRectangleList, MyButton_Y_Position, MyButton_width, Myspeed);
             time += timer1.Interval; //increase the time
+            if (time >= (My.flowkeys[My.flowkeys.Count - 1].time + My.flowkeys[My.flowkeys.Count - 1].length + 2000))
+                this.Close();
             Invalidate();
         }
 
