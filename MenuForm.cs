@@ -34,8 +34,7 @@ namespace WindowsFormsApp3
                 return;
             }
             this.Hide();
-            Form1 form1 = new Form1(filepath);
-            form1.ShowDialog();
+            InterfaceFuncs.Base_Library_Call(filepath);
             this.Show();
         }
 

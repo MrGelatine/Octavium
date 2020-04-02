@@ -105,5 +105,34 @@ namespace WindowsFormsApp3
             File.Delete(inform_path);
             File.Move(dat_path + "\\temp_lib.txt", dat_path + "\\lib.txt");
         }
+        public static void Base_Library_Call(string filepath)
+        {
+            Form1 form1;
+            string path = Path.GetFullPath(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, @"..\..\"))+ @"\Resources\Backgrounds";
+            switch (Regex.Match(filepath, @"[\\]+[^\\]+.dat").Value.Remove(0, 1).Remove(Regex.Match(filepath, @"[\\]+[^\\]+.dat").Value.Remove(0, 1).Length - 4, 4))
+            {
+                case "ALESSO_HEROES":
+                    {
+                        form1 = new Form1(filepath, 1, $@"{path}\PClGumT1Lgg.jpg");
+                        break;
+                    }
+                case "Pirates_of_the_Caribbean_-_He_39_s_a_Pirate":
+                    {
+                        form1 = new Form1(filepath, 1, $@"{path}\_C1ftgzKksM.jpg");
+                        break;
+                    }
+                case "Grobber":
+                    {
+                        form1 = new Form1(filepath,1, $@"{path}\morti.jpg");
+                        break;
+                    }
+                default:
+                    {
+                        form1 = new Form1(filepath);
+                        break;
+                    }
+            }
+            form1.ShowDialog();
+        }
     }
 }
