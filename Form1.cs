@@ -59,8 +59,8 @@ namespace WindowsFormsApp3
             cl3 = c3 ?? Color.Pink;
             cl4 = c4 ?? Color.LightGreen;
             Myspeed = Speed;
-            if (image != null)
-                this.BackgroundImage = Image.FromFile(image);
+            //if (image != null)
+            //    this.BackgroundImage = Image.FromFile(image);
             InitializeComponent();
         }
 
