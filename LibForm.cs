@@ -21,6 +21,14 @@ namespace WindowsFormsApp3
 {
     public partial class LibForm : Form
     {
+        //Player
+        int time = 0;
+        MIDINotesData My;
+        private OutputDevice outDevice;
+        private int outDeviceID = 0;
+        private String CurrentSong = "";
+        private OutputDeviceDialog outDialog = new OutputDeviceDialog();
+
         //список всех треков, которые есть в галлерее(Индекс, Дата, Наименование, Длительность)
         List<Tuple<int, string, string, string>> libfileList = new List<Tuple<int, string, string, string>>();
         //Список текущих(выведенный на экране по поиску) треков(Индекс, Дата, Наименование, длительность)
@@ -41,6 +49,37 @@ namespace WindowsFormsApp3
         {
             libPath = string.Format("{0}Resources\\DataStorage", projectPath);
             InitializeComponent();
+        }
+
+        //Player
+        protected override void OnLoad(EventArgs e)
+        {
+            if (OutputDevice.DeviceCount == 0)
+            {
+                MessageBox.Show("No MIDI output devices available.", "Error!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                Close();
+            }
+            else
+            {
+                try
+                {
+                    outDevice = new OutputDevice(outDeviceID);
+
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error!",
+                        MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                    Close();
+                }
+            }
+
+            base.OnLoad(e);
         }
 
         //При загрузке формы устанавливаем цвета для элементов и выводим все треки из галлереи
@@ -244,7 +283,23 @@ namespace WindowsFormsApp3
             MenuForm fmenu = (MenuForm)this.Owner;
             if (selectedFileName != "")
                 fmenu.filepath = libPath + @"\" + selectedFileName + ".dat" ;
+            //Player
+            base.OnClosing(e);
+        }
 
+        //Player
+        protected override void OnClosed(EventArgs e)
+        {
+            timer1.Stop();
+            time = 0;
+            if (outDevice != null)
+            {
+                outDevice.Dispose();
+            }
+
+            outDialog.Dispose();
+
+            base.OnClosed(e);
         }
 
         //Добавление трека в галлерею
@@ -338,21 +393,54 @@ namespace WindowsFormsApp3
             TrackCreation.BackColor = backColor2;
             TrackCreation.ForeColor = Color.White;
         }
-
+        //Player Function
+        private void PlayingMid()
+        {
+            foreach (var x in My.flowkeys)
+            {
+                if ((x.time / (timer1.Interval) == (time / timer1.Interval)))
+                {
+                    outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, x.pos + 20, 127));
+                }
+                if ((x.time + x.length) / timer1.Interval == (time / timer1.Interval))
+                {
+                    outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, x.pos + 20, 0));
+                }
+            }
+        }
         private void PlayLabel_Click(object sender, EventArgs e)
         {
             if (selectedFileName == "")
                 return;
-            if (playing)
-            {
-                playLabel.BackgroundImage = Properties.Resources.icons8_play_96_1;
-                playing = !playing;
-            }
             else
             {
-                playLabel.BackgroundImage = Properties.Resources.icons8_pause_96_1;
-                playing = !playing;
+                //Player
+                if (selectedFileName != CurrentSong)
+                {
+                    time = 0;
+                    CurrentSong = selectedFileName;
+                }
+                My = new MIDINotesData((MIDIFuncs.UnpackDataToNote(libPath + @"\" + selectedFileName + ".dat")));
+                if (playing)
+                {
+                    timer1.Stop();
+                    playLabel.BackgroundImage = Properties.Resources.icons8_play_96_1;
+                    playing = !playing;
+                }
+                else
+                {
+                    timer1.Start();
+                    playLabel.BackgroundImage = Properties.Resources.icons8_pause_96_1;
+                    playing = !playing;
+                }
             }
+        }
+
+        //Player
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            PlayingMid();
+            time += timer1.Interval;
         }
     }
 }
