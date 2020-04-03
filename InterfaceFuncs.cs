@@ -7,7 +7,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
+using System.Drawing;
 
 namespace WindowsFormsApp3
 {
@@ -113,7 +113,7 @@ namespace WindowsFormsApp3
             {
                 case "ALESSO_HEROES":
                     {
-                        form1 = new Form1(filepath, 1, $@"{path}\PClGumT1Lgg.jpg");
+                        form1 = new Form1(filepath, 1, $@"{path}\tester.jpg",Color.Azure,Color.Tomato,Color.Violet,Color.Yellow);
                         break;
                     }
                 case "Pirates_of_the_Caribbean_-_He_39_s_a_Pirate":
