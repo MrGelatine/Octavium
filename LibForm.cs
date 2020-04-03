@@ -376,6 +376,16 @@ namespace WindowsFormsApp3
             //Сохраняем индекс нового выбранного трека, его наименование, меняем надпись текущего трека.
             selectedFileIndex = i;
             selectedFileName = libfileList[selectedFileIndex].Item3;
+
+            //Player
+            if (selectedFileName != CurrentSong)
+            {
+                time = 0;
+                timer1.Stop();
+                playLabel.BackgroundImage = Properties.Resources.icons8_play_96_1;
+                playing = false;
+                CurrentSong = selectedFileName;
+            }
             labelSongName.Text = Path.GetFileName(selectedFileName).Length > 40 ? Path.GetFileName(selectedFileName).Remove(39,Path.GetFileName(selectedFileName).Length-39)+"...": Path.GetFileName(selectedFileName);
             //Получаем элементы формы выбранного трека
             Panel trackTime = (Panel)this.Controls.Find(i.ToString() + "time", true).First();
@@ -415,11 +425,6 @@ namespace WindowsFormsApp3
             else
             {
                 //Player
-                if (selectedFileName != CurrentSong)
-                {
-                    time = 0;
-                    CurrentSong = selectedFileName;
-                }
                 My = new MIDINotesData((MIDIFuncs.UnpackDataToNote(libPath + @"\" + selectedFileName + ".dat")));
                 if (playing)
                 {
