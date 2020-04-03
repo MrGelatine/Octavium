@@ -41,7 +41,7 @@ namespace WindowsFormsApp3
         private OutputDevice outDevice;
         private int outDeviceID = 0;
         private OutputDeviceDialog outDialog = new OutputDeviceDialog();
-        public Form1(String Path = "", double Speed = 1.00, String image = "image1.jpg", Color? c1 = null, Color? c2 = null, Color? c3 = null, Color? c4 = null)
+        public Form1(String Path = "", double Speed = 1.00, String image =null, Color? c1 = null , Color? c2 = null, Color? c3 = null, Color? c4 = null)
         {
             if (Path != "")
             {
@@ -59,8 +59,8 @@ namespace WindowsFormsApp3
             cl3 = c3 ?? Color.Pink;
             cl4 = c4 ?? Color.LightGreen;
             Myspeed = Speed;
-            //if (image != null)
-            //    this.BackgroundImage = Image.FromFile(image);
+            if (image != null)
+                this.BackgroundImage = Image.FromFile(image);
             InitializeComponent();
         }
 
@@ -307,16 +307,16 @@ namespace WindowsFormsApp3
                             if (WhiteKey.Contains(RectangleList[i].Position))
                             {
                                 if (RectangleList[i].Position <= 44)
-                                    buttonlist[RectangleList[i].Position - 1].BackColor = Color.Red;
+                                    buttonlist[RectangleList[i].Position - 1].BackColor =cl1;
                                 else
-                                    buttonlist[RectangleList[i].Position - 1].BackColor = Color.Green;
+                                    buttonlist[RectangleList[i].Position - 1].BackColor = cl2;
                             }
                             else
                             {
                                 if (RectangleList[i].Position <= 44)
-                                    buttonlist[RectangleList[i].Position - 1].BackColor = Color.Pink;
+                                    buttonlist[RectangleList[i].Position - 1].BackColor = cl3;
                                 else
-                                    buttonlist[RectangleList[i].Position - 1].BackColor = Color.LightGreen;
+                                    buttonlist[RectangleList[i].Position - 1].BackColor = cl4;
                             }
                             RectangleList[i].Hit = true;
                         }
