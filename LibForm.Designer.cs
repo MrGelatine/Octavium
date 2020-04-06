@@ -303,6 +303,7 @@
             this.Text = "LibForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LibForm_FormClosing);
             this.Load += new System.EventHandler(this.LibForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LibForm_KeyDown);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.panel2.ResumeLayout(false);

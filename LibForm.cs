@@ -49,6 +49,7 @@ namespace WindowsFormsApp3
         {
             libPath = string.Format("{0}Resources\\DataStorage", projectPath);
             InitializeComponent();
+            this.KeyPreview = true;
         }
 
         //Player
@@ -143,6 +144,8 @@ namespace WindowsFormsApp3
                 pdate.Click += new EventHandler(this.TrackPanel_Click);
                 pdate.DoubleClick += new EventHandler(this.TrackPanel_DoubleClick);
                 pdate.Cursor = Cursors.Hand;
+                //(pdate as Control).KeyDown += new KeyEventHandler(TrackPanel_KeyPress);
+                //(pdate as Control).KeyPress += TrackPanel_KeyPress;
             }
             flowLayoutPanel3.Controls.Add(pdate);
             Label ldate = new Label();
@@ -157,6 +160,8 @@ namespace WindowsFormsApp3
                 ldate.Click += new EventHandler(this.TrackLabel_Click);
                 ldate.DoubleClick += new EventHandler(this.TrackLabel_DoubleClick);
                 ldate.Cursor = Cursors.Hand;
+                //(ldate as Control).KeyDown += new KeyEventHandler(TrackLabel_KeyPress);
+                //(ldate as Control).KeyPress += TrackLabel_KeyPress;
             }
             pdate.Controls.Add(ldate);
 
@@ -287,6 +292,56 @@ namespace WindowsFormsApp3
             base.OnClosing(e);
         }
 
+        //Удаление трека из списка по индексу
+        private void deleteTrack(int i)
+        {
+            //Удаляем информацию из списков curfiles и libfileList
+            foreach(Tuple<int, string, string, string> fileInfo in curfiles)
+            {
+                if (fileInfo.Item1 == i)
+                {
+                    curfiles.Remove(fileInfo);
+                    break;
+                }
+
+            }
+            foreach (Tuple<int, string, string, string> fileInfo in libfileList)
+            {
+                if (fileInfo.Item1 == i)
+                {
+                    libfileList.Remove(fileInfo);
+                    break;
+                }
+            }
+            //удаляем файл .dat
+            File.Delete(libPath + @"\" + selectedFileName + ".dat");
+            //Обновляем информацию о треках в файле lib.txt
+            InterfaceFuncs.catalog_inform_refresh(libPath + @"\lib.txt", libPath);
+
+            //Удаляем элементы формы трека
+            deletePanels(selectedFileIndex);
+
+            selectedFileIndex = -1;
+            selectedFileName = "";
+            labelSongName.Text = "";
+
+        }
+
+        //Удаляет элементы формы трека по индексу
+        private void deletePanels(int i)
+        {
+            Panel trackTimePanel = (Panel)this.Controls.Find(i.ToString() + "time", true).First();
+            Panel trackCreationPanel = (Panel)this.Controls.Find(i.ToString() + "date", true).First();
+            Panel trackNamePanel = (Panel)this.Controls.Find(i.ToString() + "name", true).First();
+            flowLayoutPanel3.Controls.Remove(trackTimePanel);
+            flowLayoutPanel3.Controls.Remove(trackCreationPanel);
+            flowLayoutPanel3.Controls.Remove(trackNamePanel);
+            trackTimePanel.Dispose();
+            trackCreationPanel.Dispose();
+            trackNamePanel.Dispose();
+
+        }
+
         //Player
         protected override void OnClosed(EventArgs e)
         {
@@ -391,10 +446,12 @@ namespace WindowsFormsApp3
             Panel trackTime = (Panel)this.Controls.Find(i.ToString() + "time", true).First();
             Panel TrackCreation = (Panel)this.Controls.Find(i.ToString() + "date", true).First();
             Panel TrackName = (Panel)this.Controls.Find(i.ToString() + "name", true).First();
+
             //фокусируемся на выбранном треке(чтобы пролистать скролл, когда треков много)
-            TrackName.Select();
+            //TrackName.Select();
             //фокусируемся на поле поиска
-            searchTextBox.Select();
+            //searchTextBox.Select();
+
             //меняем цвет выбранного трека
             trackTime.BackColor = backColor2;
             trackTime.ForeColor = Color.White;
@@ -403,6 +460,7 @@ namespace WindowsFormsApp3
             TrackCreation.BackColor = backColor2;
             TrackCreation.ForeColor = Color.White;
         }
+        
         //Player Function
         private void PlayingMid()
         {
@@ -446,6 +504,16 @@ namespace WindowsFormsApp3
         {
             PlayingMid();
             time += timer1.Interval;
+        }
+
+
+        private void LibForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (selectedFileIndex == -1)
+                return;
+            if (e.KeyCode != Keys.Delete)
+                return;
+            deleteTrack(selectedFileIndex);
         }
     }
 }
