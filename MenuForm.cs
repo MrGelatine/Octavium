@@ -14,6 +14,7 @@ namespace WindowsFormsApp3
     {
         //путь к выбранному треку
         public string filepath = "";
+        public bool starting = false;
 
         public MenuForm()
         {
@@ -28,11 +29,15 @@ namespace WindowsFormsApp3
         //Открываем форму с пианино, передав ей путь к треку как параметр
         private void BeginPictureBox_Click(object sender, EventArgs e)
         {
+            filepath = "";
             this.Hide();
-            LibForm libForm = new LibForm();
+            LibForm libForm = new LibForm(true);
             AddOwnedForm(libForm);
             libForm.ShowDialog();
-            InterfaceFuncs.Base_Library_Call(filepath);
+            if (filepath == "")
+                MessageBox.Show("необходимо выбрать трек");
+            else if (starting)
+                InterfaceFuncs.Base_Library_Call(filepath);
             this.Show();
         }
 

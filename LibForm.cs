@@ -45,9 +45,14 @@ namespace WindowsFormsApp3
         string projectPath = Path.GetFullPath(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, @"..\..\"));
         //путь к галлерее
         string libPath;
-        public LibForm()
+
+        //запуск пианино сразу после выбора трека(если вызываем форму по кнопке"Начало")
+        bool starting;
+
+        public LibForm(bool start = false)
         {
             libPath = string.Format("{0}Resources\\DataStorage", projectPath);
+            starting = start;
             InitializeComponent();
             this.KeyPreview = true;
         }
@@ -91,7 +96,7 @@ namespace WindowsFormsApp3
             this.BackColor = backColor2;
             searchTextBox.BackColor = backColor1;
             flowLayoutPanel2.BackColor = backColor2;
-            flowLayoutPanel3.BackColor = backColor1;
+            TrackListPanel.BackColor = backColor1;
             //заполняем списки curfiles и libFileList(при создании формы они одинаковы)
             GetTracksFromLib();
             //выводим треки из списка curfiles
@@ -101,7 +106,7 @@ namespace WindowsFormsApp3
         //отображаем все треки из списка curFiles
         private void ShowTracks()
         {
-            flowLayoutPanel3.Controls.Clear();
+            TrackListPanel.Controls.Clear();
             selectedFileIndex = -1;
             //Первую строку-заголовок тоже отображаю как "неактивный трек"(который нельзя выбрать)
             ShowTrack(-1, "Дата", "Название", "Время", false);
@@ -147,7 +152,7 @@ namespace WindowsFormsApp3
                 //(pdate as Control).KeyDown += new KeyEventHandler(TrackPanel_KeyPress);
                 //(pdate as Control).KeyPress += TrackPanel_KeyPress;
             }
-            flowLayoutPanel3.Controls.Add(pdate);
+            TrackListPanel.Controls.Add(pdate);
             Label ldate = new Label();
             ldate.AutoSize = true;
             ldate.Font = new Font(FontFamily.GenericSansSerif, 14);
@@ -178,7 +183,7 @@ namespace WindowsFormsApp3
                 pname.DoubleClick += new EventHandler(this.TrackPanel_DoubleClick);
                 pname.Cursor = Cursors.Hand;
             }
-            flowLayoutPanel3.Controls.Add(pname);
+            TrackListPanel.Controls.Add(pname);
             Label lname = new Label();
             lname.AutoSize = true;
             lname.Font = new Font(FontFamily.GenericSansSerif, 14);
@@ -207,7 +212,7 @@ namespace WindowsFormsApp3
                 ptime.DoubleClick += new EventHandler(this.TrackPanel_DoubleClick);
                 ptime.Cursor = Cursors.Hand;
             }
-            flowLayoutPanel3.Controls.Add(ptime);
+            TrackListPanel.Controls.Add(ptime);
             Label ltime = new Label();
             ltime.AutoSize = true;
             ltime.Font = new Font(FontFamily.GenericSansSerif, 14);
@@ -279,6 +284,7 @@ namespace WindowsFormsApp3
 
         private void BackPictureBox_Click(object sender, EventArgs e)
         {
+            starting = false;
             this.Close();
         }
 
@@ -288,6 +294,7 @@ namespace WindowsFormsApp3
             MenuForm fmenu = (MenuForm)this.Owner;
             if (selectedFileName != "")
                 fmenu.filepath = libPath + @"\" + selectedFileName + ".dat" ;
+            fmenu.starting = starting;
             //Player
             base.OnClosing(e);
         }
@@ -333,9 +340,9 @@ namespace WindowsFormsApp3
             Panel trackTimePanel = (Panel)this.Controls.Find(i.ToString() + "time", true).First();
             Panel trackCreationPanel = (Panel)this.Controls.Find(i.ToString() + "date", true).First();
             Panel trackNamePanel = (Panel)this.Controls.Find(i.ToString() + "name", true).First();
-            flowLayoutPanel3.Controls.Remove(trackTimePanel);
-            flowLayoutPanel3.Controls.Remove(trackCreationPanel);
-            flowLayoutPanel3.Controls.Remove(trackNamePanel);
+            TrackListPanel.Controls.Remove(trackTimePanel);
+            TrackListPanel.Controls.Remove(trackCreationPanel);
+            TrackListPanel.Controls.Remove(trackNamePanel);
             trackTimePanel.Dispose();
             trackCreationPanel.Dispose();
             trackNamePanel.Dispose();
@@ -511,11 +518,10 @@ namespace WindowsFormsApp3
         {
             if (selectedFileIndex == -1)
                 return;
-            if (e.KeyCode != Keys.Delete)
-                return;
-            deleteTrack(selectedFileIndex);
+            if (e.KeyCode == Keys.Delete)
+                deleteTrack(selectedFileIndex);
+            if (e.KeyCode == Keys.Enter)
+                this.Close();
         }
-
-      
     }
 }
