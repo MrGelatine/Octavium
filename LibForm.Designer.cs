@@ -187,7 +187,7 @@
             this.addPanel.Name = "addPanel";
             this.addPanel.Size = new System.Drawing.Size(58, 52);
             this.addPanel.TabIndex = 3;
-            this.addPanel.Click += new System.EventHandler(this.Panel4_Click);
+            this.addPanel.Click += new System.EventHandler(this.AddPanel_Click);
             // 
             // flowLayoutPanel2
             // 

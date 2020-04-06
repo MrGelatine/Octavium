@@ -358,10 +358,10 @@ namespace WindowsFormsApp3
         }
 
         //Добавление трека в галлерею
-        private void Panel4_Click(object sender, EventArgs e)
+        private void AddPanel_Click(object sender, EventArgs e)
         {
             //получаем данные трека(если файл не выбран, то получим тройку пустых строк)
-            Tuple<string, string,string> fileData = InterfaceFuncs.GetAndAddData(projectPath + @"\\sheet.exe", projectPath + @"\\Gallery\\Sheets", libPath);
+            Tuple<string, string, string> fileData = InterfaceFuncs.GetAndAddData(projectPath + @"\\sheet.exe", projectPath + @"\\Gallery\\Sheets", libPath);
             if (fileData.Item1 == "")
                 return;
             //проверяем, что трека с таким названием нету
@@ -515,5 +515,7 @@ namespace WindowsFormsApp3
                 return;
             deleteTrack(selectedFileIndex);
         }
+
+      
     }
 }

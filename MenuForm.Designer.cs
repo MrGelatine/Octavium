@@ -32,13 +32,11 @@
             this.BeginPictureBox = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.BeginPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuPanel.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +58,7 @@
             // 
             this.pictureBox5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox5.Image = global::WindowsFormsApp3.Properties.Resources.ExitMenu;
-            this.pictureBox5.Location = new System.Drawing.Point(0, 165);
+            this.pictureBox5.Location = new System.Drawing.Point(0, 110);
             this.pictureBox5.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(250, 55);
@@ -81,18 +79,6 @@
             this.pictureBox3.TabIndex = 2;
             this.pictureBox3.TabStop = false;
             this.pictureBox3.Click += new System.EventHandler(this.PictureBox3_Click);
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox4.Image = global::WindowsFormsApp3.Properties.Resources.SettingsMenu;
-            this.pictureBox4.Location = new System.Drawing.Point(0, 110);
-            this.pictureBox4.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(250, 55);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 3;
-            this.pictureBox4.TabStop = false;
             // 
             // pictureBox1
             // 
@@ -117,7 +103,6 @@
             this.menuPanel.BackColor = System.Drawing.Color.Transparent;
             this.menuPanel.Controls.Add(this.pictureBox5);
             this.menuPanel.Controls.Add(this.BeginPictureBox);
-            this.menuPanel.Controls.Add(this.pictureBox4);
             this.menuPanel.Controls.Add(this.pictureBox3);
             this.menuPanel.Location = new System.Drawing.Point(525, 92);
             this.menuPanel.Margin = new System.Windows.Forms.Padding(0);
@@ -140,7 +125,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.BeginPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuPanel.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -153,7 +137,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox BeginPictureBox;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Panel menuPanel;
     }

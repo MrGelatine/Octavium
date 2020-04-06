@@ -28,12 +28,10 @@ namespace WindowsFormsApp3
         //Открываем форму с пианино, передав ей путь к треку как параметр
         private void BeginPictureBox_Click(object sender, EventArgs e)
         {
-            if (filepath == "")
-            {
-                MessageBox.Show("Необходимо выбрать трек из галлереи");
-                return;
-            }
             this.Hide();
+            LibForm libForm = new LibForm();
+            AddOwnedForm(libForm);
+            libForm.ShowDialog();
             InterfaceFuncs.Base_Library_Call(filepath);
             this.Show();
         }
