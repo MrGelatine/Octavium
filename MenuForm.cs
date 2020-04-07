@@ -34,9 +34,7 @@ namespace WindowsFormsApp3
             LibForm libForm = new LibForm(true);
             AddOwnedForm(libForm);
             libForm.ShowDialog();
-            if (filepath == "")
-                MessageBox.Show("необходимо выбрать трек");
-            else if (starting)
+            if (starting && filepath != "")
                 InterfaceFuncs.Base_Library_Call(filepath);
             this.Show();
         }

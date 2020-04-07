@@ -512,7 +512,7 @@ namespace WindowsFormsApp3
         {
             if (selectedFileIndex == -1)
                 return;
-            if (e.KeyCode == Keys.Delete)
+            if (e.KeyCode == Keys.Delete && ! starting)
                 deleteTrack(selectedFileIndex);
             if (e.KeyCode == Keys.Enter)
                 this.Close();
