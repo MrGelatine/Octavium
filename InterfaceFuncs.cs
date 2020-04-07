@@ -75,6 +75,7 @@ namespace WindowsFormsApp3
         {
             return s.Contains(".mid");
         }
+        //Обновляет информацию в файла с названиями композиций
         public static void catalog_inform_refresh(string inform_path, string dat_path)
         {
             //File.Create(dat_path + "\\temp_lib.txt");
@@ -111,19 +112,44 @@ namespace WindowsFormsApp3
             string path = Path.GetFullPath(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, @"..\..\"))+ @"\Resources\Backgrounds";
             switch (Regex.Match(filepath, @"[\\]+[^\\]+.dat").Value.Remove(0, 1).Remove(Regex.Match(filepath, @"[\\]+[^\\]+.dat").Value.Remove(0, 1).Length - 4, 4))
             {
-                case "ALESSO_HEROES":
+                case "Денис Шишов":
                     {
-                        form1 = new Form1(filepath, 1, $@"{path}\tester.jpg",Color.Azure,Color.Tomato,Color.Violet,Color.Yellow);
+                        form1 = new Form1(filepath, 1, $@"{path}\bloom.jpg", Color.Yellow, Color.Yellow, Color.DarkOrange, Color.DarkOrange);
                         break;
                     }
-                case "Pirates_of_the_Caribbean_-_He_39_s_a_Pirate":
+                case "Дмитрий Иващенко":
                     {
-                        form1 = new Form1(filepath, 1, $@"{path}\_C1ftgzKksM.jpg");
+                        form1 = new Form1(filepath, 1, $@"{path}\blue.jpg", Color.DeepSkyBlue, Color.DeepSkyBlue, Color.MidnightBlue, Color.MidnightBlue);
                         break;
                     }
-                case "Grobber":
+                case "Артем Шевердин":
                     {
-                        form1 = new Form1(filepath,1, $@"{path}\morti.jpg");
+                        form1 = new Form1(filepath, 1, $@"{path}\hero.jpg",Color.IndianRed,Color.IndianRed,Color.DarkSlateGray,Color.DarkSlateGray);
+                        break;
+                    }
+                case "Ахмед Хоссайни":
+                    {
+                        form1 = new Form1(filepath, 1, $@"{path}\pirates.jpg",Color.Firebrick,Color.Firebrick,Color.Chocolate,Color.Chocolate);
+                        break;
+                    }
+                case "Андрей Белоусов":
+                    {
+                        form1 = new Form1(filepath,1, $@"{path}\skyrim.jpg",Color.DarkGray,Color.DarkGray,Color.DarkSlateGray,Color.DarkSlateGray);
+                        break;
+                    }
+                case "Александр Данильченко":
+                    {
+                        form1 = new Form1(filepath, 1, $@"{path}\coat of arm.jpg", Color.DarkGray, Color.DarkRed, Color.Crimson, Color.Gold);
+                        break;
+                    }
+                case "anonymous":
+                    {
+                        form1 = new Form1(filepath, 1, $@"{path}\school.jpg", Color.ForestGreen, Color.ForestGreen, Color.DarkGreen, Color.DarkGreen);
+                        break;
+                    }
+                case "Иван Игнатенко":
+                    {
+                        form1 = new Form1(filepath, 1, $@"{path}\piano.jpg", Color.Black, Color.Black, Color.Black, Color.Black);
                         break;
                     }
                 default:
