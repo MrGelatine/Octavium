@@ -31,7 +31,7 @@ namespace WindowsFormsApp3
         {
             filepath = "";
             this.Hide();
-            LibForm libForm = new LibForm(true);
+            LibForm libForm = new LibForm(false);
             AddOwnedForm(libForm);
             libForm.ShowDialog();
             if (starting && filepath != "")

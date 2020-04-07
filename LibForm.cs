@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -11,6 +12,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Sanford.Multimedia.Midi;
 using Sanford.Multimedia.Midi.UI;
+
 using Melanchall.DryWetMidi.Interaction;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.MusicTheory;
@@ -37,6 +39,7 @@ namespace WindowsFormsApp3
         int selectedFileIndex = -1;
         //наименование выбранного трека
         string selectedFileName = "";
+        int selectedFileDuration = 0;
         //прослушивается ли трек
         bool playing = false;
         Color backColor1 = Color.FromArgb(46, 46, 46);
@@ -46,16 +49,19 @@ namespace WindowsFormsApp3
         //путь к галлерее
         string libPath;
 
-        //запуск пианино сразу после выбора трека(если вызываем форму по кнопке"Начало")
-        bool starting;
+        //запуск пианино сразу после выбора трека
+        bool starting = false;
 
-        public LibForm(bool start = false)
+        //форма открыта по кнопке "Галлерея", а не по кнопке "Начало"
+        bool library = true;
+
+        public LibForm(bool lib = true)
         {
             libPath = string.Format("{0}Resources\\DataStorage", projectPath);
-            starting = start;
+            library = lib;
             InitializeComponent();
             this.KeyPreview = true;
-            if (starting)
+            if (!lib)
             {
                 playLabel.Visible = false;
                 addPanel.Visible = false;
@@ -142,7 +148,7 @@ namespace WindowsFormsApp3
         //activeHandler - можно ли будет выбрать этот трек(поскольку первая строка-заголовок тоже выводится этой функцией)
         private void ShowTrack(int i, string date, string name, string time, bool activeHandler = true)
         {
-            if (starting)
+            if (!library)
             {
                 createTrackPanel(i, "date", date, 190, 43, activeHandler);
                 createTrackPanel(i, "name", name, 600, 43, activeHandler);
@@ -183,7 +189,8 @@ namespace WindowsFormsApp3
             if (activeHandler)
             {
                 panel.Click += new EventHandler(this.TrackPanel_Click);
-                panel.DoubleClick += new EventHandler(this.TrackPanel_DoubleClick);
+                if (!library)
+                    panel.DoubleClick += new EventHandler(this.TrackPanel_DoubleClick);
                 panel.Cursor = Cursors.Hand;
             }
             TrackListPanel.Controls.Add(panel);
@@ -197,7 +204,8 @@ namespace WindowsFormsApp3
             if (activeHandler)
             {
                 label.Click += new EventHandler(this.TrackLabel_Click);
-                label.DoubleClick += new EventHandler(this.TrackLabel_DoubleClick);
+                if (!library)
+                    label.DoubleClick += new EventHandler(this.TrackLabel_DoubleClick);
                 label.Cursor = Cursors.Hand;
             }
             panel.Controls.Add(label);
@@ -245,6 +253,7 @@ namespace WindowsFormsApp3
                           EventArgs e)
         {
             TrackPanel_Click(sender, e);
+            starting = true;
             this.Close();
         }
 
@@ -252,6 +261,7 @@ namespace WindowsFormsApp3
                            EventArgs e)
         {
             TrackLabel_Click(sender, e);
+            starting = true;
             this.Close();
         }
 
@@ -273,7 +283,6 @@ namespace WindowsFormsApp3
         }
         private void BackPictureBox_Click(object sender, EventArgs e)
         {
-            starting = false;
             this.Close();
         }
 
@@ -429,10 +438,18 @@ namespace WindowsFormsApp3
             prevTrackCreation.ForeColor = Color.Black;
             prevTrackName.BackColor = Color.White;
             prevTrackName.ForeColor = Color.Black;
-            //Сохраняем индекс нового выбранного трека, его наименование, меняем надпись текущего трека.
+            //Сохраняем индекс нового выбранного трека, его наименование и длительность, меняем надпись текущего трека.
             selectedFileIndex = i;
             selectedFileName = libfileList[selectedFileIndex].Item3;
-
+            try
+            {
+                DateTime Duration = DateTime.ParseExact(libfileList[selectedFileIndex].Item4, "m:s", new CultureInfo("en-US"));
+                selectedFileDuration = (Duration.Minute * 60 + Duration.Second) * 1000;
+            }
+            catch (FormatException expt)
+            {
+                Console.WriteLine(expt.Message);
+            }
             //Player
             if (selectedFileName != CurrentSong)
             {
@@ -505,6 +522,13 @@ namespace WindowsFormsApp3
         {
             PlayingMid();
             time += timer1.Interval;
+            if (time > selectedFileDuration)
+            {
+                time = 0;
+                timer1.Stop();
+                playLabel.BackgroundImage = Properties.Resources.icons8_play_96_1;
+                playing = false;
+            }
         }
 
 
@@ -512,10 +536,13 @@ namespace WindowsFormsApp3
         {
             if (selectedFileIndex == -1)
                 return;
-            if (e.KeyCode == Keys.Delete && ! starting)
+            if (e.KeyCode == Keys.Delete && library)
                 deleteTrack(selectedFileIndex);
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter && !library)
+            {
+                starting = true;
                 this.Close();
+            }
         }
     }
 }
