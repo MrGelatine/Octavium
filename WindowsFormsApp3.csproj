@@ -183,5 +183,11 @@
   <ItemGroup>
     <None Include="Resources\songNameBox.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trashCan.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trashCan.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

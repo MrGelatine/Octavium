@@ -55,6 +55,12 @@ namespace WindowsFormsApp3
             starting = start;
             InitializeComponent();
             this.KeyPreview = true;
+            if (starting)
+            {
+                playLabel.Visible = false;
+                addPanel.Visible = false;
+                labelSongName.Location = new Point(28, -2);
+            }
         }
 
         //Player
@@ -136,98 +142,65 @@ namespace WindowsFormsApp3
         //activeHandler - можно ли будет выбрать этот трек(поскольку первая строка-заголовок тоже выводится этой функцией)
         private void ShowTrack(int i, string date, string name, string time, bool activeHandler = true)
         {
-            //отображаем панель с датой
-            Panel pdate = new Panel();
+            if (starting)
+            {
+                createTrackPanel(i, "date", date, 190, 43, activeHandler);
+                createTrackPanel(i, "name", name, 600, 43, activeHandler);
+                createTrackPanel(i, "time", time, 200, 43, activeHandler);
+            }
+            else
+            {
+                createTrackPanel(i, "date", date, 150, 43, activeHandler);
+                createTrackPanel(i, "name", name, 590, 43, activeHandler);
+                createTrackPanel(i, "time", time, 190, 43, activeHandler);
+                //отображаем панель с иконкой удаления
+                if (activeHandler)
+                {
+                    Panel pdel = new Panel();
+                    pdel.Name = i.ToString() + "del";
+                    pdel.Size = new Size(45, 43);
+                    pdel.Location = new Point(0, 0);
+                    pdel.Margin = new Padding(5);
+                    pdel.Cursor = Cursors.Hand;
+                    pdel.BackgroundImage = Properties.Resources.trashCan;
+                    pdel.BackgroundImageLayout = ImageLayout.Stretch;
+                    pdel.Click += new EventHandler(this.deletePanel_Click);
+                    TrackListPanel.Controls.Add(pdel);
+                }
+            }
+
+        }
+
+        void createTrackPanel(int i, string name, string text, int w, int h, bool activeHandler)
+        {
+            Panel panel = new Panel();
             //в наименовании элементов формы прописываем индекс трека
-            pdate.Name = i.ToString() + "date";
-            pdate.Size = new Size(200, 43);
-            pdate.Location = new Point(0, 0);
-            pdate.BackColor = Color.White;
-            pdate.Margin = new Padding(5);
+            panel.Name = i.ToString() + name;
+            panel.Size = new Size(w, h);
+            panel.Location = new Point(0, 0);
+            panel.BackColor = Color.White;
+            panel.Margin = new Padding(5);
             if (activeHandler)
             {
-                pdate.Click += new EventHandler(this.TrackPanel_Click);
-                pdate.DoubleClick += new EventHandler(this.TrackPanel_DoubleClick);
-                pdate.Cursor = Cursors.Hand;
-                //(pdate as Control).KeyDown += new KeyEventHandler(TrackPanel_KeyPress);
-                //(pdate as Control).KeyPress += TrackPanel_KeyPress;
+                panel.Click += new EventHandler(this.TrackPanel_Click);
+                panel.DoubleClick += new EventHandler(this.TrackPanel_DoubleClick);
+                panel.Cursor = Cursors.Hand;
             }
-            TrackListPanel.Controls.Add(pdate);
-            Label ldate = new Label();
-            ldate.AutoSize = true;
-            ldate.Font = new Font(FontFamily.GenericSansSerif, 14);
-            ldate.Name = i.ToString() + "ldate";
-            ldate.Text = date;
-            ldate.Location = new Point(25, 9);
-            ldate.Margin = new Padding(25);
+            TrackListPanel.Controls.Add(panel);
+            Label label = new Label();
+            label.AutoSize = true;
+            label.Font = new Font(FontFamily.GenericSansSerif, 14);
+            label.Name = i.ToString() + "l" + name;
+            label.Text = text;
+            label.Location = new Point(25, 9);
+            label.Margin = new Padding(25);
             if (activeHandler)
             {
-                ldate.Click += new EventHandler(this.TrackLabel_Click);
-                ldate.DoubleClick += new EventHandler(this.TrackLabel_DoubleClick);
-                ldate.Cursor = Cursors.Hand;
-                //(ldate as Control).KeyDown += new KeyEventHandler(TrackLabel_KeyPress);
-                //(ldate as Control).KeyPress += TrackLabel_KeyPress;
+                label.Click += new EventHandler(this.TrackLabel_Click);
+                label.DoubleClick += new EventHandler(this.TrackLabel_DoubleClick);
+                label.Cursor = Cursors.Hand;
             }
-            pdate.Controls.Add(ldate);
-
-            //отображаем панель с наименованием
-            Panel pname = new Panel();
-            pname.Name = i.ToString() + "name";
-            pname.Size = new Size(589, 43);
-            pname.Location = new Point(0, 0);
-            pname.BackColor = Color.White;
-            pname.Margin = new Padding(5);
-            if (activeHandler)
-            {
-                pname.Click += new EventHandler(this.TrackPanel_Click);
-                pname.DoubleClick += new EventHandler(this.TrackPanel_DoubleClick);
-                pname.Cursor = Cursors.Hand;
-            }
-            TrackListPanel.Controls.Add(pname);
-            Label lname = new Label();
-            lname.AutoSize = true;
-            lname.Font = new Font(FontFamily.GenericSansSerif, 14);
-            lname.Name = i.ToString() + "lname";
-            lname.Text = name;
-            lname.Location = new Point(25, 9);
-            lname.Margin = new Padding(25);
-            if (activeHandler)
-            {
-                lname.Click += new EventHandler(this.TrackLabel_Click);
-                lname.DoubleClick += new EventHandler(this.TrackLabel_DoubleClick);
-                lname.Cursor = Cursors.Hand;
-            }
-            pname.Controls.Add(lname);
-
-            //отображаем панель с длительностью
-            Panel ptime = new Panel();
-            ptime.Name = i.ToString() + "time";
-            ptime.Size = new Size(198, 43);
-            ptime.Location = new Point(0, 0);
-            ptime.BackColor = Color.White;
-            ptime.Margin = new Padding(5);
-            if (activeHandler)
-            {
-                ptime.Click += new EventHandler(this.TrackPanel_Click);
-                ptime.DoubleClick += new EventHandler(this.TrackPanel_DoubleClick);
-                ptime.Cursor = Cursors.Hand;
-            }
-            TrackListPanel.Controls.Add(ptime);
-            Label ltime = new Label();
-            ltime.AutoSize = true;
-            ltime.Font = new Font(FontFamily.GenericSansSerif, 14);
-            ltime.Name = i.ToString() + "ltime";
-            ltime.Text = time;
-            ltime.Location = new Point(25, 9);
-            ltime.Margin = new Padding(25);
-            if (activeHandler)
-            {
-                ltime.Click += new EventHandler(this.TrackLabel_Click);
-                ltime.DoubleClick += new EventHandler(this.TrackLabel_DoubleClick);
-                ltime.Cursor = Cursors.Hand;
-            }
-            ptime.Controls.Add(ltime);
-
+            panel.Controls.Add(label);
         }
 
         //срабатывает при нажатии на панель трека из списка
@@ -282,6 +255,22 @@ namespace WindowsFormsApp3
             this.Close();
         }
 
+        void deletePanel_Click(Object sender, EventArgs e)
+        {
+            Panel senderPanel = (Panel)sender;
+            //получаем индекс трека в списках libFileList и curFiles
+            string indexString = senderPanel.Name.Substring(0, senderPanel.Name.Length - 3);
+            try
+            {
+                int i = Int32.Parse(indexString);
+                //вызываем функцию выбора трека по индексу
+                deleteTrack(i);
+            }
+            catch (FormatException expt)
+            {
+                Console.WriteLine(expt.Message);
+            }
+        }
         private void BackPictureBox_Click(object sender, EventArgs e)
         {
             starting = false;
@@ -302,11 +291,13 @@ namespace WindowsFormsApp3
         //Удаление трека из списка по индексу
         private void deleteTrack(int i)
         {
+            string filename = "";
             //Удаляем информацию из списков curfiles и libfileList
             foreach(Tuple<int, string, string, string> fileInfo in curfiles)
             {
                 if (fileInfo.Item1 == i)
                 {
+                    filename = fileInfo.Item3;
                     curfiles.Remove(fileInfo);
                     break;
                 }
@@ -321,12 +312,12 @@ namespace WindowsFormsApp3
                 }
             }
             //удаляем файл .dat
-            File.Delete(libPath + @"\" + selectedFileName + ".dat");
+            File.Delete(libPath + @"\" + filename + ".dat");
             //Обновляем информацию о треках в файле lib.txt
             InterfaceFuncs.catalog_inform_refresh(libPath + @"\lib.txt", libPath);
 
             //Удаляем элементы формы трека
-            deletePanels(selectedFileIndex);
+            deletePanels(i);
 
             selectedFileIndex = -1;
             selectedFileName = "";
@@ -340,12 +331,15 @@ namespace WindowsFormsApp3
             Panel trackTimePanel = (Panel)this.Controls.Find(i.ToString() + "time", true).First();
             Panel trackCreationPanel = (Panel)this.Controls.Find(i.ToString() + "date", true).First();
             Panel trackNamePanel = (Panel)this.Controls.Find(i.ToString() + "name", true).First();
+            Panel delPanel = (Panel)this.Controls.Find(i.ToString() + "del", true).First();
             TrackListPanel.Controls.Remove(trackTimePanel);
             TrackListPanel.Controls.Remove(trackCreationPanel);
             TrackListPanel.Controls.Remove(trackNamePanel);
+            TrackListPanel.Controls.Remove(delPanel);
             trackTimePanel.Dispose();
             trackCreationPanel.Dispose();
             trackNamePanel.Dispose();
+            delPanel.Dispose();
 
         }
 

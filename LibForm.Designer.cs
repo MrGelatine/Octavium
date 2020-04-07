@@ -29,15 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LibForm));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.panelBack = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.labelSongName = new System.Windows.Forms.Label();
-            this.playLabel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.searchTextBox = new System.Windows.Forms.RichTextBox();
-            this.addPanel = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.TrackListPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -48,15 +41,24 @@
             this.label4 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelBack = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.labelSongName = new System.Windows.Forms.Label();
+            this.playLabel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.searchTextBox = new System.Windows.Forms.RichTextBox();
+            this.addPanel = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.playLabel.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.TrackListPanel.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.playLabel.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -72,6 +74,120 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1084, 72);
             this.flowLayoutPanel1.TabIndex = 0;
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.AutoSize = true;
+            this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.flowLayoutPanel2.Controls.Add(this.TrackListPanel);
+            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 72);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(1084, 389);
+            this.flowLayoutPanel2.TabIndex = 1;
+            // 
+            // TrackListPanel
+            // 
+            this.TrackListPanel.AutoScroll = true;
+            this.TrackListPanel.Controls.Add(this.panel5);
+            this.TrackListPanel.Controls.Add(this.panel6);
+            this.TrackListPanel.Controls.Add(this.panel7);
+            this.TrackListPanel.Controls.Add(this.panel1);
+            this.TrackListPanel.Location = new System.Drawing.Point(25, 25);
+            this.TrackListPanel.Margin = new System.Windows.Forms.Padding(25);
+            this.TrackListPanel.Name = "TrackListPanel";
+            this.TrackListPanel.Size = new System.Drawing.Size(1038, 330);
+            this.TrackListPanel.TabIndex = 1;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.White;
+            this.panel5.Controls.Add(this.label2);
+            this.panel5.Location = new System.Drawing.Point(5, 5);
+            this.panel5.Margin = new System.Windows.Forms.Padding(5);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(208, 43);
+            this.panel5.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(60, 9);
+            this.label2.Margin = new System.Windows.Forms.Padding(25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 24);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Дата";
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.White;
+            this.panel6.Controls.Add(this.label3);
+            this.panel6.Location = new System.Drawing.Point(223, 5);
+            this.panel6.Margin = new System.Windows.Forms.Padding(5);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(589, 43);
+            this.panel6.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(25, 9);
+            this.label3.Margin = new System.Windows.Forms.Padding(25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(97, 24);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Название";
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.White;
+            this.panel7.Controls.Add(this.label4);
+            this.panel7.Location = new System.Drawing.Point(822, 5);
+            this.panel7.Margin = new System.Windows.Forms.Padding(5);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(140, 43);
+            this.panel7.TabIndex = 2;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(10, 9);
+            this.label4.Margin = new System.Windows.Forms.Padding(25);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 24);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Время";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 15;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panel1.Location = new System.Drawing.Point(972, 5);
+            this.panel1.Margin = new System.Windows.Forms.Padding(5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(44, 43);
+            this.panel1.TabIndex = 6;
             // 
             // panelBack
             // 
@@ -189,107 +305,6 @@
             this.addPanel.TabIndex = 3;
             this.addPanel.Click += new System.EventHandler(this.AddPanel_Click);
             // 
-            // flowLayoutPanel2
-            // 
-            this.flowLayoutPanel2.AutoSize = true;
-            this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.flowLayoutPanel2.Controls.Add(this.TrackListPanel);
-            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 72);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(1084, 389);
-            this.flowLayoutPanel2.TabIndex = 1;
-            // 
-            // TrackListPanel
-            // 
-            this.TrackListPanel.AutoScroll = true;
-            this.TrackListPanel.Controls.Add(this.panel5);
-            this.TrackListPanel.Controls.Add(this.panel6);
-            this.TrackListPanel.Controls.Add(this.panel7);
-            this.TrackListPanel.Location = new System.Drawing.Point(25, 25);
-            this.TrackListPanel.Margin = new System.Windows.Forms.Padding(25);
-            this.TrackListPanel.Name = "TrackListPanel";
-            this.TrackListPanel.Size = new System.Drawing.Size(1038, 330);
-            this.TrackListPanel.TabIndex = 1;
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.Color.White;
-            this.panel5.Controls.Add(this.label2);
-            this.panel5.Location = new System.Drawing.Point(5, 5);
-            this.panel5.Margin = new System.Windows.Forms.Padding(5);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(200, 43);
-            this.panel5.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(25, 9);
-            this.label2.Margin = new System.Windows.Forms.Padding(25);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 24);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Дата";
-            // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.Color.White;
-            this.panel6.Controls.Add(this.label3);
-            this.panel6.Location = new System.Drawing.Point(215, 5);
-            this.panel6.Margin = new System.Windows.Forms.Padding(5);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(589, 43);
-            this.panel6.TabIndex = 1;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(25, 9);
-            this.label3.Margin = new System.Windows.Forms.Padding(25);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(97, 24);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Название";
-            // 
-            // panel7
-            // 
-            this.panel7.BackColor = System.Drawing.Color.White;
-            this.panel7.Controls.Add(this.label4);
-            this.panel7.Location = new System.Drawing.Point(814, 5);
-            this.panel7.Margin = new System.Windows.Forms.Padding(5);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(198, 43);
-            this.panel7.TabIndex = 2;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(25, 9);
-            this.label4.Margin = new System.Windows.Forms.Padding(25);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 24);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Время";
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 15;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // LibForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -306,11 +321,6 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LibForm_KeyDown);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.playLabel.ResumeLayout(false);
-            this.playLabel.PerformLayout();
-            this.panel3.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
             this.TrackListPanel.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
@@ -319,6 +329,11 @@
             this.panel6.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.playLabel.ResumeLayout(false);
+            this.playLabel.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -345,5 +360,6 @@
         private System.Windows.Forms.Panel playLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
