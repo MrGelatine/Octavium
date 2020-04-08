@@ -7,7 +7,7 @@
     <ProjectGuid>{C651EEA9-C6FC-4C9C-B329-9EB016ACD779}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>WindowsFormsApp3</RootNamespace>
-    <AssemblyName>WindowsFormsApp3</AssemblyName>
+    <AssemblyName>Octavium</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,6 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo-48.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Melanchall.DryWetMidi, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -188,6 +191,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\trashCan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logo-48.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
