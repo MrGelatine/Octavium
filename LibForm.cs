@@ -531,9 +531,13 @@ namespace WindowsFormsApp3
             }
         }
 
-
+        //"Горячие клавишы" галереи
         private void LibForm_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Enter)
+            {
+                AddPanel_Click(sender, e);
+            }
             if (selectedFileIndex == -1)
                 return;
             if (e.KeyCode == Keys.Delete && library)
