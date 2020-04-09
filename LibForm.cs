@@ -542,11 +542,11 @@ namespace WindowsFormsApp3
                 return;
             if (e.KeyCode == Keys.Delete && library)
                 deleteTrack(selectedFileIndex);
-            if (e.KeyCode == Keys.Enter && !library)
+            /*if (e.KeyCode == Keys.Enter && !library)
             {
                 starting = true;
                 this.Close();
-            }
+            }*/
         }
     }
 }
