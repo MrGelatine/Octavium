@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+using System.Text.RegularExpressions;
 using Melanchall.DryWetMidi.Interaction;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.MusicTheory;
@@ -108,7 +115,7 @@ namespace WindowsFormsApp3
             }
         }
         //Возвращает список информации для падающих клавиш из запакованного файла
-        public static List<FlowKeyData> UnpackDataToNote(string path)
+        public static List<FlowKeyData> UnpackDataToNote(string path) 
         {
             var res = new List<FlowKeyData>();
             using (var fl = new BinaryReader(File.Open(path, FileMode.Open)))
@@ -124,22 +131,23 @@ namespace WindowsFormsApp3
         //Возвращает длины трека из файла
         public static string GetDuration(string path)
         {
-            var t = MidiFile.Read(path).GetDuration<MetricTimeSpan>();
-            if (t.Hours == 0)
-            {
-                if (t.Minutes == 0)
+
+                var t = MidiFile.Read(path).GetDuration<MetricTimeSpan>();
+                if (t.Hours == 0)
                 {
-                    return t.Seconds.ToString();
+                    if (t.Minutes == 0)
+                    {
+                        return t.Seconds.ToString();
+                    }
+                    else
+                    {
+                        return t.Minutes.ToString() + ':' + (t.Seconds).ToString();
+                    }
                 }
                 else
                 {
-                    return t.Minutes.ToString() + ':' + (t.Seconds).ToString();
+                    return t.Hours + ':' + (t.Hours * 60 - t.Minutes).ToString() + ':' + (t.Seconds - t.Hours * 3600 - t.Minutes * 60).ToString();
                 }
-            }
-            else
-            {
-                return t.Hours + ':' + (t.Hours * 60 - t.Minutes).ToString() + ':' + (t.Seconds - t.Hours * 3600 - t.Minutes * 60).ToString();
-            }
         }
     }
 }

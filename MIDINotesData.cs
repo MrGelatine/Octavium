@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+using System.Text.RegularExpressions;
 using Melanchall.DryWetMidi.Interaction;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.MusicTheory;
@@ -19,19 +26,26 @@ namespace WindowsFormsApp3
         public uint count;
         public MIDINotesData(string path)
         {
-            this.flowkeys = new List<FlowKeyData>();
-            var midifile = MidiFile.Read(path);
-            var tempomap = midifile.GetTempoMap();
-            foreach (var chunk in midifile.Chunks)
+            try
             {
-                using (var notesManager = new NotesManager(((TrackChunk)chunk).Events))
+                this.flowkeys = new List<FlowKeyData>();
+                var midifile = MidiFile.Read(path);
+                var tempomap = midifile.GetTempoMap();
+                foreach (var chunk in midifile.Chunks)
                 {
-                    foreach (var note in notesManager.Notes)
+                    using (var notesManager = new NotesManager(((TrackChunk)chunk).Events))
                     {
-                        count++;
-                        this.flowkeys.Add(new FlowKeyData(note, tempomap));
+                        foreach (var note in notesManager.Notes)
+                        {
+                            count++;
+                            this.flowkeys.Add(new FlowKeyData(note, tempomap));
+                        }
                     }
                 }
+            }
+            catch(NotEnoughBytesException e)
+            {
+                throw new NotEnoughBytesException();
             }
         }
         public MIDINotesData(List<FlowKeyData> data)

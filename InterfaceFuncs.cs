@@ -8,6 +8,14 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Globalization;
+using System.ComponentModel;
+using System.Data;
+using Melanchall.DryWetMidi.Interaction;
+using Melanchall.DryWetMidi.Core;
+using Melanchall.DryWetMidi.MusicTheory;
+using Melanchall.DryWetMidi.Tools;
+using Melanchall.DryWetMidi;
 
 namespace WindowsFormsApp3
 {
@@ -28,8 +36,15 @@ namespace WindowsFormsApp3
                         throw new FormatException("Выбранный файл не является midi!");
                     }
                     //CreateSheet(engien_path, midi_data_path, sheet_path);
-                    MIDIFuncs.SaveToData(new MIDINotesData(midi_data_path), $@"{data_storage_path}\{InterfaceFuncs.GetFileName(midi_data_path)}");
-                    return Tuple.Create(GetDate(), GetFileName(midi_data_path), MIDIFuncs.GetDuration(midi_data_path));
+                    try
+                    {
+                        MIDIFuncs.SaveToData(new MIDINotesData(midi_data_path), $@"{data_storage_path}\{InterfaceFuncs.GetFileName(midi_data_path)}");
+                        return Tuple.Create(GetDate(), GetFileName(midi_data_path), MIDIFuncs.GetDuration(midi_data_path));
+                    }
+                    catch(NotEnoughBytesException e)
+                    {
+                        MessageBox.Show("Входной файл имеет недопустимую для обработки внутреннюю конфигурацию", e.Message, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
                 }
             }
             return Tuple.Create("", "", "");
