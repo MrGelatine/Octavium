@@ -16,7 +16,7 @@ namespace WindowsFormsApp3
     public partial class Form1 : Form
     {
         List<Button> buttonlist = new List<Button>();
-        double Myspeed ;
+        double Myspeed=1.00 ;
         List<int> WhiteKey = new List<int> { 1, 3, 4, 6, 8, 9, 11, 13, 15, 16, 18, 20, 21, 23, 25, 27, 28, 30, 32, 33, 35, 37, 39, 40, 42, 44, 45, 47, 49, 51, 52, 54, 56, 57, 59, 61, 63, 64, 66, 68, 69, 71, 73, 75, 76, 78, 80, 81, 83, 85, 87, 88 };
         List<int> LeftBlackKey = new List<int> { 5, 10, 17, 22, 29, 34, 41, 46, 53, 58, 65, 70, 77, 82 };
         List<int> RightBlackKey = new List<int> { 2, 7, 14, 19, 26, 31, 38, 43, 50, 55, 62, 67, 74, 79, 86 };
@@ -34,7 +34,7 @@ namespace WindowsFormsApp3
         Color cl2;
         Color cl3;
         Color cl4;
-
+        double oldspeed = 1.00;
         List<MyRectangle> MyRectangleList = new List<MyRectangle>();
 
         int time = 0; //Golbal Time 
@@ -47,8 +47,6 @@ namespace WindowsFormsApp3
             {
                 My = new MIDINotesData(MIDIFuncs.UnpackDataToNote(Path));
                 pathcheck = true;
-                if ((int)My.flowkeys[0].time > 1000)
-                    time = (int)My.flowkeys[0].time - 1000;
             }
             red = new System.Drawing.SolidBrush(c1 ?? Color.Red);
             green = new System.Drawing.SolidBrush(c2 ?? Color.Green);
@@ -126,7 +124,7 @@ namespace WindowsFormsApp3
             //Loop For Making Rectangles 
             foreach (var x in M.flowkeys)
             {
-                if ((int)((x.time / (timer1.Interval * speed))) == (time / timer1.Interval))
+                if ((int)((x.time / (timer1.Interval * speed))) == time)
                 {
                     if (WhiteKey.Contains(x.pos))//Check if Button is White
                     {
@@ -174,13 +172,19 @@ namespace WindowsFormsApp3
                         R.Height = 0;
                         if (x.pos <= 44)//button is in the first half
                         {
-                            MyRectangle Rec = new MyRectangle(R, x.length, red, x.pos);
-                            RectangleList.Add(Rec);
+                            if (x.length > 0)
+                            {
+                                MyRectangle Rec = new MyRectangle(R, x.length, red, x.pos);
+                                RectangleList.Add(Rec);
+                            }
                         }
                         else //button is in the second half
                         {
-                            MyRectangle Rec = new MyRectangle(R, x.length, green, x.pos);
-                            RectangleList.Add(Rec);
+                            if (x.length > 0)
+                            {
+                                MyRectangle Rec = new MyRectangle(R, x.length,green, x.pos);
+                                RectangleList.Add(Rec);
+                            }
                         }
                     }
                     else if (!WhiteKey.Contains(x.pos))//Button is black
@@ -200,13 +204,19 @@ namespace WindowsFormsApp3
 
                         if (x.pos < 44)//button is in the first half
                         {
-                            MyRectangle Rec = new MyRectangle(R, x.length, pink, x.pos);
-                            RectangleList.Add(Rec);
+                            if (x.length > 0)
+                            {
+                                MyRectangle Rec = new MyRectangle(R, x.length, pink, x.pos);
+                                RectangleList.Add(Rec);
+                            }
                         }
                         else //button is in the second half
                         {
-                            MyRectangle Rec = new MyRectangle(R, x.length, lightgreen, x.pos);
-                            RectangleList.Add(Rec);
+                            if (x.length > 0)
+                            {
+                                MyRectangle Rec = new MyRectangle(R, x.length, lightgreen, x.pos);
+                                RectangleList.Add(Rec);
+                            }
                         }
                     }
                 }
@@ -269,6 +279,7 @@ namespace WindowsFormsApp3
                             buttonlist[RectangleList[i].Position - 1].BackColor = Color.Black;
                         outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, RectangleList[i].Position + 20, 0));
                         RectangleList[i].ChangeButton = true;
+                        RectangleList.RemoveAt(i);
                     }
         
                 }
@@ -292,7 +303,7 @@ namespace WindowsFormsApp3
                     }
 
                     //Moving Rectangle down
-                    if (RectangleList[i].MyRec.Y != Button_Y_Position && RectangleList[i].Check == true)
+                    if (RectangleList[i].MyRec.Y <= Button_Y_Position && RectangleList[i].Check == true)
                     {
 
                         RectangleList[i].increaseypos((((double)RectangleList[i].Period * timer1.Interval * speed / (double)5) / ((double)RectangleList[i].Period)));
@@ -331,6 +342,7 @@ namespace WindowsFormsApp3
                             buttonlist[RectangleList[i].Position - 1].BackColor = Color.Black;
                         outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, RectangleList[i].Position + 20, 0));
                         RectangleList[i].ChangeButton = true;
+                        RectangleList.RemoveAt(i);
                     }
 
                 }
@@ -341,7 +353,7 @@ namespace WindowsFormsApp3
         {
             if (pathcheck)
                 MakeRectangle(My, MyRectangleList, MyButton_Y_Position, MyButton_width, Myspeed);
-            time += timer1.Interval; //increase the time
+            time++; //increase the time
             if (time >= (My.flowkeys[My.flowkeys.Count - 1].time + My.flowkeys[My.flowkeys.Count - 1].length + 2000))
                 this.Close();
             Invalidate();
@@ -474,6 +486,25 @@ namespace WindowsFormsApp3
             timer1.Stop();
         }
 
+        private void button92_Click(object sender, EventArgs e)
+        {
+            if (Myspeed < 2.00) {
+                Myspeed += 0.10;
+                time = (int)(time * (oldspeed / Myspeed));
+                oldspeed = Myspeed;
+                label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
+            }
+        }
 
+        private void button91_Click(object sender, EventArgs e)
+        {
+            if (Myspeed >=0.20)
+            {
+                Myspeed -= 0.10;
+                time = (int)(time * (oldspeed / Myspeed));
+                oldspeed = Myspeed;
+                label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
+            }
+        }
     }
 }

@@ -122,6 +122,9 @@ namespace WindowsFormsApp3
             this.button86 = new System.Windows.Forms.Button();
             this.button87 = new System.Windows.Forms.Button();
             this.button88 = new System.Windows.Forms.Button();
+            this.button91 = new System.Windows.Forms.Button();
+            this.button92 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -133,6 +136,9 @@ namespace WindowsFormsApp3
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.button92);
+            this.panel1.Controls.Add(this.button91);
             this.panel1.Controls.Add(this.button90);
             this.panel1.Controls.Add(this.button89);
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -1142,6 +1148,36 @@ namespace WindowsFormsApp3
             this.button88.TabIndex = 303;
             this.button88.UseVisualStyleBackColor = false;
             // 
+            // button91
+            // 
+            this.button91.Location = new System.Drawing.Point(240, 0);
+            this.button91.Name = "button91";
+            this.button91.Size = new System.Drawing.Size(30, 30);
+            this.button91.TabIndex = 306;
+            this.button91.Text = "-";
+            this.button91.UseVisualStyleBackColor = true;
+            this.button91.Click += new System.EventHandler(this.button91_Click);
+            // 
+            // button92
+            // 
+            this.button92.Location = new System.Drawing.Point(370, 0);
+            this.button92.Name = "button92";
+            this.button92.Size = new System.Drawing.Size(30, 30);
+            this.button92.TabIndex = 307;
+            this.button92.Text = "+";
+            this.button92.UseVisualStyleBackColor = true;
+            this.button92.Click += new System.EventHandler(this.button92_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(285, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(70, 13);
+            this.label1.TabIndex = 308;
+            this.label1.Text = "Speed: 100%";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1239,14 +1275,16 @@ namespace WindowsFormsApp3
             this.Controls.Add(this.button1);
             this.Controls.Add(this.panel1);
             this.KeyPreview = true;
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1056, 507);
             this.MinimumSize = new System.Drawing.Size(1056, 507);
             this.Name = "Form1";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Piano";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1344,6 +1382,9 @@ namespace WindowsFormsApp3
         private System.Windows.Forms.Button button86;
         private System.Windows.Forms.Button button87;
         private System.Windows.Forms.Button button88;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button92;
+        private System.Windows.Forms.Button button91;
     }
 }
 
