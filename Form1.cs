@@ -354,7 +354,7 @@ namespace WindowsFormsApp3
             if (pathcheck)
                 MakeRectangle(My, MyRectangleList, MyButton_Y_Position, MyButton_width, Myspeed);
             time++; //increase the time
-            if (time >= (My.flowkeys[My.flowkeys.Count - 1].time + My.flowkeys[My.flowkeys.Count - 1].length + 2000))
+            if (time >= ((My.flowkeys[My.flowkeys.Count - 1].time + My.flowkeys[My.flowkeys.Count - 1].length)/Myspeed + 2000))
                 this.Close();
             Invalidate();
         }
@@ -488,23 +488,43 @@ namespace WindowsFormsApp3
 
         private void button92_Click(object sender, EventArgs e)
         {
-            if (Myspeed < 2.00) {
+            if (Myspeed > 1.90&&Myspeed<2.00) {
+                Myspeed = 2.00;
+                time = (int)(time * (oldspeed / Myspeed));
+                oldspeed = Myspeed;
+                trackBar1.Value = 200;
+                label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
+            }
+            else if (Myspeed < 2.00) {
                 Myspeed += 0.10;
                 time = (int)(time * (oldspeed / Myspeed));
                 oldspeed = Myspeed;
                 label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
+                trackBar1.Value += 10;
             }
         }
 
         private void button91_Click(object sender, EventArgs e)
         {
-            if (Myspeed >=0.20)
+           if (Myspeed >=0.15)
             {
                 Myspeed -= 0.10;
                 time = (int)(time * (oldspeed / Myspeed));
                 oldspeed = Myspeed;
                 label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
+                trackBar1.Value -= 10;
             }
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            int r = trackBar1.Value / 5;
+            double b = (double)r*5/ (double)100;
+            Myspeed = b;
+            time = (int)(time * (oldspeed / Myspeed));
+            oldspeed = Myspeed;
+            label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
+            
         }
     }
 }
