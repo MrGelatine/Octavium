@@ -167,6 +167,11 @@ namespace WindowsFormsApp3
                         form1 = new Form1(filepath, 1, $@"{path}\piano.jpg", Color.Black, Color.Black, Color.Black, Color.Black);
                         break;
                     }
+                case "test":
+                    {
+                        form1 = new Form1(filepath, 1, $@"{path}\test.jpg", Color.Blue, Color.Blue, Color.Indigo, Color.Indigo,true);
+                        break;
+                    }
                 default:
                     {
                         form1 = new Form1(filepath);

@@ -12,10 +12,61 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 namespace WindowsFormsApp3
 {
-
+    public enum Colors { Red, Orange, Yellow, Green, Blue, Indigo, Violet }
+    class Rainbow
+    {
+        public Colors c_color;
+        public Rainbow()
+        {
+            this.c_color = Colors.Red;
+        }
+        public Color GetNext()
+        {
+            switch(c_color)
+            {
+                case Colors.Red:
+                {
+                    c_color = Colors.Orange;
+                    return Color.Orange;
+                }
+                case Colors.Orange:
+                {
+                        c_color = Colors.Yellow;
+                        return Color.Yellow;
+                }
+                case Colors.Yellow:
+                {
+                        c_color = Colors.Green;
+                        return Color.Green;
+                }
+                case Colors.Green:
+                    {
+                        c_color = Colors.Blue;
+                        return Color.Blue;
+                    }
+                case Colors.Blue:
+                    {
+                        c_color = Colors.Indigo;
+                        return Color.Indigo;
+                    }
+                case Colors.Indigo:
+                    {
+                        c_color = Colors.Violet;
+                        return Color.Violet;
+                    }
+                case Colors.Violet:
+                    {
+                        c_color = Colors.Red;
+                        return Color.Red;
+                    }
+            }
+            return Color.White;
+        }
+    }
     public partial class Form1 : Form
     {
         List<Button> buttonlist = new List<Button>();
+        Rainbow rainbow;
         double Myspeed=1.00 ;
         List<int> WhiteKey = new List<int> { 1, 3, 4, 6, 8, 9, 11, 13, 15, 16, 18, 20, 21, 23, 25, 27, 28, 30, 32, 33, 35, 37, 39, 40, 42, 44, 45, 47, 49, 51, 52, 54, 56, 57, 59, 61, 63, 64, 66, 68, 69, 71, 73, 75, 76, 78, 80, 81, 83, 85, 87, 88 };
         List<int> LeftBlackKey = new List<int> { 5, 10, 17, 22, 29, 34, 41, 46, 53, 58, 65, 70, 77, 82 };
@@ -41,12 +92,16 @@ namespace WindowsFormsApp3
         private OutputDevice outDevice;
         private int outDeviceID = 0;
         private OutputDeviceDialog outDialog = new OutputDeviceDialog();
-        public Form1(String Path = "", double Speed = 1.00, String image =null, Color? c1 = null , Color? c2 = null, Color? c3 = null, Color? c4 = null)
+        public Form1(String Path = "", double Speed = 1.00, String image =null, Color? c1 = null , Color? c2 = null, Color? c3 = null, Color? c4 = null,bool RainbowMode = false)
         {
             if (Path != "")
             {
                 My = new MIDINotesData(MIDIFuncs.UnpackDataToNote(Path));
                 pathcheck = true;
+            }
+            if (RainbowMode)
+            {
+                rainbow = new Rainbow();
             }
             red = new System.Drawing.SolidBrush(c1 ?? Color.Red);
             green = new System.Drawing.SolidBrush(c2 ?? Color.Green);
@@ -124,6 +179,8 @@ namespace WindowsFormsApp3
             //Loop For Making Rectangles 
             foreach (var x in M.flowkeys)
             {
+                System.Drawing.SolidBrush r_color = rainbow == null ? red :new System.Drawing.SolidBrush(rainbow.GetNext());
+                System.Drawing.SolidBrush l_color = rainbow == null ? pink : new System.Drawing.SolidBrush(rainbow.GetNext());
                 if ((int)((x.time / (timer1.Interval * speed))) == time)
                 {
                     if (WhiteKey.Contains(x.pos))//Check if Button is White
@@ -174,7 +231,7 @@ namespace WindowsFormsApp3
                         {
                             if (x.length > 0)
                             {
-                                MyRectangle Rec = new MyRectangle(R, x.length, red, x.pos);
+                                MyRectangle Rec = new MyRectangle(R, x.length,r_color, x.pos);
                                 RectangleList.Add(Rec);
                             }
                         }
@@ -182,8 +239,8 @@ namespace WindowsFormsApp3
                         {
                             if (x.length > 0)
                             {
-                                MyRectangle Rec = new MyRectangle(R, x.length,green, x.pos);
-                                RectangleList.Add(Rec);
+                                MyRectangle Rec = new MyRectangle(R, x.length,r_color, x.pos);
+                                RectangleList.Add(Rec); 
                             }
                         }
                     }
@@ -201,12 +258,11 @@ namespace WindowsFormsApp3
 
                         R.Width = Button_width - 8;
                         R.Height = 0;
-
                         if (x.pos < 44)//button is in the first half
                         {
                             if (x.length > 0)
                             {
-                                MyRectangle Rec = new MyRectangle(R, x.length, pink, x.pos);
+                                MyRectangle Rec = new MyRectangle(R, x.length, l_color, x.pos);
                                 RectangleList.Add(Rec);
                             }
                         }
@@ -214,7 +270,7 @@ namespace WindowsFormsApp3
                         {
                             if (x.length > 0)
                             {
-                                MyRectangle Rec = new MyRectangle(R, x.length, lightgreen, x.pos);
+                                MyRectangle Rec = new MyRectangle(R, x.length, l_color, x.pos);
                                 RectangleList.Add(Rec);
                             }
                         }
@@ -242,16 +298,16 @@ namespace WindowsFormsApp3
                         if (WhiteKey.Contains(RectangleList[i].Position))
                         {
                             if (RectangleList[i].Position <= 44)
-                                buttonlist[RectangleList[i].Position - 1].BackColor = cl1;
+                                buttonlist[RectangleList[i].Position - 1].BackColor = RectangleList[i].Color.Color;
                             else
-                                buttonlist[RectangleList[i].Position - 1].BackColor = cl2;
+                                buttonlist[RectangleList[i].Position - 1].BackColor = RectangleList[i].Color.Color;
                         }
                         else
                         {
                             if (RectangleList[i].Position <= 44)
-                                buttonlist[RectangleList[i].Position - 1].BackColor = cl3;
+                                buttonlist[RectangleList[i].Position - 1].BackColor = RectangleList[i].Color.Color;
                             else
-                                buttonlist[RectangleList[i].Position - 1].BackColor = cl4;
+                                buttonlist[RectangleList[i].Position - 1].BackColor = RectangleList[i].Color.Color;
                         }
                         RectangleList[i].Hit = true;
                     }
@@ -318,16 +374,16 @@ namespace WindowsFormsApp3
                             if (WhiteKey.Contains(RectangleList[i].Position))
                             {
                                 if (RectangleList[i].Position <= 44)
-                                    buttonlist[RectangleList[i].Position - 1].BackColor =cl1;
+                                    buttonlist[RectangleList[i].Position - 1].BackColor = RectangleList[i].Color.Color;
                                 else
-                                    buttonlist[RectangleList[i].Position - 1].BackColor = cl2;
+                                    buttonlist[RectangleList[i].Position - 1].BackColor = RectangleList[i].Color.Color;
                             }
                             else
                             {
                                 if (RectangleList[i].Position <= 44)
-                                    buttonlist[RectangleList[i].Position - 1].BackColor = cl3;
+                                    buttonlist[RectangleList[i].Position - 1].BackColor = RectangleList[i].Color.Color;
                                 else
-                                    buttonlist[RectangleList[i].Position - 1].BackColor = cl4;
+                                    buttonlist[RectangleList[i].Position - 1].BackColor = RectangleList[i].Color.Color;
                             }
                             RectangleList[i].Hit = true;
                         }
