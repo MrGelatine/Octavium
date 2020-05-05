@@ -78,7 +78,7 @@ namespace WindowsFormsApp3
         List<int> RightBlackKey = new List<int> { 2, 7, 14, 19, 26, 31, 38, 43, 50, 55, 62, 67, 74, 79, 86 };
         List<int> MiddleBlackKey = new List<int> { 12, 24, 36, 48, 60, 72, 84 };
         MIDINotesData My;
-        int MyButton_Y_Position = 373;
+        int MyButton_Y_Position = 376;
         int MyButton_width = 20;
         bool pathcheck = false;
         Pen p = new Pen(Color.Black);
@@ -603,7 +603,20 @@ namespace WindowsFormsApp3
             }
         }
 
-        private void colorSlider1_Scroll(object sender, ScrollEventArgs e)
+        private void pictureBox2_Paint(object sender, PaintEventArgs e)
+        {
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            SetStyle(ControlStyles.ResizeRedraw, true);
+            Graphics g = e.Graphics;
+            foreach (var x in MyRectangleList)
+            {
+                g.DrawRectangle(p, x.MyRec);
+                g.FillRectangle(x.Color, x.MyRec);
+            }
+        }
+
+        private void colorSlider1_Scroll_1(object sender, ScrollEventArgs e)
         {
             if ((int)colorSlider1.Value == 0)
             {
@@ -621,19 +634,6 @@ namespace WindowsFormsApp3
                 time = (int)(time * (oldspeed / Myspeed));
                 oldspeed = Myspeed;
                 label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
-            }
-        }
-
-        private void pictureBox2_Paint(object sender, PaintEventArgs e)
-        {
-            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            SetStyle(ControlStyles.ResizeRedraw, true);
-            Graphics g = e.Graphics;
-            foreach (var x in MyRectangleList)
-            {
-                g.DrawRectangle(p, x.MyRec);
-                g.FillRectangle(x.Color, x.MyRec);
             }
         }
     }

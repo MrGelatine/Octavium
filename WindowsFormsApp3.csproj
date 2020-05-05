@@ -89,7 +89,9 @@
       <DependentUpon>BackgroundLib.cs</DependentUpon>
     </Compile>
     <Compile Include="FlowKey.cs" />
-    <Compile Include="Form1.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
@@ -210,9 +212,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo-48.ico" />
+    <None Include="Resources\Sketch042.png" />
+    <None Include="Resources\Sketch043.png" />
     <None Include="Resources\btn1.jpg" />
     <None Include="Resources\btn3.jpg" />
     <None Include="Resources\btn2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ColorSlider\ColorSlider.csproj">
+      <Project>{16E224DC-7FF0-4908-8318-D6A3AC2E797A}</Project>
+      <Name>ColorSlider</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
