@@ -12,59 +12,64 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 namespace WindowsFormsApp3
 {
-    public enum Colors { Red, Orange, Yellow, Green, Blue, Indigo, Violet }
-    class Rainbow
-    {
-        public Colors c_color;
-        public Rainbow()
-        {
-            this.c_color = Colors.Red;
-        }
-        public Color GetNext()
-        {
-            switch(c_color)
-            {
-                case Colors.Red:
-                {
-                    c_color = Colors.Orange;
-                    return Color.Orange;
-                }
-                case Colors.Orange:
-                {
-                        c_color = Colors.Yellow;
-                        return Color.Yellow;
-                }
-                case Colors.Yellow:
-                {
-                        c_color = Colors.Green;
-                        return Color.Green;
-                }
-                case Colors.Green:
-                    {
-                        c_color = Colors.Blue;
-                        return Color.Blue;
-                    }
-                case Colors.Blue:
-                    {
-                        c_color = Colors.Indigo;
-                        return Color.Indigo;
-                    }
-                case Colors.Indigo:
-                    {
-                        c_color = Colors.Violet;
-                        return Color.Violet;
-                    }
-                case Colors.Violet:
-                    {
-                        c_color = Colors.Red;
-                        return Color.Red;
-                    }
-            }
-            return Color.White;
-        }
-    }
+    
     public partial class Form1 : Form
     {
+        public enum Colors { Red, Orange, Yellow, Green, Blue, Indigo, Violet }
+        class Rainbow
+        {
+            public Colors c_color;
+            public Rainbow()
+            {
+                this.c_color = Colors.Red;
+            }
+            public Color GetNext()
+            {
+                switch (c_color)
+                {
+                    case Colors.Red:
+                        {
+                            c_color = Colors.Orange;
+                            return Color.Orange;
+                        }
+                    case Colors.Orange:
+                        {
+                            c_color = Colors.Yellow;
+                            return Color.Yellow;
+                        }
+                    case Colors.Yellow:
+                        {
+                            c_color = Colors.Green;
+                            return Color.Green;
+                        }
+                    case Colors.Green:
+                        {
+                            c_color = Colors.Blue;
+                            return Color.Blue;
+                        }
+                    case Colors.Blue:
+                        {
+                            c_color = Colors.Indigo;
+                            return Color.Indigo;
+                        }
+                    case Colors.Indigo:
+                        {
+                            c_color = Colors.Violet;
+                            return Color.Violet;
+                        }
+                    case Colors.Violet:
+                        {
+                            c_color = Colors.Red;
+                            return Color.Red;
+                        }
+                }
+                return Color.White;
+            }
+        }
+        bool play = false;
+        int ft;
+        int st;
+        Image im;
         List<Button> buttonlist = new List<Button>();
         Rainbow rainbow;
         double Myspeed=1.00 ;
@@ -73,7 +78,7 @@ namespace WindowsFormsApp3
         List<int> RightBlackKey = new List<int> { 2, 7, 14, 19, 26, 31, 38, 43, 50, 55, 62, 67, 74, 79, 86 };
         List<int> MiddleBlackKey = new List<int> { 12, 24, 36, 48, 60, 72, 84 };
         MIDINotesData My;
-        int MyButton_Y_Position = 340;
+        int MyButton_Y_Position = 373;
         int MyButton_width = 20;
         bool pathcheck = false;
         Pen p = new Pen(Color.Black);
@@ -92,12 +97,14 @@ namespace WindowsFormsApp3
         private OutputDevice outDevice;
         private int outDeviceID = 0;
         private OutputDeviceDialog outDialog = new OutputDeviceDialog();
-        public Form1(String Path = "", double Speed = 1.00, String image =null, Color? c1 = null , Color? c2 = null, Color? c3 = null, Color? c4 = null,bool RainbowMode = false)
+        public Form1(String Path = "", double Speed = 1.00, String image ="", Color? c1 = null , Color? c2 = null, Color? c3 = null, Color? c4 = null,bool RainbowMode = false)
         {
             if (Path != "")
             {
                 My = new MIDINotesData(MIDIFuncs.UnpackDataToNote(Path));
                 pathcheck = true;
+                ft = (int)My.flowkeys[0].time;
+                st = (int)My.flowkeys[My.flowkeys.Count - 1].time + (int)My.flowkeys[My.flowkeys.Count - 1].length;
             }
             if (RainbowMode)
             {
@@ -113,7 +120,10 @@ namespace WindowsFormsApp3
             cl4 = c4 ?? Color.LightGreen;
             Myspeed = Speed;
             if (image != null)
-                this.BackgroundImage = Image.FromFile(image);
+            {
+                //this.BackgroundImage = Image.FromFile(image);
+                im = Image.FromFile(image);
+            }
             InitializeComponent();
         }
 
@@ -280,7 +290,7 @@ namespace WindowsFormsApp3
             //Loop For Moving Rectangles and play notes
             for (var i = 0; i < RectangleList.Count; i++)
             {
-                if (RectangleList[i].Period / 5 >= 340)
+                if (RectangleList[i].Period / 5 >= Button_Y_Position)
                 {
                     if (RectangleList[i].MyRec.Height < (RectangleList[i].Period / 5) && RectangleList[i].HeightLeft > 0)
                     {
@@ -293,7 +303,8 @@ namespace WindowsFormsApp3
                     if (RectangleList[i].MyRec.Height + RectangleList[i].MyRec.Y >= Button_Y_Position && RectangleList[i].Hit == false)
                     {
                         outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, RectangleList[i].Position + 20, 127));//playing note
-
+                        if (!play)
+                            play = true;
                         //change the color of button
                         if (WhiteKey.Contains(RectangleList[i].Position))
                         {
@@ -369,7 +380,8 @@ namespace WindowsFormsApp3
                         if (RectangleList[i].MyRec.Height + RectangleList[i].MyRec.Y >= Button_Y_Position && RectangleList[i].Hit == false)
                         {
                             outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, RectangleList[i].Position + 20, 127));//playing note
-
+                            if (!play)
+                                play = true;
                             //change the color of button
                             if (WhiteKey.Contains(RectangleList[i].Position))
                             {
@@ -407,17 +419,26 @@ namespace WindowsFormsApp3
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            pictureBox2.Refresh();
             if (pathcheck)
                 MakeRectangle(My, MyRectangleList, MyButton_Y_Position, MyButton_width, Myspeed);
             time++; //increase the time
-            if (time >= ((My.flowkeys[My.flowkeys.Count - 1].time + My.flowkeys[My.flowkeys.Count - 1].length)/Myspeed + 2000))
+            if (play)
+            {
+                if (progressBar1.Value < progressBar1.Maximum)
+                    progressBar1.Increment((int)(100 * Myspeed));
+                //colorSlider2.Value += (int)(100 * Myspeed);
+            }
+            // progressBar1.Increment((int)(100*Myspeed));
+            if (time >= (((My.flowkeys[My.flowkeys.Count - 1].time + My.flowkeys[My.flowkeys.Count - 1].length) / (timer1.Interval * Myspeed)) + (200 / Myspeed)))
                 this.Close();
             Invalidate();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            pictureBox2.BackgroundImage = im;
+            progressBar1.Maximum = 100 * (st - ft) / timer1.Interval;
             buttonlist.Add(button1);
             buttonlist.Add(button53);
             buttonlist.Add(button2);
@@ -512,7 +533,7 @@ namespace WindowsFormsApp3
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
 
-            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+          /*  SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.ResizeRedraw, true);
             Graphics g = e.Graphics;
@@ -522,7 +543,7 @@ namespace WindowsFormsApp3
                 g.DrawRectangle(p, x.MyRec);
                 g.FillRectangle(x.Color, x.MyRec);
             }
-            g.DrawLine(p, 0, 30, 1058, 30);
+            g.DrawLine(p, 0, 30, 1058, 30);*/
         }
         private void Restart(object sender, EventArgs e)
         {
@@ -544,43 +565,76 @@ namespace WindowsFormsApp3
 
         private void button92_Click(object sender, EventArgs e)
         {
-            if (Myspeed > 1.90&&Myspeed<2.00) {
+            if (Myspeed > 1.90 && Myspeed < 2.00)
+            {
                 Myspeed = 2.00;
                 time = (int)(time * (oldspeed / Myspeed));
                 oldspeed = Myspeed;
-                trackBar1.Value = 200;
+                colorSlider1.Value = 200;
                 label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
             }
-            else if (Myspeed < 2.00) {
+            else if (Myspeed < 2.00)
+            {
                 Myspeed += 0.10;
                 time = (int)(time * (oldspeed / Myspeed));
                 oldspeed = Myspeed;
                 label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
-                trackBar1.Value += 10;
+                colorSlider1.Value += 10;
             }
         }
 
         private void button91_Click(object sender, EventArgs e)
         {
-           if (Myspeed >=0.15)
+            if (Myspeed < 0.15 && Myspeed > 0.05)
+            {
+                Myspeed = 0.05;
+                time = (int)(time * (oldspeed / Myspeed));
+                oldspeed = Myspeed;
+                colorSlider1.Value = 5;
+                label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
+            }
+            if (Myspeed >= 0.15)
             {
                 Myspeed -= 0.10;
                 time = (int)(time * (oldspeed / Myspeed));
                 oldspeed = Myspeed;
                 label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
-                trackBar1.Value -= 10;
+                colorSlider1.Value -= 10;
             }
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void colorSlider1_Scroll(object sender, ScrollEventArgs e)
         {
-            int r = trackBar1.Value / 5;
-            double b = (double)r*5/ (double)100;
-            Myspeed = b;
-            time = (int)(time * (oldspeed / Myspeed));
-            oldspeed = Myspeed;
-            label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
-            
+            if ((int)colorSlider1.Value == 0)
+            {
+
+                Myspeed = 0.05;
+                time = (int)(time * (oldspeed / Myspeed));
+                oldspeed = Myspeed;
+                label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
+            }
+            else
+            {
+                int r = (int)colorSlider1.Value / 5;
+                double b = (double)r * 5 / (double)100;
+                Myspeed = b;
+                time = (int)(time * (oldspeed / Myspeed));
+                oldspeed = Myspeed;
+                label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
+            }
+        }
+
+        private void pictureBox2_Paint(object sender, PaintEventArgs e)
+        {
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            SetStyle(ControlStyles.ResizeRedraw, true);
+            Graphics g = e.Graphics;
+            foreach (var x in MyRectangleList)
+            {
+                g.DrawRectangle(p, x.MyRec);
+                g.FillRectangle(x.Color, x.MyRec);
+            }
         }
     }
 }
