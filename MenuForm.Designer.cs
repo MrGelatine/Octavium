@@ -34,11 +34,13 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.BeginPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // BeginPictureBox
@@ -58,7 +60,7 @@
             // 
             this.pictureBox5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox5.Image = global::WindowsFormsApp3.Properties.Resources.ExitMenu;
-            this.pictureBox5.Location = new System.Drawing.Point(0, 110);
+            this.pictureBox5.Location = new System.Drawing.Point(0, 165);
             this.pictureBox5.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(250, 55);
@@ -71,7 +73,7 @@
             // 
             this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox3.Image = global::WindowsFormsApp3.Properties.Resources.LibMenu;
-            this.pictureBox3.Location = new System.Drawing.Point(0, 55);
+            this.pictureBox3.Location = new System.Drawing.Point(0, 110);
             this.pictureBox3.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(250, 55);
@@ -101,6 +103,7 @@
             this.menuPanel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.menuPanel.AutoSize = true;
             this.menuPanel.BackColor = System.Drawing.Color.Transparent;
+            this.menuPanel.Controls.Add(this.pictureBox2);
             this.menuPanel.Controls.Add(this.pictureBox5);
             this.menuPanel.Controls.Add(this.BeginPictureBox);
             this.menuPanel.Controls.Add(this.pictureBox3);
@@ -109,6 +112,19 @@
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(250, 233);
             this.menuPanel.TabIndex = 6;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox2.Image = global::WindowsFormsApp3.Properties.Resources.SettingsMenu;
+            this.pictureBox2.Location = new System.Drawing.Point(0, 55);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(250, 55);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 5;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.PictureBox2_Click);
             // 
             // MenuForm
             // 
@@ -127,6 +143,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,5 +156,6 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Panel menuPanel;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

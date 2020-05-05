@@ -121,7 +121,7 @@ namespace WindowsFormsApp3
             File.Delete(inform_path);
             File.Move(dat_path + "\\temp_lib.txt", dat_path + "\\lib.txt");
         }
-        public static void Base_Library_Call(string filepath)
+        public static void Base_Library_Call(string filepath, double speed = 1, string img = null, Color? cl1 = null, Color? cl2 = null, int volume = 100)
         {
             Form1 form1;
             string path = Path.GetFullPath(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, @"..\..\"))+ @"\Resources\Backgrounds";
@@ -174,7 +174,7 @@ namespace WindowsFormsApp3
                     }
                 default:
                     {
-                        form1 = new Form1(filepath);
+                        form1 = new Form1(filepath, speed, img, cl1, null, cl2, null);
                         break;
                     }
             }

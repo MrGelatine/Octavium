@@ -82,10 +82,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FlowKey.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="BackgroundLib.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="BackgroundLib.Designer.cs">
+      <DependentUpon>BackgroundLib.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FlowKey.cs" />
+    <Compile Include="Form1.cs" />
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
@@ -118,7 +122,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TestFuncs.cs" />
+    <EmbeddedResource Include="BackgroundLib.resx">
+      <DependentUpon>BackgroundLib.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -135,6 +148,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -194,6 +210,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo-48.ico" />
+    <None Include="Resources\btn1.jpg" />
+    <None Include="Resources\btn3.jpg" />
+    <None Include="Resources\btn2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,6 +15,11 @@ namespace WindowsFormsApp3
         //путь к выбранному треку
         public string filepath = "";
         public bool starting = false;
+        public string image = null;
+        public Color clNote1 = Color.Red;
+        public Color clNote2 = Color.Pink;
+        public int volume = 100;
+        public double speed = 1;
 
         public MenuForm()
         {
@@ -35,7 +40,7 @@ namespace WindowsFormsApp3
             AddOwnedForm(libForm);
             libForm.ShowDialog();
             if (starting && filepath != "")
-                InterfaceFuncs.Base_Library_Call(filepath);
+                InterfaceFuncs.Base_Library_Call(filepath, speed, image, clNote1, clNote2, volume);
             this.Show();
         }
 
@@ -52,6 +57,15 @@ namespace WindowsFormsApp3
             LibForm libForm = new LibForm();
             AddOwnedForm(libForm);
             libForm.ShowDialog();
+            this.Show();
+        }
+
+        private void PictureBox2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SettingsForm setForm = new SettingsForm();
+            AddOwnedForm(setForm);
+            setForm.ShowDialog();
             this.Show();
         }
     }
