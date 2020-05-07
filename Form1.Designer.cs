@@ -1277,6 +1277,7 @@ namespace WindowsFormsApp3
             // 
             // pictureBox2
             // 
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox2.Location = new System.Drawing.Point(0, 55);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(1040, 375);
