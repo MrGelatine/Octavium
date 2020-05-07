@@ -129,47 +129,47 @@ namespace WindowsFormsApp3
             {
                 case "Денис Шишов":
                     {
-                        form1 = new Form1(filepath, 1, $@"{path}\bloom.jpg", Color.Yellow, Color.Yellow, Color.DarkOrange, Color.DarkOrange);
+                        form1 = new Form1(filepath, speed, $@"{path}\bloom.jpg", Color.Yellow, Color.Yellow, Color.DarkOrange, Color.DarkOrange);
                         break;
                     }
                 case "Дмитрий Иващенко":
                     {
-                        form1 = new Form1(filepath, 1, $@"{path}\blue.jpg", Color.DeepSkyBlue, Color.DeepSkyBlue, Color.MidnightBlue, Color.MidnightBlue);
+                        form1 = new Form1(filepath, speed, $@"{path}\blue.jpg", Color.DeepSkyBlue, Color.DeepSkyBlue, Color.MidnightBlue, Color.MidnightBlue);
                         break;
                     }
                 case "Артем Шевердин":
                     {
-                        form1 = new Form1(filepath, 1, $@"{path}\hero.jpg",Color.IndianRed,Color.IndianRed,Color.DarkSlateGray,Color.DarkSlateGray);
+                        form1 = new Form1(filepath, speed, $@"{path}\hero.jpg",Color.IndianRed,Color.IndianRed,Color.DarkSlateGray,Color.DarkSlateGray);
                         break;
                     }
                 case "Ахмед Хоссайни":
                     {
-                        form1 = new Form1(filepath, 1, $@"{path}\pirates.jpg",Color.Firebrick,Color.Firebrick,Color.Chocolate,Color.Chocolate);
+                        form1 = new Form1(filepath, speed, $@"{path}\pirates.jpg",Color.Firebrick,Color.Firebrick,Color.Chocolate,Color.Chocolate);
                         break;
                     }
                 case "Андрей Белоусов":
                     {
-                        form1 = new Form1(filepath,1, $@"{path}\skyrim.jpg",Color.DarkGray,Color.DarkGray,Color.DarkSlateGray,Color.DarkSlateGray);
+                        form1 = new Form1(filepath,speed, $@"{path}\skyrim.jpg",Color.DarkGray,Color.DarkGray,Color.DarkSlateGray,Color.DarkSlateGray);
                         break;
                     }
                 case "Александр Данильченко":
                     {
-                        form1 = new Form1(filepath, 1, $@"{path}\coat of arm.jpg", Color.DarkGray, Color.DarkRed, Color.Crimson, Color.Gold);
+                        form1 = new Form1(filepath, speed, $@"{path}\coat of arm.jpg", Color.DarkGray, Color.DarkRed, Color.Crimson, Color.Gold);
                         break;
                     }
                 case "anonymous":
                     {
-                        form1 = new Form1(filepath, 1, $@"{path}\school.jpg", Color.ForestGreen, Color.ForestGreen, Color.DarkGreen, Color.DarkGreen);
+                        form1 = new Form1(filepath, speed, $@"{path}\school.jpg", Color.ForestGreen, Color.ForestGreen, Color.DarkGreen, Color.DarkGreen);
                         break;
                     }
                 case "Иван Игнатенко":
                     {
-                        form1 = new Form1(filepath, 1, $@"{path}\piano.jpg", Color.Black, Color.Black, Color.Black, Color.Black);
+                        form1 = new Form1(filepath, speed, $@"{path}\piano.jpg", Color.Black, Color.Black, Color.Black, Color.Black);
                         break;
                     }
                 case "test":
                     {
-                        form1 = new Form1(filepath, 1, $@"{path}\test.jpg", Color.Blue, Color.Blue, Color.Indigo, Color.Indigo,true);
+                        form1 = new Form1(filepath, speed, $@"{path}\test.jpg", Color.Blue, Color.Blue, Color.Indigo, Color.Indigo,true);
                         break;
                     }
                 default:

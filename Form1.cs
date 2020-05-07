@@ -427,9 +427,7 @@ namespace WindowsFormsApp3
             {
                 if (progressBar1.Value < progressBar1.Maximum)
                     progressBar1.Increment((int)(100 * Myspeed));
-                //colorSlider2.Value += (int)(100 * Myspeed);
             }
-            // progressBar1.Increment((int)(100*Myspeed));
             if (time >= (((My.flowkeys[My.flowkeys.Count - 1].time + My.flowkeys[My.flowkeys.Count - 1].length) / (timer1.Interval * Myspeed)) + (200 / Myspeed)))
                 this.Close();
             Invalidate();
@@ -437,6 +435,7 @@ namespace WindowsFormsApp3
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            colorSlider1.Value = (int)(100 * Myspeed);
             pictureBox2.BackgroundImage = im;
             progressBar1.Maximum = 100 * (st - ft) / timer1.Interval;
             buttonlist.Add(button1);
@@ -527,6 +526,7 @@ namespace WindowsFormsApp3
             buttonlist.Add(button88);
             buttonlist.Add(button51);
             buttonlist.Add(button52);
+            //colorSlider1.Value = (int)(100 * Myspeed);
             timer1.Start();
         }
 
