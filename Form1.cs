@@ -616,7 +616,7 @@ namespace WindowsFormsApp3
             }
         }
 
-        private void colorSlider1_Scroll_1(object sender, ScrollEventArgs e)
+        private void colorSlider1_Scroll(object sender, ScrollEventArgs e)
         {
             if ((int)colorSlider1.Value == 0)
             {
