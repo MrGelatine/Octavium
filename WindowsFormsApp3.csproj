@@ -219,7 +219,7 @@
     <None Include="Resources\btn2.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ColorSlider\ColorSlider.csproj">
+    <ProjectReference Include="Resources\ColorSlider\ColorSlider.csproj">
       <Project>{16E224DC-7FF0-4908-8318-D6A3AC2E797A}</Project>
       <Name>ColorSlider</Name>
     </ProjectReference>

@@ -143,6 +143,7 @@ namespace WindowsFormsApp3
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.panel1.Controls.Add(this.colorSlider1);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.button92);
@@ -1222,6 +1223,7 @@ namespace WindowsFormsApp3
             this.colorSlider1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.colorSlider1.BackgroundImage = global::WindowsFormsApp3.Properties.Resources.Sketch042;
             this.colorSlider1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.colorSlider1.BarInnerColor = System.Drawing.Color.Silver;
             this.colorSlider1.BarPenColorBottom = System.Drawing.Color.Silver;
             this.colorSlider1.BarPenColorTop = System.Drawing.Color.Silver;
             this.colorSlider1.BorderRoundRectSize = new System.Drawing.Size(8, 8);
@@ -1231,7 +1233,7 @@ namespace WindowsFormsApp3
             this.colorSlider1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
             this.colorSlider1.ForeColor = System.Drawing.Color.White;
             this.colorSlider1.LargeChange = new decimal(new int[] {
-            10,
+            5,
             0,
             0,
             0});
@@ -1267,8 +1269,8 @@ namespace WindowsFormsApp3
             0});
             this.colorSlider1.TabIndex = 307;
             this.colorSlider1.Text = "colorSlider1";
-            this.colorSlider1.ThumbInnerColor = System.Drawing.Color.Gray;
-            this.colorSlider1.ThumbPenColor = System.Drawing.Color.Gray;
+            this.colorSlider1.ThumbInnerColor = System.Drawing.Color.Silver;
+            this.colorSlider1.ThumbPenColor = System.Drawing.Color.Silver;
             this.colorSlider1.ThumbRoundRectSize = new System.Drawing.Size(4, 8);
             this.colorSlider1.ThumbSize = new System.Drawing.Size(8, 16);
             this.colorSlider1.TickAdd = 0F;
@@ -1280,7 +1282,6 @@ namespace WindowsFormsApp3
             0,
             0,
             0});
-            this.colorSlider1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.colorSlider1_Scroll_1);
             // 
             // Form1
             // 
@@ -1289,7 +1290,6 @@ namespace WindowsFormsApp3
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1040, 558);
-            this.Controls.Add(this.colorSlider1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button88);
