@@ -575,11 +575,11 @@ namespace WindowsFormsApp3
             }
             else if (Myspeed < 2.00)
             {
-                Myspeed += 0.10;
+                colorSlider1.Value += 10;
+                Myspeed = (double)colorSlider1.Value / 100;
                 time = (int)(time * (oldspeed / Myspeed));
                 oldspeed = Myspeed;
                 label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
-                colorSlider1.Value += 10;
             }
         }
 
@@ -595,11 +595,12 @@ namespace WindowsFormsApp3
             }
             if (Myspeed >= 0.15)
             {
-                Myspeed -= 0.10;
+                colorSlider1.Value -= 10;
+                Myspeed = (double)colorSlider1.Value/100;
                 time = (int)(time * (oldspeed / Myspeed));
                 oldspeed = Myspeed;
                 label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
-                colorSlider1.Value -= 10;
+             
             }
         }
 
