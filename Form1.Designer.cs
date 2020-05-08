@@ -130,9 +130,12 @@ namespace WindowsFormsApp3
             this.delegateScheduler1 = new Sanford.Threading.DelegateScheduler(this.components);
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.button93 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -143,6 +146,7 @@ namespace WindowsFormsApp3
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.panel1.Controls.Add(this.button93);
             this.panel1.Controls.Add(this.colorSlider1);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.label1);
@@ -1285,6 +1289,24 @@ namespace WindowsFormsApp3
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox2_Paint);
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Location = new System.Drawing.Point(1040, 0);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(309, 558);
+            this.pictureBox3.TabIndex = 307;
+            this.pictureBox3.TabStop = false;
+            // 
+            // button93
+            // 
+            this.button93.Location = new System.Drawing.Point(865, 4);
+            this.button93.Name = "button93";
+            this.button93.Size = new System.Drawing.Size(75, 23);
+            this.button93.TabIndex = 309;
+            this.button93.Text = "show sheet";
+            this.button93.UseVisualStyleBackColor = true;
+            this.button93.Click += new System.EventHandler(this.button93_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1292,6 +1314,7 @@ namespace WindowsFormsApp3
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1040, 558);
+            this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button88);
@@ -1396,6 +1419,7 @@ namespace WindowsFormsApp3
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1501,6 +1525,8 @@ namespace WindowsFormsApp3
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private ColorSlider.ColorSlider colorSlider1;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Button button93;
     }
 }
 
