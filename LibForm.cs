@@ -189,8 +189,7 @@ namespace WindowsFormsApp3
             if (activeHandler)
             {
                 panel.Click += new EventHandler(this.TrackPanel_Click);
-                if (!library)
-                    panel.DoubleClick += new EventHandler(this.TrackPanel_DoubleClick);
+                panel.DoubleClick += new EventHandler(this.TrackPanel_DoubleClick);
                 panel.Cursor = Cursors.Hand;
             }
             TrackListPanel.Controls.Add(panel);
@@ -204,8 +203,7 @@ namespace WindowsFormsApp3
             if (activeHandler)
             {
                 label.Click += new EventHandler(this.TrackLabel_Click);
-                if (!library)
-                    label.DoubleClick += new EventHandler(this.TrackLabel_DoubleClick);
+                label.DoubleClick += new EventHandler(this.TrackLabel_DoubleClick);
                 label.Cursor = Cursors.Hand;
             }
             panel.Controls.Add(label);
@@ -252,7 +250,7 @@ namespace WindowsFormsApp3
         void TrackPanel_DoubleClick(Object sender,
                           EventArgs e)
         {
-            if (!starting)
+            if (library)
             {
                 Panel p = (Panel)sender;
                 var viewer = new SheetViewer(projectPath + @"Resources\\Sheets", p.Name);
@@ -268,7 +266,7 @@ namespace WindowsFormsApp3
         void TrackLabel_DoubleClick(Object sender,
                            EventArgs e)
         {
-            if (!starting)
+            if (library)
             {
                 Panel p = (Panel)sender;
                 var viewer = new SheetViewer(projectPath + @"Resources\\Sheets", p.Name);
