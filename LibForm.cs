@@ -57,6 +57,7 @@ namespace WindowsFormsApp3
 
         public LibForm(bool lib = true)
         {
+            InterfaceFuncs.Sheets_Flush(projectPath + "\\Resources\\Sheets", projectPath + "\\Resources\\DataStorage\\lib.txt");
             libPath = string.Format("{0}Resources\\DataStorage", projectPath);
             library = lib;
             InitializeComponent();
@@ -253,7 +254,16 @@ namespace WindowsFormsApp3
             if (library)
             {
                 Panel p = (Panel)sender;
-                var viewer = new SheetViewer(projectPath + @"Resources\\Sheets", p.Name);
+                string n = "";
+                foreach (var elem in curfiles)
+                {
+                    if (elem.Item1 == int.Parse(p.Name.Substring(0, p.Name.Length - 4)))
+                    {
+                        n = elem.Item3;
+                    }
+                }
+                var viewer = new SheetViewer(projectPath + @"Resources\\Sheets", n);
+                viewer.Show();
             }
             else
             {
@@ -269,7 +279,16 @@ namespace WindowsFormsApp3
             if (library)
             {
                 Panel p = (Panel)sender;
-                var viewer = new SheetViewer(projectPath + @"Resources\\Sheets", p.Name);
+                string n = "";
+                foreach(var elem in curfiles)
+                {
+                    if(elem.Item1 == int.Parse(p.Name.Substring(0, p.Name.Length - 4)))
+                    {
+                        n  = elem.Item3;
+                    }
+                }
+                var viewer = new SheetViewer(projectPath + @"Resources\\Sheets", n);
+                viewer.Show();
             }
             else
             {
@@ -314,6 +333,7 @@ namespace WindowsFormsApp3
         //Удаление трека из списка по индексу
         private void deleteTrack(int i)
         {
+            InterfaceFuncs.Sheets_Flush(projectPath + "\\Resources\\Sheets", projectPath + "\\Resources\\DataStorage\\lib.txt");
             string filename = "";
             //Удаляем информацию из списков curfiles и libfileList
             foreach(Tuple<int, string, string, string> fileInfo in curfiles)
