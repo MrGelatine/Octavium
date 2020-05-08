@@ -184,7 +184,7 @@ namespace WindowsFormsApp3
         {
             foreach (string file in Directory.GetFiles(path))
             {
-                if (Regex.IsMatch(file,$@"{file}_\d+.png"))
+                if (Regex.IsMatch(file,$@"{name}_\d+.png"))
                 {
                     return true;
                 }

@@ -130,6 +130,12 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SheetViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SheetViewer.Designer.cs">
+      <DependentUpon>SheetViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="TestFuncs.cs" />
     <EmbeddedResource Include="BackgroundLib.resx">
       <DependentUpon>BackgroundLib.cs</DependentUpon>
@@ -153,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SheetViewer.resx">
+      <DependentUpon>SheetViewer.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

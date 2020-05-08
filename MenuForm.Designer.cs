@@ -138,6 +138,7 @@
             this.Name = "MenuForm";
             this.Text = "MenuForm";
             this.Load += new System.EventHandler(this.MenuForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MenuForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.BeginPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
