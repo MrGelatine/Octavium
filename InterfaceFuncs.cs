@@ -191,5 +191,21 @@ namespace WindowsFormsApp3
             }
             return false;
         }
+        public static void Sheets_Flush(string sheet_path, string info_path)
+        {
+            foreach (var file in Directory.GetFiles(sheet_path))
+            {
+                foreach (var line in File.ReadLines(info_path))
+                {
+                    var str = Regex.Match(line, @"[\|].*[\|]").Value;
+                    str = str.Remove(str.Length - 1, 1).Remove(0, 1);
+                    if (!Regex.IsMatch(file, str))
+                    {
+                        File.Delete(file);
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
