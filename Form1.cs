@@ -12,7 +12,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 namespace WindowsFormsApp3
 {
-    
+
     public partial class Form1 : Form
     {
         public enum Colors { Red, Orange, Yellow, Green, Blue, Indigo, Violet }
@@ -30,7 +30,7 @@ namespace WindowsFormsApp3
                     case Colors.Red:
                         {
                             c_color = Colors.Orange;
-                            return Color.FromArgb(255,145,0);
+                            return Color.FromArgb(255, 145, 0);
                         }
                     case Colors.Orange:
                         {
@@ -40,7 +40,7 @@ namespace WindowsFormsApp3
                     case Colors.Yellow:
                         {
                             c_color = Colors.Green;
-                            return Color.FromArgb(16,148,13);
+                            return Color.FromArgb(16, 148, 13);
                         }
                     case Colors.Green:
                         {
@@ -55,7 +55,7 @@ namespace WindowsFormsApp3
                     case Colors.Indigo:
                         {
                             c_color = Colors.Violet;
-                            return Color.FromArgb(179,19,162);
+                            return Color.FromArgb(179, 19, 162);
                         }
                     case Colors.Violet:
                         {
@@ -72,7 +72,7 @@ namespace WindowsFormsApp3
         Image im;
         List<Button> buttonlist = new List<Button>();
         Rainbow rainbow;
-        double Myspeed=1.00 ;
+        double Myspeed = 1.00;
         List<int> WhiteKey = new List<int> { 1, 3, 4, 6, 8, 9, 11, 13, 15, 16, 18, 20, 21, 23, 25, 27, 28, 30, 32, 33, 35, 37, 39, 40, 42, 44, 45, 47, 49, 51, 52, 54, 56, 57, 59, 61, 63, 64, 66, 68, 69, 71, 73, 75, 76, 78, 80, 81, 83, 85, 87, 88 };
         List<int> LeftBlackKey = new List<int> { 5, 10, 17, 22, 29, 34, 41, 46, 53, 58, 65, 70, 77, 82 };
         List<int> RightBlackKey = new List<int> { 2, 7, 14, 19, 26, 31, 38, 43, 50, 55, 62, 67, 74, 79, 86 };
@@ -92,12 +92,12 @@ namespace WindowsFormsApp3
         Color cl4;
         double oldspeed = 1.00;
         List<MyRectangle> MyRectangleList = new List<MyRectangle>();
-
+        bool sheetshown = false;
         int time = 0; //Golbal Time 
         private OutputDevice outDevice;
         private int outDeviceID = 0;
         private OutputDeviceDialog outDialog = new OutputDeviceDialog();
-        public Form1(String Path = "", double Speed = 1.00, String image ="", Color? c1 = null , Color? c2 = null, Color? c3 = null, Color? c4 = null,bool RainbowMode = false)
+        public Form1(String Path = "", double Speed = 1.00, String image = "", Color? c1 = null, Color? c2 = null, Color? c3 = null, Color? c4 = null, bool RainbowMode = false)
         {
             if (Path != "")
             {
@@ -189,8 +189,8 @@ namespace WindowsFormsApp3
             //Loop For Making Rectangles 
             foreach (var x in M.flowkeys)
             {
-                System.Drawing.SolidBrush r_color = rainbow == null ? red :new System.Drawing.SolidBrush(rainbow.GetNext());
-                System.Drawing.SolidBrush l_color = rainbow == null ? pink : new System.Drawing.SolidBrush(rainbow.GetNext());
+                //System.Drawing.SolidBrush r_color = rainbow == null ? red :new System.Drawing.SolidBrush(rainbow.GetNext());
+                //System.Drawing.SolidBrush l_color = rainbow == null ? pink : new System.Drawing.SolidBrush(rainbow.GetNext());
                 if ((int)((x.time / (timer1.Interval * speed))) == time)
                 {
                     if (WhiteKey.Contains(x.pos))//Check if Button is White
@@ -241,7 +241,7 @@ namespace WindowsFormsApp3
                         {
                             if (x.length > 0)
                             {
-                                MyRectangle Rec = new MyRectangle(R, x.length,r_color, x.pos);
+                                MyRectangle Rec = new MyRectangle(R, x.length, red, x.pos);
                                 RectangleList.Add(Rec);
                             }
                         }
@@ -249,8 +249,8 @@ namespace WindowsFormsApp3
                         {
                             if (x.length > 0)
                             {
-                                MyRectangle Rec = new MyRectangle(R, x.length,r_color, x.pos);
-                                RectangleList.Add(Rec); 
+                                MyRectangle Rec = new MyRectangle(R, x.length, red, x.pos);
+                                RectangleList.Add(Rec);
                             }
                         }
                     }
@@ -272,7 +272,7 @@ namespace WindowsFormsApp3
                         {
                             if (x.length > 0)
                             {
-                                MyRectangle Rec = new MyRectangle(R, x.length, l_color, x.pos);
+                                MyRectangle Rec = new MyRectangle(R, x.length, pink, x.pos);
                                 RectangleList.Add(Rec);
                             }
                         }
@@ -280,7 +280,7 @@ namespace WindowsFormsApp3
                         {
                             if (x.length > 0)
                             {
-                                MyRectangle Rec = new MyRectangle(R, x.length, l_color, x.pos);
+                                MyRectangle Rec = new MyRectangle(R, x.length, pink, x.pos);
                                 RectangleList.Add(Rec);
                             }
                         }
@@ -338,7 +338,7 @@ namespace WindowsFormsApp3
                             RectangleList[i].Move((int)RectangleList[i].YPos);
                         }
                     }
-                    if (RectangleList[i].MyRec.Y >= Button_Y_Position - (4+(6*Myspeed)) && RectangleList[i].Check == true && RectangleList[i].Hit == true&&RectangleList[i].ChangeButton==false)
+                    if (RectangleList[i].MyRec.Y >= Button_Y_Position - (4 + (6 * Myspeed)) && RectangleList[i].Check == true && RectangleList[i].Hit == true && RectangleList[i].ChangeButton == false)
                     {
                         if (WhiteKey.Contains(RectangleList[i].Position))
                             buttonlist[RectangleList[i].Position - 1].BackColor = Color.White;
@@ -348,7 +348,7 @@ namespace WindowsFormsApp3
                         RectangleList[i].ChangeButton = true;
                         RectangleList.RemoveAt(i);
                     }
-        
+
                 }
                 else
                 {
@@ -533,17 +533,17 @@ namespace WindowsFormsApp3
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
 
-          /*  SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            SetStyle(ControlStyles.ResizeRedraw, true);
-            Graphics g = e.Graphics;
-            foreach (var x in MyRectangleList)
-            {
+            /*  SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+              SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+              SetStyle(ControlStyles.ResizeRedraw, true);
+              Graphics g = e.Graphics;
+              foreach (var x in MyRectangleList)
+              {
 
-                g.DrawRectangle(p, x.MyRec);
-                g.FillRectangle(x.Color, x.MyRec);
-            }
-            g.DrawLine(p, 0, 30, 1058, 30);*/
+                  g.DrawRectangle(p, x.MyRec);
+                  g.FillRectangle(x.Color, x.MyRec);
+              }
+              g.DrawLine(p, 0, 30, 1058, 30);*/
         }
         private void Restart(object sender, EventArgs e)
         {
@@ -596,11 +596,11 @@ namespace WindowsFormsApp3
             if (Myspeed >= 0.15)
             {
                 colorSlider1.Value -= 10;
-                Myspeed = (double)colorSlider1.Value/100;
+                Myspeed = (double)colorSlider1.Value / 100;
                 time = (int)(time * (oldspeed / Myspeed));
                 oldspeed = Myspeed;
                 label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
-             
+
             }
         }
 
@@ -635,6 +635,30 @@ namespace WindowsFormsApp3
                 time = (int)(time * (oldspeed / Myspeed));
                 oldspeed = Myspeed;
                 label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
+            }
+        }
+
+        private void button93_Click(object sender, EventArgs e)
+        {
+            if (!sheetshown)
+            {
+                this.MaximumSize = new Size(1366, this.MaximumSize.Height);
+                this.MinimumSize = new Size(1366, this.MaximumSize.Height);
+                this.Size = new Size(1366, this.MaximumSize.Height);
+                PictureBox px = new PictureBox();
+                pictureBox3.BackgroundImage = Image.FromFile(@"C:\Users\Ahmed\Desktop\sheet\Octavium\Resources\Sheets\test_1.png");
+                this.CenterToScreen();
+                sheetshown = true;
+            }
+            else
+            {
+                this.MaximumSize = new Size(1056, this.MaximumSize.Height);
+                this.MinimumSize = new Size(1056, this.MaximumSize.Height);
+                this.Size = new Size(1056, this.MaximumSize.Height);
+                this.StartPosition = FormStartPosition.CenterScreen;
+                pictureBox3.BackgroundImage = null;
+                this.CenterToScreen();
+                sheetshown = false;
             }
         }
     }
