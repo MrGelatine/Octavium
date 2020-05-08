@@ -30,7 +30,7 @@ namespace WindowsFormsApp3
                     case Colors.Red:
                         {
                             c_color = Colors.Orange;
-                            return Color.Orange;
+                            return Color.FromArgb(255,145,0);
                         }
                     case Colors.Orange:
                         {
@@ -40,22 +40,22 @@ namespace WindowsFormsApp3
                     case Colors.Yellow:
                         {
                             c_color = Colors.Green;
-                            return Color.Green;
+                            return Color.FromArgb(16,148,13);
                         }
                     case Colors.Green:
                         {
                             c_color = Colors.Blue;
-                            return Color.Blue;
+                            return Color.Aqua;
                         }
                     case Colors.Blue:
                         {
                             c_color = Colors.Indigo;
-                            return Color.Indigo;
+                            return Color.Blue;
                         }
                     case Colors.Indigo:
                         {
                             c_color = Colors.Violet;
-                            return Color.Violet;
+                            return Color.FromArgb(179,19,162);
                         }
                     case Colors.Violet:
                         {
