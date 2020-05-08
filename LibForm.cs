@@ -254,7 +254,8 @@ namespace WindowsFormsApp3
         {
             if (!starting)
             {
-
+                Panel p = (Panel)sender;
+                var viewer = new SheetViewer(projectPath + @"Resources\\Sheets", p.Name);
             }
             else
             {
@@ -267,9 +268,17 @@ namespace WindowsFormsApp3
         void TrackLabel_DoubleClick(Object sender,
                            EventArgs e)
         {
-            TrackLabel_Click(sender, e);
-            starting = true;
-            this.Close();
+            if (!starting)
+            {
+                Panel p = (Panel)sender;
+                var viewer = new SheetViewer(projectPath + @"Resources\\Sheets", p.Name);
+            }
+            else
+            {
+                TrackPanel_Click(sender, e);
+                starting = true;
+                this.Close();
+            }
         }
 
         void deletePanel_Click(Object sender, EventArgs e)
