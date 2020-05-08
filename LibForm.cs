@@ -252,9 +252,16 @@ namespace WindowsFormsApp3
         void TrackPanel_DoubleClick(Object sender,
                           EventArgs e)
         {
-            TrackPanel_Click(sender, e);
-            starting = true;
-            this.Close();
+            if (!starting)
+            {
+
+            }
+            else
+            {
+                TrackPanel_Click(sender, e);
+                starting = true;
+                this.Close();
+            }
         }
 
         void TrackLabel_DoubleClick(Object sender,
