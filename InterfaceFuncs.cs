@@ -180,5 +180,16 @@ namespace WindowsFormsApp3
             }
             form1.ShowDialog();
         }
+        public static bool IsSheetGenerated(string path, string name)
+        {
+            foreach (string file in Directory.GetFiles(path))
+            {
+                if (Regex.IsMatch(file,$@"{file}_\d+.png"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
