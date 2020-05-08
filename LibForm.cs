@@ -371,7 +371,7 @@ namespace WindowsFormsApp3
         private void AddPanel_Click(object sender, EventArgs e)
         {
             //получаем данные трека(если файл не выбран, то получим тройку пустых строк)
-            Tuple<string, string, string> fileData = InterfaceFuncs.GetAndAddData(projectPath + @"\\sheet.exe", projectPath + @"\\Gallery\\Sheets", libPath);
+            Tuple<string, string, string> fileData = InterfaceFuncs.GetAndAddData(projectPath + @"sheet.exe", projectPath + @"Resources\\Sheets", libPath);
             if (fileData.Item1 == "")
                 return;
             //проверяем, что трека с таким названием нету

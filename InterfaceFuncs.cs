@@ -23,7 +23,7 @@ namespace WindowsFormsApp3
     {
         //Принимает директории на генератор нот, на хранилище нот, и на хранилище запакованных партитур, после чего генерирует необходимые файлы и добавляет их по указанным директориям
         // возвращает тройку пустых значений, если файл не был выбран
-        public static Tuple<String, String, String> GetAndAddData(string engien_path = @"C:\Users\Денис\Desktop\Oct\Octavium\sheet.exe", string sheet_path = @"C:\Users\Денис\Desktop\Rep\Octavium\Gallery", string data_storage_path = @"C:\Users\Денис\Desktop\Oct\Octavium\Storage")
+        public static Tuple<String, String, String> GetAndAddData(string engien_path, string sheet_path, string data_storage_path)
         {
             string midi_data_path = null;
             using (var dialog = new OpenFileDialog())
@@ -35,7 +35,7 @@ namespace WindowsFormsApp3
                     {
                         throw new FormatException("Выбранный файл не является midi!");
                     }
-                    //CreateSheet(engien_path, midi_data_path, sheet_path);
+                    CreateSheet(engien_path, midi_data_path, sheet_path);
                     try
                     {
                         MIDIFuncs.SaveToData(new MIDINotesData(midi_data_path), $@"{data_storage_path}\{InterfaceFuncs.GetFileName(midi_data_path)}");
@@ -61,15 +61,15 @@ namespace WindowsFormsApp3
             sheetMaker.CreateNoWindow = true;
             Process procCommand = Process.Start(sheetMaker);
             procCommand.WaitForExit();
-            foreach (var line in Directory.GetFiles(@"C:\Users\Денис\Desktop\Oct\Octavium\bin\Release\"))
+            foreach (var line in Directory.GetFiles(engien_path.Remove(engien_path.Length-9,9) + "bin\\Release"))
             {
                 if (Regex.IsMatch(line, ".png"))
                 {
                     var dest = $@"{sheet_path}\{Regex.Match(line, @"[\\]+[^\\]+.png").Value.Remove(0, 1)}";
-                    if (dest.Equals(line.Replace("\\\\", "\\")))
-                    {
-                        File.Move(line.Replace("\\\\", "\\"), dest);
-                    }
+                    //if (dest.Equals(line.Replace("\\\\", "\\")))
+                    //{
+                        File.Move(line, dest);
+                    //}
                 }
             }
 
