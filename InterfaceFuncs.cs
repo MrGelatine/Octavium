@@ -35,7 +35,7 @@ namespace WindowsFormsApp3
                     {
                         throw new FormatException("Выбранный файл не является midi!");
                     }
-                    CreateSheet(engien_path, midi_data_path, sheet_path);
+                    //CreateSheet(engien_path, midi_data_path, sheet_path);
                     try
                     {
                         MIDIFuncs.SaveToData(new MIDINotesData(midi_data_path), $@"{data_storage_path}\{InterfaceFuncs.GetFileName(midi_data_path)}");
@@ -67,7 +67,11 @@ namespace WindowsFormsApp3
                 if (Regex.IsMatch(line, ".png"))
                 {
                     var dest = $@"{sheet_path}\{Regex.Match(line, @"[\\]+[^\\]+.png").Value.Remove(0, 1)}";
-                    File.Move(line, dest);
+                    try
+                    {
+                        File.Move(line, dest);
+                    }
+                    catch (IOException e) { }
                 }
             }
             foreach(var line in Directory.GetFiles(sheet_path))
@@ -187,7 +191,7 @@ namespace WindowsFormsApp3
         {
             foreach (string file in Directory.GetFiles(path))
             {
-                if (Regex.IsMatch(file,$@"{name}_\d+.png"))
+                if (Regex.IsMatch(file,$@"{name} \d+.png"))
                 {
                     return true;
                 }
