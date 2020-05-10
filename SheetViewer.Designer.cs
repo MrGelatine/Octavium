@@ -38,7 +38,7 @@
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = global::WindowsFormsApp3.Properties.Resources.Sketch072;
+            //this.pictureBox3.Image = global::WindowsFormsApp3.Properties.Resources.Sketch072;
             this.pictureBox3.Location = new System.Drawing.Point(1293, 29);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(58, 80);
@@ -48,7 +48,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::WindowsFormsApp3.Properties.Resources.Sketch073;
+            //this.pictureBox2.Image = global::WindowsFormsApp3.Properties.Resources.Sketch073;
             this.pictureBox2.Location = new System.Drawing.Point(2, 29);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(59, 80);
