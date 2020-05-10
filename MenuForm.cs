@@ -71,11 +71,6 @@ namespace WindowsFormsApp3
 
         private void MenuForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
-            {
-                var sh = new SheetViewer(@"C:\Users\Денис\Desktop\Octavium\Resources\Sheets","test");
-                sh.Show();
-            }
         }
     }
 }

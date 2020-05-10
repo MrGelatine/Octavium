@@ -193,29 +193,30 @@ namespace WindowsFormsApp3
         {
             foreach (string file in Directory.GetFiles(path))
             {
-                if (Regex.IsMatch(file,$@"{name} \d+.png"))
+                if (file.Contains(name))
                 {
                     return true;
                 }
             }
             return false;
         }
-        public static void Sheets_Flush(string sheet_path, string info_path)
+        public static void Sheets_Flush(string track_name, string sheet_path)
         {
-            foreach (var file in Directory.GetFiles(Regex.Replace(sheet_path,@"\\\\",@"\\")))
+            foreach (var file in Directory.GetFiles(Regex.Replace(sheet_path, @"\\\\", @"\\")))
             {
-                bool flag = true;
-                foreach (var line in File.ReadLines(info_path))
-                {
-                    var str = Regex.Match(line, @"[\|].*[\|]").Value;
-                    str = str.Remove(str.Length - 1, 1).Remove(0, 1);
-                    if (Regex.IsMatch(file, str))
-                    {
-                        flag = false;   
-                    }
-                }
-                if(flag)
-                File.Delete(file);
+                //bool flag = true;
+                //foreach (var line in File.ReadLines(info_path))
+                //{
+                //    var str = Regex.Match(line, @"[\|].*[\|]").Value;
+                //    str = str.Remove(str.Length - 1, 1).Remove(0, 1);
+                //    if (Regex.IsMatch(file, str))
+                //    {
+                //        flag = false;
+                //    }
+                //}
+                //if (flag)
+                if(file.Contains(track_name))
+                    File.Delete(file);
             }
         }
     }
