@@ -23,7 +23,7 @@ namespace WindowsFormsApp3
             sheet_lists = new List<string>();
             foreach(var list in System.IO.Directory.GetFiles(sheet_path))
             {
-                if (System.Text.RegularExpressions.Regex.IsMatch(list,sheet_name))
+                if (list.Contains(sheet_name))
                 {
                     sheet_lists.Add(list);
                 }
@@ -36,16 +36,19 @@ namespace WindowsFormsApp3
             pictureBox1.Width = Image.FromFile(sheet_lists[current]).Width;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+
+
+        private void pictureBox3_Click(object sender, EventArgs e)
         {
-            if (current < sheet_lists.Count-1)
+            if (current < sheet_lists.Count - 1)
             {
                 current++;
                 pictureBox1.BackgroundImage = Image.FromFile(sheet_lists[current]);
             }
+
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void pictureBox2_Click(object sender, EventArgs e)
         {
             if (current > 0)
             {

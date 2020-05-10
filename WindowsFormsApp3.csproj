@@ -221,6 +221,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo-48.ico" />
+    <None Include="Resources\Sketch072.png" />
+    <None Include="Resources\Sketch073.png" />
+    <None Include="Resources\right_4.png" />
+    <None Include="Resources\Sketch060.jpg" />
+    <None Include="Resources\Sketch059.jpg" />
     <None Include="Resources\Sketch042.png" />
     <None Include="Resources\Sketch043.png" />
     <None Include="Resources\btn1.jpg" />
