@@ -52,9 +52,10 @@ namespace WindowsFormsApp3
         //Принимает директории на генератор нот, на запакованный файл, и на хранилище нот, после чего генерирует ноты и добавляет их в указанную папку.
         public static void CreateSheet(string engien_path, string data_path, string sheet_path)
         {
-            var name = InterfaceFuncs.GetFileName(data_path);
-            var sheetMaker = new ProcessStartInfo(engien_path, $"{data_path} {name}");
-
+            var new_path = Regex.Replace(data_path, @"\s", "_");
+            var name = InterfaceFuncs.GetFileName(new_path);
+            File.Move(data_path,new_path);
+            var sheetMaker = new ProcessStartInfo(engien_path, $"{new_path} {name}");
             sheetMaker.WindowStyle = ProcessWindowStyle.Hidden;
             sheetMaker.RedirectStandardOutput = true;
             sheetMaker.UseShellExecute = false;
@@ -66,12 +67,14 @@ namespace WindowsFormsApp3
                 if (Regex.IsMatch(line, ".png"))
                 {
                     var dest = $@"{sheet_path}\{Regex.Match(line, @"[\\]+[^\\]+.png").Value.Remove(0, 1)}";
-                    //if (dest.Equals(line.Replace("\\\\", "\\")))
-                    //{
-                        File.Move(line, dest);
-                    //}
+                    File.Move(line, dest);
                 }
             }
+            foreach(var line in Directory.GetFiles(sheet_path))
+            {
+                File.Move(line, Regex.Replace(line,"_", " "));
+            }
+            File.Move(new_path,data_path);
 
         }
         //Возвращает текущую дату

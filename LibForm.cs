@@ -57,7 +57,7 @@ namespace WindowsFormsApp3
 
         public LibForm(bool lib = true)
         {
-            InterfaceFuncs.Sheets_Flush(projectPath + "\\Resources\\Sheets", projectPath + "\\Resources\\DataStorage\\lib.txt");
+            //InterfaceFuncs.Sheets_Flush(projectPath + "\\Resources\\Sheets", projectPath + "\\Resources\\DataStorage\\lib.txt");
             libPath = string.Format("{0}Resources\\DataStorage", projectPath);
             library = lib;
             InitializeComponent();
@@ -333,7 +333,7 @@ namespace WindowsFormsApp3
         //Удаление трека из списка по индексу
         private void deleteTrack(int i)
         {
-            InterfaceFuncs.Sheets_Flush(projectPath + "\\Resources\\Sheets", projectPath + "\\Resources\\DataStorage\\lib.txt");
+            //InterfaceFuncs.Sheets_Flush(projectPath + "\\Resources\\Sheets", projectPath + "\\Resources\\DataStorage\\lib.txt");
             string filename = "";
             //Удаляем информацию из списков curfiles и libfileList
             foreach(Tuple<int, string, string, string> fileInfo in curfiles)
