@@ -35,7 +35,8 @@ namespace WindowsFormsApp3
                     {
                         throw new FormatException("Выбранный файл не является midi!");
                     }
-                    //CreateSheet(engien_path, midi_data_path, sheet_path);
+                    CreateSheet(engien_path, midi_data_path, sheet_path);
+                    midi_data_path = Regex.Replace(midi_data_path, "_", " ");
                     try
                     {
                         MIDIFuncs.SaveToData(new MIDINotesData(midi_data_path), $@"{data_storage_path}\{InterfaceFuncs.GetFileName(midi_data_path)}");
@@ -52,10 +53,11 @@ namespace WindowsFormsApp3
         //Принимает директории на генератор нот, на запакованный файл, и на хранилище нот, после чего генерирует ноты и добавляет их в указанную папку.
         public static void CreateSheet(string engien_path, string data_path, string sheet_path)
         {
-            var new_path = Regex.Replace(data_path, @"\s", "_");
-            var name = InterfaceFuncs.GetFileName(new_path);
-            File.Move(data_path,new_path);
-            var sheetMaker = new ProcessStartInfo(engien_path, $"{new_path} {name}");
+            var work_path = Regex.Replace(data_path, @"\s", "_");
+            var smooth_path = Regex.Replace(work_path,"_"," ");
+            var name = InterfaceFuncs.GetFileName(work_path);
+            File.Move(data_path,work_path);
+            var sheetMaker = new ProcessStartInfo(engien_path, $"{work_path} {name}");
             sheetMaker.WindowStyle = ProcessWindowStyle.Hidden;
             sheetMaker.RedirectStandardOutput = true;
             sheetMaker.UseShellExecute = false;
@@ -78,7 +80,7 @@ namespace WindowsFormsApp3
             {
                 File.Move(line, Regex.Replace(line,"_", " "));
             }
-            File.Move(new_path,data_path);
+            File.Move(work_path,smooth_path);
 
         }
         //Возвращает текущую дату
@@ -200,18 +202,20 @@ namespace WindowsFormsApp3
         }
         public static void Sheets_Flush(string sheet_path, string info_path)
         {
-            foreach (var file in Directory.GetFiles(sheet_path))
+            foreach (var file in Directory.GetFiles(Regex.Replace(sheet_path,@"\\\\",@"\\")))
             {
+                bool flag = true;
                 foreach (var line in File.ReadLines(info_path))
                 {
                     var str = Regex.Match(line, @"[\|].*[\|]").Value;
                     str = str.Remove(str.Length - 1, 1).Remove(0, 1);
-                    if (!Regex.IsMatch(file, str))
+                    if (Regex.IsMatch(file, str))
                     {
-                        File.Delete(file);
-                        break;
+                        flag = false;   
                     }
                 }
+                if(flag)
+                File.Delete(file);
             }
         }
     }

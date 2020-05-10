@@ -57,7 +57,7 @@ namespace WindowsFormsApp3
 
         public LibForm(bool lib = true)
         {
-            //InterfaceFuncs.Sheets_Flush(projectPath + "\\Resources\\Sheets", projectPath + "\\Resources\\DataStorage\\lib.txt");
+            InterfaceFuncs.Sheets_Flush(projectPath + "\\Resources\\Sheets", projectPath + "\\Resources\\DataStorage\\lib.txt");
             libPath = string.Format("{0}Resources\\DataStorage", projectPath);
             library = lib;
             InitializeComponent();
