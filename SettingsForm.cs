@@ -98,14 +98,19 @@ namespace WindowsFormsApp3
             fmenu.clNote1 = colorNote1;
             fmenu.clNote2 = colorNote2;
             fmenu.volume = volume;
-            fmenu.speed = speed / 100;
-  
+            fmenu.speed = (double)speed / 100;
+
         }
 
         private void SpeedBar_Scroll(object sender, EventArgs e)
         {
             speed = speedBar.Value;
             speedLabel.Text = speed.ToString() + "%";
+        }
+
+        private void SettingsForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -10,6 +10,7 @@ using Sanford.Multimedia.Midi.UI;
 using System.Threading;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.IO;
 namespace WindowsFormsApp3
 {
 
@@ -97,10 +98,15 @@ namespace WindowsFormsApp3
         private OutputDevice outDevice;
         private int outDeviceID = 0;
         private OutputDeviceDialog outDialog = new OutputDeviceDialog();
+        String track="";
+        String[] flist;
+        int indexofimage =0;
+        List<Image> imagelist = new List<Image>();
         public Form1(String Path = "", double Speed = 1.00, String image = "", Color? c1 = null, Color? c2 = null, Color? c3 = null, Color? c4 = null, bool RainbowMode = false)
         {
             if (Path != "")
             {
+                track = (Path.Substring(Path.LastIndexOf("\\")+1,Path.LastIndexOf(".")-Path.LastIndexOf("\\")-1));
                 My = new MIDINotesData(MIDIFuncs.UnpackDataToNote(Path));
                 pathcheck = true;
                 ft = (int)My.flowkeys[0].time;
@@ -435,7 +441,23 @@ namespace WindowsFormsApp3
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            var projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            string filePath = Path.Combine(projectPath, "Resources");
+            String strFilePath = Path.Combine(filePath, "Sheets");
+            flist = Directory.GetFiles(strFilePath, "*.*", SearchOption.AllDirectories);
+            foreach (var x in flist) {
+               string name = (x.Substring(x.LastIndexOf("\\") + 1, x.LastIndexOf(".") - x.LastIndexOf("\\") - 1));
+                if (name.Contains(track)) {
+                    imagelist.Add(Image.FromFile(x));
+                }
+            }
+            if (imagelist.Count > 0)
+            {
+                pictureBox3.BackgroundImage = imagelist[indexofimage];
+                label2.Text = (indexofimage + 1).ToString() + "/" + imagelist.Count; 
+            }
             colorSlider1.Value = (int)(100 * Myspeed);
+            label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
             pictureBox2.BackgroundImage = im;
             progressBar1.Maximum = 100 * (st - ft) / timer1.Interval;
             buttonlist.Add(button1);
@@ -646,9 +668,9 @@ namespace WindowsFormsApp3
                 this.MinimumSize = new Size(1366, this.MaximumSize.Height);
                 this.Size = new Size(1366, this.MaximumSize.Height);
                 PictureBox px = new PictureBox();
-                pictureBox3.BackgroundImage = Image.FromFile(@"C:\Users\Ahmed\Desktop\sheet\Octavium\Resources\Sheets\test_1.png");
                 this.CenterToScreen();
                 sheetshown = true;
+                button93.Text = "Hide Sheet";
             }
             else
             {
@@ -656,9 +678,39 @@ namespace WindowsFormsApp3
                 this.MinimumSize = new Size(1056, this.MaximumSize.Height);
                 this.Size = new Size(1056, this.MaximumSize.Height);
                 this.StartPosition = FormStartPosition.CenterScreen;
-                pictureBox3.BackgroundImage = null;
                 this.CenterToScreen();
                 sheetshown = false;
+                button93.Text = "Show Sheet";
+            }
+        }
+
+        private void button94_Click(object sender, EventArgs e)
+        {
+            if (indexofimage < imagelist.Count - 1)
+            {
+                indexofimage++;
+                pictureBox3.BackgroundImage = imagelist[indexofimage];
+                label2.Text = (indexofimage + 1).ToString() + "/" + imagelist.Count;
+            }
+            else if (indexofimage == imagelist.Count - 1) {
+                indexofimage = 0;
+                pictureBox3.BackgroundImage = imagelist[indexofimage];
+                label2.Text = (indexofimage + 1).ToString() + "/" + imagelist.Count;
+            }
+        }
+
+        private void button95_Click(object sender, EventArgs e)
+        {
+            if (indexofimage > 0) {
+                indexofimage--;
+                pictureBox3.BackgroundImage = imagelist[indexofimage];
+                label2.Text = (indexofimage + 1).ToString() + "/" + imagelist.Count;
+            }
+            else if (indexofimage == 0)
+            {
+                indexofimage = imagelist.Count - 1;
+                pictureBox3.BackgroundImage = imagelist[indexofimage];
+                label2.Text = (indexofimage + 1).ToString() + "/" + imagelist.Count;
             }
         }
     }
