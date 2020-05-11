@@ -124,9 +124,6 @@
   <data name="trashCan" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\trashCan.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Sketch059" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sketch059.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="btn2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btn2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -135,9 +132,6 @@
   </data>
   <data name="icons8_play_96_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-96_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="right_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\right_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="backBtn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\backBtn1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -157,9 +151,7 @@
   <data name="songNameBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\songNameBox.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Sketch060" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sketch060.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
+
   <data name="Sketch043" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sketch043.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

@@ -173,16 +173,6 @@ namespace WindowsFormsApp3.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap right_4 {
-            get {
-                object obj = ResourceManager.GetObject("right_4", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap search {
             get {
                 object obj = ResourceManager.GetObject("search", resourceCulture);
@@ -216,26 +206,6 @@ namespace WindowsFormsApp3.Properties {
         internal static System.Drawing.Bitmap Sketch043 {
             get {
                 object obj = ResourceManager.GetObject("Sketch043", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Sketch059 {
-            get {
-                object obj = ResourceManager.GetObject("Sketch059", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Sketch060 {
-            get {
-                object obj = ResourceManager.GetObject("Sketch060", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
