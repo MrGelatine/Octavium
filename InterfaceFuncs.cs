@@ -33,7 +33,9 @@ namespace WindowsFormsApp3
                     midi_data_path = dialog.FileName;
                     if (!Is_mid(midi_data_path))
                     {
-                        throw new FormatException("Выбранный файл не является midi!");
+                        //throw new FormatException("Выбранный файл не является midi!");
+                        MessageBox.Show("Выбранный файл не является midi!");
+                        return Tuple.Create("", "", "");
                     }
                     CreateSheet(engien_path, midi_data_path, sheet_path);
                     midi_data_path = Regex.Replace(midi_data_path, "_", " ");

@@ -278,11 +278,11 @@ namespace WindowsFormsApp3
         {
             if (library)
             {
-                Panel p = (Panel)sender;
+                Label l = (Label)sender;
                 string n = "";
                 foreach(var elem in curfiles)
                 {
-                    if(elem.Item1 == int.Parse(p.Name.Substring(0, p.Name.Length - 4)))
+                    if(elem.Item1 == int.Parse(l.Name.Substring(0, l.Name.Length - 5)))
                     {
                         n  = elem.Item3;
                     }
@@ -292,7 +292,7 @@ namespace WindowsFormsApp3
             }
             else
             {
-                TrackPanel_Click(sender, e);
+                TrackLabel_Click(sender, e);
                 starting = true;
                 this.Close();
             }
