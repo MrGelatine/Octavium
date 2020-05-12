@@ -18,6 +18,10 @@ namespace WindowsFormsApp3
         public string image = null;
         public Color clNote1 = Color.Red;
         public Color clNote2 = Color.Pink;
+<<<<<<< HEAD
+=======
+        public int volume = 100;
+>>>>>>> 02cbc22706763a89263028c86e91ea880a3ce838
         public double speed = 1;
 
         public MenuForm()
