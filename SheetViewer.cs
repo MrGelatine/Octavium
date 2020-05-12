@@ -31,9 +31,12 @@ namespace WindowsFormsApp3
             sheet_lists.Sort();
             InitializeComponent();
             current = 0;
-            pictureBox1.BackgroundImage = Image.FromFile(sheet_lists[current]);
-            pictureBox1.Height = Image.FromFile(sheet_lists[current]).Height;
-            pictureBox1.Width = Image.FromFile(sheet_lists[current]).Width;
+            Image img;
+            using (var bmpTemp = new Bitmap(sheet_lists[current]))
+                img = new Bitmap(bmpTemp);
+            pictureBox1.BackgroundImage = img;
+            pictureBox1.Height = img.Height;
+            pictureBox1.Width = img.Width;
         }
 
 
