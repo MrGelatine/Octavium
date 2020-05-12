@@ -1,4 +1,4 @@
-cl1=255,128,64
-cl2=0,255,255
-backgroundPath=C:\Users\Dima\Desktop\Octavium\Resources\Backgrounds\piano.jpg
-speed=71
+cl1=0,128,0
+cl2=255,0,128
+backgroundPath=C:\Users\Dima\Desktop\Octavium\Resources\Backgrounds\pirates.jpg
+speed=72
