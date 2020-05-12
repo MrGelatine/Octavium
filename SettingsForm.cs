@@ -17,17 +17,76 @@ namespace WindowsFormsApp3
         public string backgroundPath = null;
         Color colorNote1 = Color.Red;
         Color colorNote2 = Color.Pink;
-        int volume = 100;
         int speed = 100;
         Color backColor1 = Color.FromArgb(46, 46, 46);
         Color backColor2 = Color.FromArgb(69, 69, 69);
+        string projectPath = Path.GetFullPath(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, @"..\..\"));
+        string setPath;
         public SettingsForm()
         {
             InitializeComponent();
             flowLayoutPanel1.BackColor = backColor1;
             this.BackColor = backColor2;
-            colorPanel1.BackColor = Color.Red;
-            colorPanel2.BackColor = Color.Pink;
+            setPath = projectPath + @"\set.txt";
+            try
+            {
+                GetSettingsFromTxt();
+            }
+            catch
+            {
+
+            }
+            colorPanel1.BackColor = colorNote1;
+            colorPanel2.BackColor = colorNote2;
+            speedBar.Value = speed;
+        }
+        private void GetSettingsFromTxt()
+        {
+            string[] settingsTxt = System.IO.File.ReadAllLines(setPath);
+            for (int i = 0; i < settingsTxt.Length; i++)
+            {
+                string[] setAttr = settingsTxt[i].Split('=');
+                if (setAttr.Length < 2)
+                    continue;
+                switch (setAttr[0])
+                {
+                    case "cl1":
+                        colorNote1 = GetColorFromStr(setAttr[1]);
+                        break;
+                    case "cl2":
+                        colorNote2 = GetColorFromStr(setAttr[1]);
+                        break;
+                    case "backgroundPath":
+                        backgroundPath = setAttr[1];
+                        break;
+                    case "speed":
+                        Int32.TryParse(setAttr[1],out speed);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void SaveSettingsToTxt()
+        {
+            using (var setW = new StreamWriter(setPath))
+            {
+                setW.WriteLine("cl1=" + colorNote1.R.ToString() + "," + colorNote1.G.ToString() + "," + colorNote1.B.ToString());
+                setW.WriteLine("cl2=" + colorNote2.R.ToString() + "," + colorNote2.G.ToString() + "," + colorNote2.B.ToString());
+                setW.WriteLine("backgroundPath=" + backgroundPath);
+                setW.WriteLine("speed=" + speed.ToString());
+            }
+        }
+
+        private Color GetColorFromStr(string stringColor)
+        {
+            string[] colAttr = stringColor.Split(',');
+            int r, g, b;
+            Int32.TryParse(colAttr[0], out r);
+            Int32.TryParse(colAttr[1], out g);
+            Int32.TryParse(colAttr[2], out b);
+            return Color.FromArgb(r, g, b);
         }
 
         private void PanelBack_Click(object sender, EventArgs e)
@@ -84,21 +143,16 @@ namespace WindowsFormsApp3
             return res.Remove(res.Length - 4, 4);
         }
 
-        private void VolumeBar_Scroll(object sender, EventArgs e)
-        {
-            volume = volumeBar.Value;
-            volumeLabel.Text = volume.ToString() + "%";
-        }
 
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            SaveSettingsToTxt();
             MenuForm fmenu = (MenuForm)this.Owner;
-            if (backgroundPath != null)
+            if (backgroundPath != null && backgroundPath != "")
                 fmenu.image = backgroundPath;
             fmenu.clNote1 = colorNote1;
             fmenu.clNote2 = colorNote2;
-            fmenu.volume = volume;
-            fmenu.speed = speed / 100;
+            fmenu.speed = (double) speed / 100;
   
         }
 

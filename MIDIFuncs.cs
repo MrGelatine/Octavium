@@ -126,7 +126,7 @@ namespace WindowsFormsApp3
                 {
                     if (t.Minutes == 0)
                     {
-                        return t.Seconds.ToString();
+                        return "0:" + t.Seconds.ToString();
                     }
                     else
                     {

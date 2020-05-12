@@ -40,10 +40,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.volumeLabel = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.volumeBar = new System.Windows.Forms.TrackBar();
             this.panel3 = new System.Windows.Forms.Panel();
             this.speedLabel = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -51,8 +47,6 @@
             this.flowLayoutPanel1.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.volumeBar)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.speedBar)).BeginInit();
             this.SuspendLayout();
@@ -189,58 +183,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.BackgroundImage = global::WindowsFormsApp3.Properties.Resources.btn3;
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel2.Controls.Add(this.volumeLabel);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Location = new System.Drawing.Point(303, 260);
-            this.panel2.Margin = new System.Windows.Forms.Padding(5);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(300, 55);
-            this.panel2.TabIndex = 5;
-            // 
-            // volumeLabel
-            // 
-            this.volumeLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.volumeLabel.AutoSize = true;
-            this.volumeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.volumeLabel.ForeColor = System.Drawing.Color.Black;
-            this.volumeLabel.Location = new System.Drawing.Point(187, 15);
-            this.volumeLabel.Margin = new System.Windows.Forms.Padding(25);
-            this.volumeLabel.Name = "volumeLabel";
-            this.volumeLabel.Size = new System.Drawing.Size(55, 24);
-            this.volumeLabel.TabIndex = 4;
-            this.volumeLabel.Text = "100%";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(60, 15);
-            this.label5.Margin = new System.Windows.Forms.Padding(25);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(107, 24);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Громкость";
-            // 
-            // volumeBar
-            // 
-            this.volumeBar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.volumeBar.LargeChange = 10;
-            this.volumeBar.Location = new System.Drawing.Point(619, 270);
-            this.volumeBar.Maximum = 100;
-            this.volumeBar.Name = "volumeBar";
-            this.volumeBar.Size = new System.Drawing.Size(205, 45);
-            this.volumeBar.TabIndex = 8;
-            this.volumeBar.TickFrequency = 5;
-            this.volumeBar.Value = 100;
-            this.volumeBar.Scroll += new System.EventHandler(this.VolumeBar_Scroll);
-            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
@@ -248,7 +190,7 @@
             this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel3.Controls.Add(this.speedLabel);
             this.panel3.Controls.Add(this.label7);
-            this.panel3.Location = new System.Drawing.Point(303, 314);
+            this.panel3.Location = new System.Drawing.Point(303, 260);
             this.panel3.Margin = new System.Windows.Forms.Padding(5);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(300, 55);
@@ -283,7 +225,7 @@
             // speedBar
             // 
             this.speedBar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.speedBar.Location = new System.Drawing.Point(619, 324);
+            this.speedBar.Location = new System.Drawing.Point(619, 270);
             this.speedBar.Maximum = 200;
             this.speedBar.Minimum = 5;
             this.speedBar.Name = "speedBar";
@@ -301,8 +243,6 @@
             this.ClientSize = new System.Drawing.Size(1084, 461);
             this.Controls.Add(this.speedBar);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.volumeBar);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
@@ -320,9 +260,6 @@
             this.panel5.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.volumeBar)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.speedBar)).EndInit();
@@ -345,10 +282,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TrackBar volumeBar;
-        private System.Windows.Forms.Label volumeLabel;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label speedLabel;
         private System.Windows.Forms.Label label7;

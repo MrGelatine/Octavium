@@ -18,8 +18,7 @@ namespace WindowsFormsApp3
         public string image = null;
         public Color clNote1 = Color.Red;
         public Color clNote2 = Color.Pink;
-        public int volume = 100;
-        public int speed = 1;
+        public double speed = 1;
 
         public MenuForm()
         {
@@ -40,7 +39,7 @@ namespace WindowsFormsApp3
             AddOwnedForm(libForm);
             libForm.ShowDialog();
             if (starting && filepath != "")
-                InterfaceFuncs.Base_Library_Call(filepath, speed, image, clNote1, clNote2, volume);
+                InterfaceFuncs.Base_Library_Call(filepath, speed, image, clNote1, clNote2);
             this.Show();
         }
 
