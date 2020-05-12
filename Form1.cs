@@ -448,7 +448,10 @@ namespace WindowsFormsApp3
             foreach (var x in flist) {
                string name = (x.Substring(x.LastIndexOf("\\") + 1, x.LastIndexOf(".") - x.LastIndexOf("\\") - 1));
                 if (name.Contains(track)) {
-                    imagelist.Add(Image.FromFile(x));
+                    Image img;
+                    using (var bmpTemp = new Bitmap(x))
+                        img = new Bitmap(bmpTemp);
+                    imagelist.Add(img);
                 }
             }
             if (imagelist.Count > 0)
@@ -686,31 +689,39 @@ namespace WindowsFormsApp3
 
         private void button94_Click(object sender, EventArgs e)
         {
-            if (indexofimage < imagelist.Count - 1)
+            if (imagelist.Count > 0)
             {
-                indexofimage++;
-                pictureBox3.BackgroundImage = imagelist[indexofimage];
-                label2.Text = (indexofimage + 1).ToString() + "/" + imagelist.Count;
-            }
-            else if (indexofimage == imagelist.Count - 1) {
-                indexofimage = 0;
-                pictureBox3.BackgroundImage = imagelist[indexofimage];
-                label2.Text = (indexofimage + 1).ToString() + "/" + imagelist.Count;
+                if (indexofimage < imagelist.Count - 1)
+                {
+                    indexofimage++;
+                    pictureBox3.BackgroundImage = imagelist[indexofimage];
+                    label2.Text = (indexofimage + 1).ToString() + "/" + imagelist.Count;
+                }
+                else if (indexofimage == imagelist.Count - 1)
+                {
+                    indexofimage = 0;
+                    pictureBox3.BackgroundImage = imagelist[indexofimage];
+                    label2.Text = (indexofimage + 1).ToString() + "/" + imagelist.Count;
+                }
             }
         }
 
         private void button95_Click(object sender, EventArgs e)
         {
-            if (indexofimage > 0) {
-                indexofimage--;
-                pictureBox3.BackgroundImage = imagelist[indexofimage];
-                label2.Text = (indexofimage + 1).ToString() + "/" + imagelist.Count;
-            }
-            else if (indexofimage == 0)
+            if (imagelist.Count > 0)
             {
-                indexofimage = imagelist.Count - 1;
-                pictureBox3.BackgroundImage = imagelist[indexofimage];
-                label2.Text = (indexofimage + 1).ToString() + "/" + imagelist.Count;
+                if (indexofimage > 0)
+                {
+                    indexofimage--;
+                    pictureBox3.BackgroundImage = imagelist[indexofimage];
+                    label2.Text = (indexofimage + 1).ToString() + "/" + imagelist.Count;
+                }
+                else if (indexofimage == 0)
+                {
+                    indexofimage = imagelist.Count - 1;
+                    pictureBox3.BackgroundImage = imagelist[indexofimage];
+                    label2.Text = (indexofimage + 1).ToString() + "/" + imagelist.Count;
+                }
             }
         }
     }

@@ -32,6 +32,7 @@ namespace WindowsFormsApp3
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button93 = new System.Windows.Forms.Button();
             this.colorSlider1 = new ColorSlider.ColorSlider();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -134,7 +135,6 @@ namespace WindowsFormsApp3
             this.button94 = new System.Windows.Forms.Button();
             this.button95 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.button93 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -161,6 +161,24 @@ namespace WindowsFormsApp3
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1040, 30);
             this.panel1.TabIndex = 215;
+            // 
+            // button93
+            // 
+            this.button93.BackColor = System.Drawing.Color.Transparent;
+            this.button93.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button93.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.button93.FlatAppearance.BorderSize = 2;
+            this.button93.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.button93.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button93.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button93.ForeColor = System.Drawing.Color.White;
+            this.button93.Location = new System.Drawing.Point(850, 0);
+            this.button93.Name = "button93";
+            this.button93.Size = new System.Drawing.Size(90, 30);
+            this.button93.TabIndex = 309;
+            this.button93.Text = "Show Sheet";
+            this.button93.UseVisualStyleBackColor = false;
+            this.button93.Click += new System.EventHandler(this.button93_Click);
             // 
             // colorSlider1
             // 
@@ -1344,24 +1362,6 @@ namespace WindowsFormsApp3
             this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 312;
             this.label2.Text = "Pages";
-            // 
-            // button93
-            // 
-            this.button93.BackColor = System.Drawing.Color.Transparent;
-            this.button93.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button93.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.button93.FlatAppearance.BorderSize = 2;
-            this.button93.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.button93.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.button93.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button93.ForeColor = System.Drawing.Color.White;
-            this.button93.Location = new System.Drawing.Point(850, 0);
-            this.button93.Name = "button93";
-            this.button93.Size = new System.Drawing.Size(90, 30);
-            this.button93.TabIndex = 309;
-            this.button93.Text = "Show Sheet";
-            this.button93.UseVisualStyleBackColor = false;
-            this.button93.Click += new System.EventHandler(this.button93_Click);
             // 
             // Form1
             // 

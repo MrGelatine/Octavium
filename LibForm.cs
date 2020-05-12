@@ -262,8 +262,15 @@ namespace WindowsFormsApp3
                         n = elem.Item3;
                     }
                 }
-                var viewer = new SheetViewer(projectPath + @"Resources\\Sheets", n);
-                viewer.Show();
+                try
+                {
+                    var viewer = new SheetViewer(projectPath + @"Resources\\Sheets", n);
+                    viewer.Show();
+                }
+                catch (FileNotFoundException ex)
+                {
+                    MessageBox.Show("Не удалось получить ноты");
+                }
             }
             else
             {
@@ -287,8 +294,15 @@ namespace WindowsFormsApp3
                         n  = elem.Item3;
                     }
                 }
-                var viewer = new SheetViewer(projectPath + @"Resources\\Sheets", n);
-                viewer.Show();
+                try
+                {
+                    var viewer = new SheetViewer(projectPath + @"Resources\\Sheets", n);
+                    viewer.Show();
+                }
+                catch(FileNotFoundException ex)
+                {
+                    MessageBox.Show("Не удалось получить ноты");
+                }
             }
             else
             {
