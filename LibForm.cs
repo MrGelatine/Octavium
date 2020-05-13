@@ -419,26 +419,34 @@ namespace WindowsFormsApp3
         private void AddPanel_Click(object sender, EventArgs e)
         {
             //получаем данные трека(если файл не выбран, то получим тройку пустых строк)
-            Tuple<string, string, string> fileData = InterfaceFuncs.GetAndAddData(projectPath + @"sheet.exe", projectPath + @"Resources\\Sheets", libPath);
-            if (fileData.Item1 == "")
-                return;
-            //проверяем, что трека с таким названием нету
-            foreach (Tuple<int, string, string, string> libFileInfo in libfileList)
+            try
             {
-                if (libFileInfo.Item3.ToLower().Contains(fileData.Item2.ToLower()))
-                {
-                    MessageBox.Show("Файл с таким названием уже есть");
+                Tuple<string, string, string> fileData = InterfaceFuncs.GetAndAddData(projectPath + @"sheet.exe", projectPath + @"Resources\\Sheets", libPath);
+                if (fileData.Item1 == "")
                     return;
+                //проверяем, что трека с таким названием нету
+                foreach (Tuple<int, string, string, string> libFileInfo in libfileList)
+                {
+                    if (libFileInfo.Item3.ToLower().Contains(fileData.Item2.ToLower()))
+                    {
+                        MessageBox.Show("Файл с таким названием уже есть");
+                        return;
+                    }
                 }
+                //Добавляем информацию по треку в текстовый файл, в котором хранится информация по всем трекам
+                AddtxtLib(fileData);
+                //Добавляем информацию по треку в оба списка треков(общий и отображаемый)
+                Tuple<int, string, string, string> fileInfo = new Tuple<int, string, string, string>(libfileList.Count, fileData.Item1, fileData.Item2, fileData.Item3);
+                libfileList.Add(fileInfo);
+                curfiles.Add(fileInfo);
+                //отображаем трек
+                ShowTrack(fileInfo.Item1, fileInfo.Item2, fileInfo.Item3, fileInfo.Item4);
             }
-            //Добавляем информацию по треку в текстовый файл, в котором хранится информация по всем трекам
-            AddtxtLib(fileData);
-            //Добавляем информацию по треку в оба списка треков(общий и отображаемый)
-            Tuple<int, string, string, string> fileInfo = new Tuple<int, string, string, string>(libfileList.Count, fileData.Item1, fileData.Item2, fileData.Item3);
-            libfileList.Add(fileInfo);
-            curfiles.Add(fileInfo);
-            //отображаем трек
-            ShowTrack(fileInfo.Item1, fileInfo.Item2, fileInfo.Item3, fileInfo.Item4);
+            catch(System.IO.IOException ex)
+            {
+                MessageBox.Show("Не удалось записать файл, возможно, он уже существует");
+            }
+         
         }
 
         //добавляет информацию по треку в текстовый файл - описание треков в галлерее
