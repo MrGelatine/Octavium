@@ -102,6 +102,7 @@ namespace WindowsFormsApp3
         String[] flist;
         int indexofimage =0;
         List<Image> imagelist = new List<Image>();
+        int visabletime = 0;
         public Form1(String Path = "", double Speed = 1.00, String image = "", Color? c1 = null, Color? c2 = null, Color? c3 = null, Color? c4 = null, bool RainbowMode = false)
         {
             if (Path != "")
@@ -413,7 +414,7 @@ namespace WindowsFormsApp3
                     }
 
                     //returning color of button to original color
-                    if (RectangleList[i].MyRec.Y >= Button_Y_Position - 4 && RectangleList[i].Check == true && RectangleList[i].Hit == true && RectangleList[i].ChangeButton == false)
+                    if (RectangleList[i].MyRec.Y >= Button_Y_Position - (4 + (6 * Myspeed)) && RectangleList[i].Check == true && RectangleList[i].Hit == true && RectangleList[i].ChangeButton == false)
                     {
                         if (WhiteKey.Contains(RectangleList[i].Position))
                             buttonlist[RectangleList[i].Position - 1].BackColor = Color.White;
@@ -434,6 +435,8 @@ namespace WindowsFormsApp3
             if (pathcheck)
                 MakeRectangle(My, MyRectangleList, MyButton_Y_Position, MyButton_width, Myspeed);
             time++; //increase the time
+            if (time - visabletime == 200)
+                label3.Visible = false;
             if (play)
             {
                 if (progressBar1.Value < progressBar1.Maximum)
@@ -556,7 +559,6 @@ namespace WindowsFormsApp3
             buttonlist.Add(button88);
             buttonlist.Add(button51);
             buttonlist.Add(button52);
-            //colorSlider1.Value = (int)(100 * Myspeed);
             timer1.Start();
         }
 
@@ -670,25 +672,30 @@ namespace WindowsFormsApp3
 
         private void button93_Click(object sender, EventArgs e)
         {
-            if (!sheetshown)
+            if (imagelist.Count > 0)
             {
-                this.MaximumSize = new Size(1366, this.MaximumSize.Height);
-                this.MinimumSize = new Size(1366, this.MaximumSize.Height);
-                this.Size = new Size(1366, this.MaximumSize.Height);
-                PictureBox px = new PictureBox();
-                this.CenterToScreen();
-                sheetshown = true;
-                button93.Text = "Hide Sheet";
+                if (!sheetshown)
+                {
+                    this.MaximumSize = new Size(1366, this.MaximumSize.Height);
+                    this.MinimumSize = new Size(1366, this.MaximumSize.Height);
+                    this.Size = new Size(1366, this.MaximumSize.Height);
+                    PictureBox px = new PictureBox();
+                    this.CenterToScreen();
+                    sheetshown = true;
+                }
+                else
+                {
+                    this.MaximumSize = new Size(1056, this.MaximumSize.Height);
+                    this.MinimumSize = new Size(1056, this.MaximumSize.Height);
+                    this.Size = new Size(1056, this.MaximumSize.Height);
+                    this.StartPosition = FormStartPosition.CenterScreen;
+                    this.CenterToScreen();
+                    sheetshown = false;
+                }
             }
-            else
-            {
-                this.MaximumSize = new Size(1056, this.MaximumSize.Height);
-                this.MinimumSize = new Size(1056, this.MaximumSize.Height);
-                this.Size = new Size(1056, this.MaximumSize.Height);
-                this.StartPosition = FormStartPosition.CenterScreen;
-                this.CenterToScreen();
-                sheetshown = false;
-                button93.Text = "Show Sheet";
+            else {
+                visabletime = time;
+                label3.Visible = true;
             }
         }
 

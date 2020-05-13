@@ -1,4 +1,4 @@
 cl1=0,128,0
 cl2=255,0,128
 backgroundPath=
-speed=100
+speed=90
