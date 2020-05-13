@@ -39,6 +39,8 @@ namespace WindowsFormsApp3
             colorPanel1.BackColor = colorNote1;
             colorPanel2.BackColor = colorNote2;
             speedBar.Value = speed;
+            speedLabel.Text = speed.ToString() + "%";
+            speedBar.Update();
         }
         private void GetSettingsFromTxt()
         {

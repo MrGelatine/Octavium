@@ -128,7 +128,12 @@ namespace WindowsFormsApp3
             if (image != null)
             {
                 //this.BackgroundImage = Image.FromFile(image);
-                im = Image.FromFile(image);
+                try
+                {
+                    im = Image.FromFile(image);
+                }
+                catch(Exception ex)
+                { }
             }
             InitializeComponent();
         }

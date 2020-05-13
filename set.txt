@@ -1,4 +1,4 @@
 cl1=0,128,0
 cl2=255,0,128
-backgroundPath=C:\Users\Dima\Desktop\Octavium\Resources\Backgrounds\pirates.jpg
-speed=72
+backgroundPath=
+speed=100
