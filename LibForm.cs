@@ -265,11 +265,11 @@ namespace WindowsFormsApp3
                 try
                 {
                     var viewer = new SheetViewer(projectPath + @"Resources\\Sheets", n);
-                    viewer.Show();
+                    viewer.ShowDialog();
                 }
                 catch (FileNotFoundException ex)
                 {
-                    MessageBox.Show("Не удалось получить ноты");
+                    MessageBox.Show(ex.Message);
                 }
             }
             else
@@ -582,18 +582,18 @@ namespace WindowsFormsApp3
         //"Горячие клавишы" галереи
         private void LibForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && library)
-                AddPanel_Click(sender, e);
+            //if (e.KeyCode == Keys.Enter && library)
+            //    AddPanel_Click(sender, e);
 
-            if (selectedFileIndex == -1)
-                return;
-            if (e.KeyCode == Keys.Enter && !library)
-            {
-                starting = true;
-                this.Close();
-            }
-            if (e.KeyCode == Keys.Delete && library)
-                deleteTrack(selectedFileIndex);
+            //if (selectedFileIndex == -1)
+            //    return;
+            //if (e.KeyCode == Keys.Enter && !library)
+            //{
+            //    starting = true;
+            //    this.Close();
+            //}
+            //if (e.KeyCode == Keys.Delete && library)
+            //    deleteTrack(selectedFileIndex);
         }
     }
 }

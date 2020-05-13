@@ -73,7 +73,7 @@
             // 
             this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox3.Image = global::WindowsFormsApp3.Properties.Resources.LibMenu;
-            this.pictureBox3.Location = new System.Drawing.Point(0, 110);
+            this.pictureBox3.Location = new System.Drawing.Point(0, 55);
             this.pictureBox3.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(250, 55);
@@ -117,7 +117,7 @@
             // 
             this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox2.Image = global::WindowsFormsApp3.Properties.Resources.SettingsMenu;
-            this.pictureBox2.Location = new System.Drawing.Point(0, 55);
+            this.pictureBox2.Location = new System.Drawing.Point(0, 110);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(250, 55);
