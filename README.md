@@ -1,4 +1,4 @@
-![Octavium Logo](https://github.com/Amalgam-Cloud/Octavium/blob/master/Resources/Sketch1.jpg?raw=true)
+![Octavium Logo](https://github.com/Amalgam-Cloud/Octavium/blob/master/Resources/git_logo.png?raw=true)
 
 
 *Octavium* – простое и легковесное приложение для работы с MIDI-файлами. Вы можете добавить композицию в галерею и взглянуть на ее ноты, а затем запустить ее в режиме визуализации, где наглядно увидите порядок нажатия клавиш, и при желании сможете ускорить или замедлить проигрывание. Также присутствует возможность выбора фона и цвета нот при воспроизведении для добавленных композиций.
