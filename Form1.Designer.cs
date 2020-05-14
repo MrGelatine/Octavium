@@ -133,6 +133,7 @@ namespace WindowsFormsApp3
             this.button94 = new System.Windows.Forms.Button();
             this.button95 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.colorSlider1 = new ColorSlider.ColorSlider();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -147,6 +148,7 @@ namespace WindowsFormsApp3
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.panel1.Controls.Add(this.colorSlider1);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.button93);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -1283,6 +1285,72 @@ namespace WindowsFormsApp3
             this.label2.TabIndex = 312;
             this.label2.Text = "Pages";
             // 
+            // colorSlider1
+            // 
+            this.colorSlider1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.colorSlider1.BackgroundImage = global::WindowsFormsApp3.Properties.Resources.Sketch042;
+            this.colorSlider1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.colorSlider1.BarInnerColor = System.Drawing.Color.Gray;
+            this.colorSlider1.BarPenColorBottom = System.Drawing.Color.Gray;
+            this.colorSlider1.BarPenColorTop = System.Drawing.Color.Gray;
+            this.colorSlider1.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            this.colorSlider1.ElapsedInnerColor = System.Drawing.Color.Silver;
+            this.colorSlider1.ElapsedPenColorBottom = System.Drawing.Color.Silver;
+            this.colorSlider1.ElapsedPenColorTop = System.Drawing.Color.Silver;
+            this.colorSlider1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            this.colorSlider1.ForeColor = System.Drawing.Color.White;
+            this.colorSlider1.LargeChange = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.colorSlider1.Location = new System.Drawing.Point(424, 0);
+            this.colorSlider1.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.colorSlider1.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.colorSlider1.Name = "colorSlider1";
+            this.colorSlider1.ScaleDivisions = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.colorSlider1.ScaleSubDivisions = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.colorSlider1.ShowDivisionsText = true;
+            this.colorSlider1.ShowSmallScale = false;
+            this.colorSlider1.Size = new System.Drawing.Size(200, 20);
+            this.colorSlider1.SmallChange = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.colorSlider1.TabIndex = 313;
+            this.colorSlider1.Text = "colorSlider1";
+            this.colorSlider1.ThumbInnerColor = System.Drawing.Color.Silver;
+            this.colorSlider1.ThumbPenColor = System.Drawing.Color.Silver;
+            this.colorSlider1.ThumbRoundRectSize = new System.Drawing.Size(4, 8);
+            this.colorSlider1.ThumbSize = new System.Drawing.Size(8, 16);
+            this.colorSlider1.TickAdd = 0F;
+            this.colorSlider1.TickColor = System.Drawing.Color.White;
+            this.colorSlider1.TickDivide = 0F;
+            this.colorSlider1.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.colorSlider1.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.colorSlider1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.colorSlider1_Scroll);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1393,7 +1461,6 @@ namespace WindowsFormsApp3
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Piano";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.colorSlider1_Scroll);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -1508,8 +1575,8 @@ namespace WindowsFormsApp3
         private System.Windows.Forms.Button button95;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button93;
-        private ColorSlider.ColorSlider colorSlider1;
         private System.Windows.Forms.Label label3;
+        private ColorSlider.ColorSlider colorSlider1;
     }
 }
 
