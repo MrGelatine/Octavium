@@ -595,46 +595,7 @@ namespace WindowsFormsApp3
             timer1.Stop();
         }
 
-        private void button92_Click(object sender, EventArgs e)
-        {
-            if (Myspeed > 1.90 && Myspeed < 2.00)
-            {
-                Myspeed = 2.00;
-                time = (int)(time * (oldspeed / Myspeed));
-                oldspeed = Myspeed;
-                colorSlider1.Value = 200;
-                label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
-            }
-            else if (Myspeed < 2.00)
-            {
-                colorSlider1.Value += 10;
-                Myspeed = (double)colorSlider1.Value / 100;
-                time = (int)(time * (oldspeed / Myspeed));
-                oldspeed = Myspeed;
-                label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
-            }
-        }
-
-        private void button91_Click(object sender, EventArgs e)
-        {
-            if (Myspeed < 0.15 && Myspeed > 0.05)
-            {
-                Myspeed = 0.05;
-                time = (int)(time * (oldspeed / Myspeed));
-                oldspeed = Myspeed;
-                colorSlider1.Value = 5;
-                label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
-            }
-            if (Myspeed >= 0.15)
-            {
-                colorSlider1.Value -= 10;
-                Myspeed = (double)colorSlider1.Value / 100;
-                time = (int)(time * (oldspeed / Myspeed));
-                oldspeed = Myspeed;
-                label1.Text = "Speed: " + (Myspeed * 100).ToString() + "%";
-
-            }
-        }
+      
 
         private void pictureBox2_Paint(object sender, PaintEventArgs e)
         {
